@@ -6,24 +6,34 @@ nav {
   background-color: black;
   height: var(--nav-bar-height);
   display: grid;
-  grid-template-columns: 1.5fr 2fr 1fr 1fr 1fr 65px;
+  grid-template-columns: 1fr 2.5fr 1fr 1fr 1fr 65px;
   z-index: 500;
 }
 #home-btn {
+  text-align: left;
+  padding-left: 30px;
   font-size: 2.5rem;
 }
 .nav-bar-btn {
   font-size: 1.7rem;
 }
-.nav-bar-btn:hover, #home-btn:hover {
+.nav-bar-btn:hover, #home-btn:hover,
+.nav-bar-btn:focus, #home-btn:focus {
+  outline: none;
   color: var(--red);
   text-decoration: underline;
   font-weight: 600;
 }
-.nav-bar-btn:hover {
+.nav-bar-btn:hover, .nav-bar-btn:focus,
+#home-btn:hover, #home-btn:focus,
+#dropdown-btn:hover, #dropdown-btn:focus {
+  border-left: 1px dotted #3a3a3a;
+  border-right: 1px dotted #3a3a3a;
+}
+.nav-bar-btn:hover, .nav-bar-btn:focus {
   text-underline-offset: 1.5rem;
 }
-#home-btn:hover {
+#home-btn:hover, #home-btn:focus {
   text-underline-offset: 1.2rem;
 }
 #dropdown-btn {
@@ -32,7 +42,8 @@ nav {
   background-size: 35px;
   background-position: center center;
 }
-#dropdown-btn:hover {
+#dropdown-btn:hover, #dropdown-btn:focus {
+  outline: none;
   background-image: url(../img/menu-hover.svg);
 }
 #dropdown-menu {

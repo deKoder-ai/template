@@ -51,3 +51,11 @@ body.addEventListener('click', function(e) {
           break;
     }
 });
+
+document.addEventListener('keydown', function(event) {
+  if (event.key === 'Escape') {
+    if (navBar.dropdownToggle === true) {
+      navBar.closeDropdownMenu();
+    }
+  }
+});
