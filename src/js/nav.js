@@ -46,10 +46,5 @@ const navBar = {
   },
 }
 
-// const to
-// const openDropdownMenu = navBar.openDropdownMenu();
-// const closeDropdownMenu = navBar.closeDropdownMenu();
-// const addNavBar = navBar.addToDOM();
-
 export { navBar };
 

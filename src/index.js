@@ -1,7 +1,8 @@
-// index.js
-import './css/reset.css'
-import "./css/styles.css";
-import "./css/nav.css";
+'use strict';
+import './css/poppins.css';
+import './css/reset.css';
+import './css/styles.css';
+import './css/nav.css';
 import { navBar } from './js/nav.js';
 import { greeting } from "./greeting.js";
 import odinImage from "./img/odin-lined.png";
@@ -10,10 +11,11 @@ console.log(greeting);
 
 navBar.addToDOM();
 
+const contentDiv = document.getElementById('content');
 
 const image = document.createElement("img");
 image.src = odinImage;
-document.body.appendChild(image);
+contentDiv.appendChild(image);
 
 // click events
 const body = document.querySelector('body');
