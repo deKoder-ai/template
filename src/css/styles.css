@@ -1,0 +1,29 @@
+/* * { outline: 1px dashed blue; } */
+
+:root {
+  --nav-bar-height: 5rem;
+  --text-col: white;
+  --red: rgb(158, 40, 40);
+}
+
+html {
+  color: var(--text-col);
+  font-family: Verdana, sans-serif;
+  font-size: 10px;
+}
+
+body {
+  background-color: rebeccapurple;
+}
+
+#content {
+  margin-top: var(--nav-bar-height);
+}
+
+button {
+  background-color: rgba(255, 255, 255, 0);
+  color: var(--text-col);
+}
+button:hover {
+  cursor: pointer;
+}
