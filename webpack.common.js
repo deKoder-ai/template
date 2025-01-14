@@ -1,14 +1,14 @@
 // https://webpack.js.org/guides/production/
-const path = require('path');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
+const path = require("path");
+const HtmlWebpackPlugin = require("html-webpack-plugin");
 
 module.exports = {
   entry: {
-    app: './src/index.js',
+    app: "./src/index.js",
   },
   plugins: [
     new HtmlWebpackPlugin({
-      title: 'Production',
+      title: "Production",
     }),
   ],
   output: {

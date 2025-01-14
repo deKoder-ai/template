@@ -1,7 +1,7 @@
 /* * { outline: 1px dashed blue; } */
 @font-face {
   font-family: topsecret;
-  src: url('../fonts/top-secret.ttf');
+  src: url("../fonts/top-secret.ttf");
   font-style: normal;
 }
 
