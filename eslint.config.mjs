@@ -7,5 +7,6 @@ export default [
   { languageOptions: { globals: globals.browser } },
   pluginJs.configs.recommended,
   eslintConfigPrettier,
+  "quotes": ["error", "single"],
 ];
 

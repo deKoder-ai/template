@@ -3,59 +3,48 @@ import "./css/poppins.css";
 import "./css/reset.css";
 import "./css/styles.css";
 import "./css/nav.css";
+import { F, HtmlElement } from "./js/Functions.js";
 import { navBar } from "./js/nav.js";
+import { clickEvents, keydownEvents } from "./js/globalEvents.js";
+
 import { greeting } from "./greeting.js";
 import odinImage from "./img/odin-lined.png";
 
-console.log(greeting);
+// import { showSlides } from './js/slideshowW3.js';
 
-navBar.addToDOM();
+import { createSlideshow } from './js/Slideshow/slideshow.js';
 
-const contentDiv = document.getElementById("content");
+// dev
+function dev() {
+  console.log(greeting);
+  F.addOutlineToAllElements(false);
+}
 
-const image = document.createElement("img");
-image.src = odinImage;
-contentDiv.appendChild(image);
 
-// click events
-const body = document.querySelector("body");
-body.addEventListener("click", function (e) {
-  const target = e.target;
-  switch (target.id) {
-    case "dropdown-btn":
-      if (navBar.dropdownToggle === false) {
-        navBar.openDropdownMenu();
-      } else if (navBar.dropdownToggle === true) {
-        navBar.closeDropdownMenu();
-      }
-      break;
-    case "nav-btn-1":
-    case "dropdown-item-1":
-      console.log("Nav Link 1");
-      break;
-    case "nav-btn-2":
-    case "dropdown-item-2":
-      console.log("Nav Link 2");
-      break;
-    case "nav-btn-3":
-    case "dropdown-item-3":
-      console.log("Nav Link 3");
-      break;
-    case "dropdown-item-4":
-      console.log("Nav Link 4");
-      break;
-    default:
-      if (navBar.dropdownToggle === true) {
-        navBar.closeDropdownMenu();
-      }
-      break;
-  }
+document.addEventListener("DOMContentLoaded", () => {
+
+  dev();
+
+  console.log("DOM fully loaded and parsed.");
+  const contentDiv = document.getElementById("content");
+
+  const ssContainer = createSlideshow('600px', '400px', true, 5);
+
+  contentDiv.appendChild(ssContainer);
+  // showSlides();
+
+  navBar.addToDOM();
+  new F.EventHandler(clickEvents, "click");
+  new F.EventHandler(keydownEvents, "keydown");
+
+  // const image = document.createElement("img");
+  // image.src = odinImage;
+  // contentDiv.appendChild(image);
 });
 
-document.addEventListener("keydown", function (event) {
-  if (event.key === "Escape") {
-    if (navBar.dropdownToggle === true) {
-      navBar.closeDropdownMenu();
-    }
-  }
-});
+F.cl("wtf");
+
+
+// import ss1 from "./img/odin-lined.png";
+// const ss1img = document.createElement("img");
+// image.src =  

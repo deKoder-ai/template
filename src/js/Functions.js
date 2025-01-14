@@ -5,7 +5,7 @@ const F = {
    * Create a new HTML element.
    *
    * See here for a comprehensive list of HTML tags: https://developer.mozilla.org/en-US/docs/Web/HTML/Element
-   * @param {string} tag - Name of the created file (no extension)
+   * @param {string} tag - HTML tag
    * @param {any} content - The text or HTML content of the new element
    * @param {string|Array} classes - The class or classes to be applied to the new element. This can be a string for a single class or an array for multiple classes (eg. ['a', 'b', 'c'])
    * @param {string} id - The ID for the new element
@@ -192,7 +192,7 @@ const F = {
     mask.style.zIndex = zIndex;
     document.body.appendChild(mask);
     if (remove) {
-      mask.addEventListener("click", (e) => {
+      mask.addEventListener("click", () => {
         this.removeBackgroundMask();
       });
     }
@@ -253,7 +253,7 @@ const F = {
       // logging
       if (this.log === true || this.log === 1) {
         if (this.type === "click") {
-          F.log(`Single click on:`);
+          console.log(`Single click on:`);
         }
         if (this.type === "dblclick") {
           console.log(`Double click on:`);
@@ -268,7 +268,7 @@ const F = {
           console.log(`${e.key} key up`);
         }
         if (this.type !== "keydown" && this.type !== "keyup") {
-          F.log(e.target);
+          console.log(e.target);
         }
       }
       // run supplied function
@@ -279,9 +279,48 @@ const F = {
    * Shorthand for console.log().
    * @param {any} item - The item to log to the console.
    */
-  log(item) {
+  cl(item) {
     console.log(item);
   },
 };
 
-export { F };
+/**
+ * Create a new HTML element.
+ *
+ * See here for a comprehensive list of HTML tags: https://developer.mozilla.org/en-US/docs/Web/HTML/Element
+ * @param {string} tag - HTML tag
+ * @param {any} content - The text or HTML content of the new element
+ * @param {string|Array} classes - The class or classes to be applied to the new element. This can be a string for a single class or an array for multiple classes (eg. ['a', 'b', 'c'])
+ * @param {string} id - The ID for the new element
+ * @returns {Object} The generated HTML element
+ */
+class HtmlElement {
+  constructor(tag, content = "", classes = [], id = "") {
+    this.tag = tag;
+    this.content = content;
+    this.classes = classes;
+    this.id = id;
+    this.element = null;
+  }
+  create() {
+    this.element = document.createElement(this.tag);
+    if (this.content) {
+      this.element.innerHTML = this.content;
+    }
+    if (this.classes) {
+      if (typeof this.classes === "string") {
+        this.element.classList.add(this.classes);
+      } else if (typeof this.classes === "object") {
+        for (let item of this.classes) {
+          this.element.classList.add(item);
+        }
+      }
+    }
+    if (this.id) {
+      this.element.id = this.id;
+    }
+    return this.element;
+  }
+}
+
+export { F, HtmlElement };

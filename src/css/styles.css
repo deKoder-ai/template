@@ -1,9 +1,8 @@
-/* * { outline: 1px dashed blue; } */
-@font-face {
+/* @font-face {
   font-family: topsecret;
   src: url("../fonts/top-secret.ttf");
   font-style: normal;
-}
+} */
 
 :root {
   --nav-bar-height: 5rem;
@@ -23,6 +22,9 @@ body {
   top: var(--nav-bar-height);
   left: 0px;
   width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 button {
   background-color: rgba(255, 255, 255, 0);

@@ -1,0 +1,105 @@
+:root {
+  --ss-btn-size: 50px;
+  --ss-btn-x-offset: calc(var(--ss-btn-size) * -0.5);
+  --ss-dot-size: 15px;
+}
+
+#slideshow-container {
+  margin-top: 20px;
+  position: relative;
+  outline: 3px solid black;
+  background-color: black;
+}
+.ss-border-radius {
+  border-radius: 20px;
+}
+.ss-img {
+  width: 100%;
+  height: 100%;
+}
+
+.ss-btn {
+  position: absolute;
+  background-color: rgba(0, 0, 0, 0.589);
+  width: var(--ss-btn-size);
+  height: var(--ss-btn-size);
+  border-radius: 50px;
+  outline: 3px solid white;
+  top: 50%;
+  transform: translateY(-50%);
+  background-repeat: no-repeat;
+  background-size: 85% 85%;
+}
+.ss-btn:hover,
+.ss-btn:focus {
+  background-color: rgba(0, 0, 0, 0.774);
+  box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.815);
+  background-size: 90% 90%;
+}
+#ss-btn-left {
+  background-position: 2px center;
+  left: var(--ss-btn-x-offset);
+  background-image: url(./img/chevrons-left-thin.svg);
+}
+#ss-btn-left:hover,
+#ss-btn-left:focus {
+  background-position: 1px center;
+  background-image: url(./img/chevrons-left-thick.svg);
+  cursor: pointer;
+}
+#ss-btn-right {
+  background-position: 6px center;
+  right: var(--ss-btn-x-offset);
+  background-image: url(./img/chevrons-right-thin.svg);
+}
+#ss-btn-right:hover,
+#ss-btn-right:focus {
+  background-position: 4px center;
+  background-image: url(./img/chevrons-right-thick.svg);
+  cursor: pointer;
+}
+
+#ss-dots-container {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: 8%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.ss-dot {
+  width: var(--ss-dot-size);
+  height: var(--ss-dot-size);
+  background-color: rgba(255, 255, 255, 0.13);
+  border-radius: 50px;
+  margin: 0px 7px;
+  outline: 1px solid black;
+  box-shadow: 3px 3px 7px rgba(0, 0, 0, 0.459);
+}
+.ss-dot:hover,
+.ss-dot:focus,
+.ss-dot-selected {
+  width: calc(var(--ss-dot-size) * 1);
+  height: calc(var(--ss-dot-size) * 1);
+  cursor: pointer;
+  background-color: rgba(26, 4, 66, 0.445);
+  outline: 2px solid black;
+  box-shadow: 4px 4px 8px rgb(0, 0, 0);
+}
+.ss-dot.selected {
+  width: calc(var(--ss-dot-size) * 1.15);
+  height: calc(var(--ss-dot-size) * 1.15);
+  background-color: rgba(80, 80, 80, 0.479);
+}
+
+/* Fading animation */
+.fade {
+  animation-name: fade;
+  animation-duration: 3s;
+}
+
+@keyframes fade {
+  from {opacity: 0.4}
+  to {opacity: 1}
+}
