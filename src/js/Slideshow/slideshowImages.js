@@ -10,7 +10,11 @@ import ss6 from './img/ss-6.jpg';
 import ss7 from './img/ss-7.jpg';
 import ss8 from './img/ss-8.jpg';
 
-function ssImageArray(container) {
+/**
+ * Create an array of images.
+ * @returns {Object} The array of images
+ */
+function imageArray(container) {
   const ssImg1 = F.htmlElement('img', '', ['ss-img', 'ss-border-radius', 'fade']);
   ssImg1.src = ss1;
   const ssImg2 = F.htmlElement('img', '', ['ss-img', 'ss-border-radius', 'fade']);
@@ -29,15 +33,8 @@ function ssImageArray(container) {
   ssImg8.src = ss8;
   
   const images = [ssImg1, ssImg2, ssImg3, ssImg4, ssImg5, ssImg6, ssImg7, ssImg8];
-  
-  for (let i = 0; i < images.length; i++) {
-    images[i].id = `ss-img-${i}`;
-    images[i].style.display = 'none';
-    container.appendChild(images[i]);
-  }
-  images[0].style.display = 'block';
 
   return images;
 }
 
-export { ssImageArray };
+export { imageArray };

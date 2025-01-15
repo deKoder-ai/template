@@ -33,3 +33,9 @@ button {
 button:hover {
   cursor: pointer;
 }
+
+#xyz {
+  font-size: 5rem;
+  color: black;
+  margin-left: 50px;
+}

@@ -28,21 +28,25 @@ document.addEventListener("DOMContentLoaded", () => {
   console.log("DOM fully loaded and parsed.");
   const contentDiv = document.getElementById("content");
 
-  const ssContainer = createSlideshow('600px', '400px', true, 5);
+  const slideshow = createSlideshow('600px', '400px', true, 5);
 
-  contentDiv.appendChild(ssContainer);
+  contentDiv.appendChild(slideshow);
   // showSlides();
 
   navBar.addToDOM();
   new F.EventHandler(clickEvents, "click");
   new F.EventHandler(keydownEvents, "keydown");
 
+
   // const image = document.createElement("img");
   // image.src = odinImage;
   // contentDiv.appendChild(image);
+
+
 });
 
 F.cl("wtf");
+
 
 
 // import ss1 from "./img/odin-lined.png";
