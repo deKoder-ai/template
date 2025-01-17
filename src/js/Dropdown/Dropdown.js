@@ -41,6 +41,7 @@ class Dropdown {
     this.styleMenu = function () {
       this.menu.style.width = `${settings.menuWidth}px`;
       this.menu.style.top = `${settings.size.height}px`;
+      console.log(settings.size)
       if (settings.alignment === 'right') {
         this.menu.style.left = `${(settings.menuWidth - settings.size.width) * -1}px`;
       } else {

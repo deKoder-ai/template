@@ -4,10 +4,6 @@
   font-style: normal;
 } */
 
-header {
-  background-color: black;
-}
-
 :root {
   --nav-bar-height: 5rem;
   --text-col: white;
@@ -22,15 +18,10 @@ body {
   background-color: rebeccapurple;
 }
 #content {
-  /* position: fixed;
-  top: var(--nav-bar-height);
-  left: 0px; */
   width: 100%;
   display: flex;
-  justify-content: flex-end;
+  justify-content: center;
   align-items: center;
-  /* padding-top: 50px;
-  padding-right: 100px; */
 }
 button {
   background-color: rgba(255, 255, 255, 0);
