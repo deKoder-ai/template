@@ -3,6 +3,11 @@
 import { F } from '../Functions';
 import './dropdown.css';
 
+/**
+ * Create a dropdown menu with adjustable settings.
+ * @param {Object} settings - An object containing the styling and link list for the dropdown menu. See settings.js for an example
+ * @returns {Object} The generated HTML button element for the dropdown menu
+ */
 class Dropdown {
   constructor(settings) {
     this.hover = function (e) {

@@ -1,5 +1,5 @@
 'use strict';
-import { navBar } from './nav';
+import { navBar } from './NavigationBar';
 
 function clickEvents(e) {
   const target = e.target;
