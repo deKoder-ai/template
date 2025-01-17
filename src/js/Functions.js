@@ -229,10 +229,11 @@ const F = {
    * Trigger a function in response to a document event.
    *
    * See: https://dbchung3.medium.com/add-event-listener-dom-event-types-6c10a844c9d8 for more information on event types.
+   * 
    * See: https://developer.mozilla.org/en-US/docs/Web/API/Event for (e) methods and properties.
    * @param {function} eventHandler - The function to run in response to an event
-   * @param {boolean} log - Log the event target to the console if true (default: false)
    * @param {string} type - The type of event to trigger the logic function (default: 'click')
+   * @param {boolean} log - Log the event target to the console if true (default: false)
    * @param {boolean} preventDefault - If true, prevents the default action of the event
    */
   EventHandler: function (

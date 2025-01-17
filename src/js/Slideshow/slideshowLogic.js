@@ -2,8 +2,7 @@
 
 import { F } from '../Functions';
 import { imageArray } from './slideshowImages.js';
-import styles from './slideshow.css';
-console.log(styles);
+import './slideshow.css';
 
 const slideshowLogic = {
   container: undefined,
@@ -92,7 +91,7 @@ const slideshowLogic = {
         this.displayImage();
         this.highlightDot();
       }
-      setInterval(incrementIndex.bind(ss), interval);
+      setInterval(incrementIndex.bind(slideshow), interval);
     }
   },
 };

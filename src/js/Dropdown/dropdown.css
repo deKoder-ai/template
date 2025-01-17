@@ -1,0 +1,89 @@
+.dropdown-button {
+  position: relative;
+  width: inherit;
+  height: inherit;
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-size: 93%;
+  border-radius: 3px;
+  background-color: black;
+  border: 2px solid black;
+  outline: 2px solid black;
+}
+.dropdown-button:hover,
+.dropdown-button:focus {
+  background-size: 80%;
+  border: 2px solid #5757c5;
+  outline: 2px solid black;
+}
+.dropdown-menu {
+  display: none;
+  position: absolute;
+  background-color: white;
+  border: 1px solid black;
+  box-shadow: -3px 3px 7px rgba(0, 0, 0, 0.37);
+}
+.dropdown-menu > :first-child {
+  padding-top: 1rem;
+}
+.dropdown-menu > :last-child {
+  padding-bottom: 1rem;
+}
+.dropdown-menu-item {
+  display: block;
+  color: black;
+  font-size: 1.65rem;
+  width: 100%;
+  text-align: left;
+  padding: 0.5rem 0rem 0.5rem 10%;
+}
+.dropdown-menu-item:hover,
+.dropdown-menu-item:focus {
+  color: #0f0f86;
+  background-color: rgba(0, 0, 0, 0.164);
+  font-weight: 600;
+  font-size: 1.7rem;
+  outline: none;
+}
+.dropdown-menu-line {
+  background-color: rgba(0, 0, 0, 0.308);
+  height: 1px;
+  width: 80%;
+  margin-left: 10%;
+}
+
+
+/* animation */
+.slide-down {
+  animation: slide-down 0.1s ease-in-out;
+}
+@keyframes slide-down  {
+  from {
+    height: 0px;
+  }
+  to {
+    height: 250px;
+  }
+}
+.slide-up {
+  animation: slide-up 0.1s ease-in-out;
+}
+@keyframes slide-up  {
+  from {
+    height: 250px;
+  }
+  to {
+    height: 0px;
+  }
+}
+.slide-out {
+  animation: slide-out 0.1s ease-in-out;
+}
+@keyframes slide-out  {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(100%)
+  }
+}
