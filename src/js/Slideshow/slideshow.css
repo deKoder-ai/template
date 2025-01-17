@@ -110,3 +110,28 @@
     opacity: 1;
   }
 }
+
+/* .ss-slide-out {
+  animation-name: ss-slide-out;
+  animation-duration: 0.2s;
+}
+@keyframes ss-slide-out {
+  from {
+    transform: translateX(100%)
+  }
+  to {
+    transform: translateX(0%);
+  }
+}
+.ss-slide-in {
+  animation-name: ss-slide-in;
+  animation-duration: 0.2s;
+}
+@keyframes ss-slide-in {
+  from {
+    transform: translateX(0%)
+  }
+  to {
+    transform: translateX(100%);
+  }
+} */

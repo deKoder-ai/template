@@ -1,7 +1,8 @@
 'use strict';
 
 import { F } from '../Functions';
-import './dropdown.css';
+import styles from './dropdown.css';
+// import './dropdown.css';
 
 /**
  * Create a dropdown menu with adjustable settings.
@@ -41,7 +42,6 @@ class Dropdown {
     this.styleMenu = function () {
       this.menu.style.width = `${settings.menuWidth}px`;
       this.menu.style.top = `${settings.size.height}px`;
-      console.log(settings.size)
       if (settings.alignment === 'right') {
         this.menu.style.left = `${(settings.menuWidth - settings.size.width) * -1}px`;
       } else {
@@ -52,8 +52,8 @@ class Dropdown {
       this.status = 1;
       this.button.style.backgroundImage = settings.images.open;
       this.menu.style.display = 'block';
-      this.menu.classList.remove('slide-out');
-      this.menu.classList.add('slide-down');
+      this.menu.classList.remove('dd-slide-out');
+      this.menu.classList.add('dd-slide-down');
       function displayMenuItems() {
         for (let child of this.menuChildren) {
           child.style.opacity = '1';
@@ -64,8 +64,8 @@ class Dropdown {
     this.closeMenu = function () {
       this.status = 0;
       this.button.style.backgroundImage = settings.images.initial;
-      this.menu.classList.remove('slide-down');
-      this.menu.classList.add('slide-out');
+      this.menu.classList.remove('dd-slide-down');
+      this.menu.classList.add('dd-slide-out');
       function noText() {
         this.menu.style.display = 'none';
         for (let child of this.menuChildren) {
@@ -95,6 +95,11 @@ class Dropdown {
     });
     document.addEventListener('mouseover', (e) => {
       this.hover(e);
+    });
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && this.status === 1) {
+        this.closeMenu();
+      }
     });
     return this.button;
   }

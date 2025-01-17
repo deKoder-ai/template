@@ -3,6 +3,7 @@
 import { F } from '../Functions';
 import './slideshow.css';
 
+
 /**
  * Create a slideshow.
  * @param {Array} array - The array of images to be used for the slideshow
@@ -113,7 +114,7 @@ class Slideshow {
     this.createImgNavigationDots();
     new F.EventHandler(this.clickLogic.bind(this), 'click');
     this.autoSlideChange(auto, interval);
-
+    this.container.classList.add('slideshowCss');
     return this.container;
   }
 }

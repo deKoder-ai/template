@@ -25,7 +25,7 @@ class DropdownSettings {
       focus: hamburger(true, '#ffffff', 'none', '2.5', 'square'),
       open: chevrons(true, 'down', 'double', '#ffffff', 'none', '2', 'round'),
     };
-    this.dropOnHover = true;
+    this.dropOnHover = false;
   }
 }
 
