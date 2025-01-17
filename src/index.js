@@ -14,9 +14,9 @@ import odinImage from './img/odin-lined.png';
 
 import { createSlideshow } from './js/Slideshow/slideshow.js';
 // import { Dropdown } from './js/DropdownBtn/dropdownBtn.js';
-import { Dropdown } from './js/DropdownBtn/dropdownBtnv2.js';
-import { hamburger } from './js/DropdownBtn/hamburger.js';
-import { chevrons } from './js/DropdownBtn/chevrons.js';
+import { Dropdown } from './js/Dropdown/Dropdown.js';
+import { hamburger } from './js/Hamburger.js';
+import { chevrons } from './js/Chevrons.js';
 
 // dev
 function dev() {
