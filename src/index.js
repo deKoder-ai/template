@@ -5,6 +5,7 @@ import './css/styles.css';
 import { F, HtmlElement } from './js/Functions.js';
 import { NavigationBar } from './js/NavigationBar/NavigationBar.js';
 import { Routing } from './js/Routing.js';
+import { Mask } from './js/Mask.js';
 
 // pages
 import { Home } from './js/pages/Home.js';
@@ -18,20 +19,13 @@ import { Settings } from './js/Dropdown/Settings.js';
 // dev
 function dev() {
   F.addOutlineToAllElements(false);
-  (function logCLicks(x = true) {
-    if (x === true) {
-      document.addEventListener('click', (e) => {
-        console.log(e.target);
-      });
-    }
-  });
+  F.logClicks(true);
 }
 
 document.addEventListener('DOMContentLoaded', () => {
   dev();
 
   console.log('DOM fully loaded and parsed.');
-  
 
   // get page elements
   const html = document.querySelector('html');
@@ -48,6 +42,10 @@ document.addEventListener('DOMContentLoaded', () => {
   const navigationBar = new NavigationBar(5, navBtns, true, baseFontSize);
   page.appendChild(navigationBar);
   content.style.marginTop = `${5}rem`; // offset content by the height of navbar
+
+  // const mask = new Mask('#000000', 0.7);
+  // mask.create();
+  // console.log(mask);
 
   // load home content
   const home = new Home(content);
@@ -70,5 +68,11 @@ document.addEventListener('DOMContentLoaded', () => {
 // Todo
 //  - Fix menu alignment bug in Dropdown.js. Check NavigationBar for solution
 
+
+// last commit
 //  - Add Routing.js
 //  - Lay the foundations for sign up page template
+
+// next commit
+//  - Create Mask.js
+//  - Create Login.js

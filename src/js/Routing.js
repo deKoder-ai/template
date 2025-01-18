@@ -1,6 +1,7 @@
 'use strict';
 import { Home } from './pages/Home.js';
 import { SignUp } from './pages/SignUp/SignUp.js';
+import { Login } from './pages/Login/Login.js';
 
 class Routing {
   constructor(content, logging) {
@@ -36,12 +37,14 @@ class Routing {
           break;
         case 'nav-bar-btn-3':
         case 'dropdown-item-3':
-          console.log('Nav Link 3');
+          const login = new Login();
+          login.create();
+          console.log('Login');
           break;
         case 'nav-bar-btn-4':
           const signUp = new SignUp(content);
           content.appendChild(signUp);
-          console.log('Nav Link 4 Reporting for business');
+          console.log('Sign Up');
           break;
         default:
           break;

@@ -2,7 +2,7 @@
 
 import { F } from '../../Functions';
 import signUpHtml from './signUp.html';
-import './signUp.css';
+// import './signUp.css';
 
 class SignUp {
   constructor(content) {

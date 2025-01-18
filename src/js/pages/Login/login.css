@@ -1,0 +1,102 @@
+:root {
+  --login-color: #335291;
+  --login-shadow: #889cc475;
+}
+
+#login-container {
+  background-color: whitesmoke;
+  color: black;
+  font-family: poppins, sans-serif;
+  padding: 2rem 5rem 2.1rem 5rem;
+  outline: 3px solid var(--login-color);
+  border-radius: 25px;
+  box-shadow: 5px 5px 10px black;
+  z-index: 500001;
+}
+#login-title {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: -1.1rem;
+}
+#login-title h2 {
+  font-size: 2.3rem;
+  font-weight: 600;
+  text-shadow: 2px 2px 2px var(--login-shadow);
+}
+#login label {
+  display: block;
+  font-size: 1.7rem;
+  font-weight: 400;
+  margin-bottom: 0.5rem;
+}
+#login input {
+  font-size: 1.4rem;
+  display: block;
+  width: 38rem;
+  padding: 0.5rem 1.1rem;
+  border: 1px solid black;
+  border-radius: 11px;
+}
+#login input:focus {
+  outline: 2px solid var(--login-color);
+}
+#login-password-label {
+  margin-top: 1.7rem;
+}
+#login-button-container {
+  display: flex;
+  justify-content: center;
+  margin-top: 2.3rem;
+}
+#login-submit {
+  color: rgb(255, 255, 255);
+  font-size: 1.6rem;
+  font-weight: 500;
+  outline: 2px solid black;
+  padding: 0.6rem 3rem;
+  border-radius: 20px;
+  background-color: var(--login-color);
+  box-shadow: 3px 3px 5px black;
+}
+#login-submit:hover,
+#login-submit:focus {
+  font-weight: 600;
+  box-shadow: 5px 5px 7px black;
+}
+
+.login-error {
+  color: var(--red);
+  font-size: 1.4rem;
+  font-weight: 400;
+  margin-top: 0.5rem;
+  text-align: right;
+  /* margin-bottom: -2rem; */
+}
+.input-error {
+  outline: 2px solid var(--red);
+}
+
+#login-password-div {
+  position: relative;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+#login-show-password-btn {
+  position: absolute;
+  /* top: -3.1rem; */
+  /* right: -343px; */
+  right: 10px;
+  width: 2.5rem;
+  height: 2.5rem;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: 2rem;
+}
+.login-show {
+  background-image: url('./img/show.svg');
+}
+.login-hide {
+  background-image: url('./img/hide.svg');
+}

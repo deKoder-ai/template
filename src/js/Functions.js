@@ -1,6 +1,14 @@
-"use strict";
+'use strict';
 
 const F = {
+  // dev tools
+  logClicks(toggle) {
+    if (toggle === true) {
+      document.addEventListener('click', (e) => {
+        console.log(e.target);
+      });
+    }
+  },
   /**
    * Create a new HTML element.
    *
@@ -11,15 +19,15 @@ const F = {
    * @param {string} id - The ID for the new element
    * @returns {Object} The generated HTML element
    */
-  htmlElement(tag = "div", content, classes, id) {
+  htmlElement(tag = 'div', content, classes, id) {
     const element = document.createElement(tag);
     if (content) {
       element.innerHTML = content;
     }
     if (classes) {
-      if (typeof classes === "string") {
+      if (typeof classes === 'string') {
         element.classList.add(classes);
-      } else if (typeof classes === "object") {
+      } else if (typeof classes === 'object') {
         for (let item of classes) {
           element.classList.add(item);
         }
@@ -32,13 +40,13 @@ const F = {
   },
   // create table (no header)
   createTable(content, tableId) {
-    const table = document.createElement("table");
+    const table = document.createElement('table');
     table.id = tableId;
     for (const item of content) {
       const keys = Object.keys(item);
-      const row = document.createElement("tr");
+      const row = document.createElement('tr');
       for (let i = 0; i < keys.length; i++) {
-        const td = document.createElement("td");
+        const td = document.createElement('td');
         td.classList.add(`td-${i}`);
         td.innerHTML = item[keys[i]];
         row.appendChild(td);
@@ -52,15 +60,15 @@ const F = {
    * @param {Object} element - The HTML element to clear
    */
   clearHTML(element) {
-    element.innerHTML = "";
+    element.innerHTML = '';
   },
   // get today's date
   getDate() {
     const today = new Date();
     let day = today.getDate();
-    day = day.toString().padStart(2, "0");
+    day = day.toString().padStart(2, '0');
     let month = today.getMonth() + 1; // Months are 0-indexed, so add 1
-    month = month.toString().padStart(2, "0");
+    month = month.toString().padStart(2, '0');
     let year = today.getFullYear();
     year = year.toString().slice(-2);
     const dateStr = `${day}/${month}/${year}`;
@@ -68,10 +76,10 @@ const F = {
   },
   dateToUKStr(date) {
     if (date) {
-      const split = date.split("-");
+      const split = date.split('-');
       return `${split[2]}/${split[1]}/${split[0].slice(-2)}`;
     } else {
-      console.log("F.dateToUKStr(date): No date provided");
+      console.log('F.dateToUKStr(date): No date provided');
       return undefined;
     }
   },
@@ -99,7 +107,7 @@ const F = {
   storageAvailable(type) {
     try {
       const storage = window[type];
-      const x = "__storage_test__";
+      const x = '__storage_test__';
       storage.setItem(x, x);
       storage.removeItem(x);
       return true;
@@ -127,7 +135,7 @@ const F = {
         console.log(`LS Key: ${key}`);
       }
     } else {
-      console.log("Local storage is empty");
+      console.log('Local storage is empty');
     }
     return keys;
   },
@@ -136,17 +144,17 @@ const F = {
    * @param {string} type - 'local' clears localStorage. 'session' clears sessionStorage. If blank, do nothing
    */
   clearBrowserStorage(type) {
-    if (type === "local") {
+    if (type === 'local') {
       localStorage.clear();
     }
-    if (type === "session") {
+    if (type === 'session') {
       sessionStorage.clear();
     }
   },
   setMinDateToToday(inputId) {
     var today = new Date();
-    var minDate = today.toISOString().split("T")[0]; // Format date as YYYY-MM-DD
-    document.getElementById(inputId).setAttribute("min", minDate);
+    var minDate = today.toISOString().split('T')[0]; // Format date as YYYY-MM-DD
+    document.getElementById(inputId).setAttribute('min', minDate);
   },
   /**
    * Create a .txt file and open the download window.
@@ -159,13 +167,13 @@ const F = {
     if (json) {
       content = JSON.stringify(text);
     }
-    let element = document.createElement("a");
+    let element = document.createElement('a');
     element.setAttribute(
-      "href",
-      "data:text/plain;charset=utf-8," + encodeURIComponent(content),
+      'href',
+      'data:text/plain;charset=utf-8,' + encodeURIComponent(content),
     );
-    element.setAttribute("download", `${filename}.txt`);
-    element.style.display = "none";
+    element.setAttribute('download', `${filename}.txt`);
+    element.style.display = 'none';
     document.body.appendChild(element);
     element.click();
     document.body.removeChild(element);
@@ -178,21 +186,21 @@ const F = {
    * @param {boolean} remove - Adds an event listener to remove the mask if it is clicked
    */
   addBackgroundMask(zIndex, color, opacity, remove) {
-    const mask = document.createElement("div");
-    mask.id = "bcg-mask";
-    mask.style.display = "block";
-    mask.style.width = "200vw";
-    mask.style.height = "200vh";
-    mask.style.overflow = "hidden";
+    const mask = document.createElement('div');
+    mask.id = 'bcg-mask';
+    mask.style.display = 'block';
+    mask.style.width = '200vw';
+    mask.style.height = '200vh';
+    mask.style.overflow = 'hidden';
     mask.style.backgroundColor = color;
     mask.style.opacity = opacity;
-    mask.style.position = "fixed";
-    mask.style.top = "0";
-    mask.style.left = "0";
+    mask.style.position = 'fixed';
+    mask.style.top = '0';
+    mask.style.left = '0';
     mask.style.zIndex = zIndex;
     document.body.appendChild(mask);
     if (remove) {
-      mask.addEventListener("click", () => {
+      mask.addEventListener('click', () => {
         this.removeBackgroundMask();
       });
     }
@@ -201,11 +209,11 @@ const F = {
    * Remove the mask created by this.addBackgroundMask().
    */
   removeBackgroundMask() {
-    let mask = document.getElementById("bcg-mask");
+    let mask = document.getElementById('bcg-mask');
     if (mask) {
-      mask = document.getElementById("bcg-mask");
+      mask = document.getElementById('bcg-mask');
       mask.remove();
-      mask = document.getElementById("bcg-mask");
+      mask = document.getElementById('bcg-mask');
       if (mask) {
         this.removeBackgroundMask();
       }
@@ -218,9 +226,9 @@ const F = {
    * @param {string} style - Sets the outline style. (eg. solid, dashed or dotted) (default: dashed)
    * @param {string} color - Sets the color of the outline  (default: blue)
    */
-  addOutlineToAllElements(bool, width = 1, style = "dashed", color = "blue") {
+  addOutlineToAllElements(bool, width = 1, style = 'dashed', color = 'blue') {
     if (bool) {
-      var styleElement = document.createElement("style");
+      var styleElement = document.createElement('style');
       styleElement.innerHTML = `* {outline: ${width}px ${style} ${color}}`;
       document.head.appendChild(styleElement);
     }
@@ -229,7 +237,7 @@ const F = {
    * Trigger a function in response to a document event.
    *
    * See: https://dbchung3.medium.com/add-event-listener-dom-event-types-6c10a844c9d8 for more information on event types.
-   * 
+   *
    * See: https://developer.mozilla.org/en-US/docs/Web/API/Event for (e) methods and properties.
    * @param {function} eventHandler - The function to run in response to an event
    * @param {string} type - The type of event to trigger the logic function (default: 'click')
@@ -238,9 +246,9 @@ const F = {
    */
   EventHandler: function (
     processEvent,
-    type = "click",
-    log = "false",
-    preventDefault = "false",
+    type = 'click',
+    log = 'false',
+    preventDefault = 'false',
   ) {
     this.processEvent = processEvent;
     this.type = type;
@@ -253,22 +261,22 @@ const F = {
       }
       // logging
       if (this.log === true || this.log === 1) {
-        if (this.type === "click") {
+        if (this.type === 'click') {
           console.log(`Single click on:`);
         }
-        if (this.type === "dblclick") {
+        if (this.type === 'dblclick') {
           console.log(`Double click on:`);
         }
-        if (this.type === "contextmenu") {
+        if (this.type === 'contextmenu') {
           console.log(`Right click on:`);
         }
-        if (this.type === "keydown") {
+        if (this.type === 'keydown') {
           console.log(`${e.key} key pressed`);
         }
-        if (this.type === "keyup") {
+        if (this.type === 'keyup') {
           console.log(`${e.key} key up`);
         }
-        if (this.type !== "keydown" && this.type !== "keyup") {
+        if (this.type !== 'keydown' && this.type !== 'keyup') {
           console.log(e.target);
         }
       }
@@ -283,6 +291,21 @@ const F = {
   cl(item) {
     console.log(item);
   },
+  /**
+   * Converts an opacity value to hex and inserts it into a hex color value.
+   * @param {string} item - A hex color value
+   * @param {number} item - Opacity value between 0 & 1
+   * @returns {string} A hex color value with opacity
+   */
+  addOpacityToHexColor(color, opacity) {
+    const colorValue = color.substring(1);
+    let opacityValue = Math.floor(opacity * 255);
+    opacityValue = opacityValue.toString(16).padStart(2, '0');
+    const hexOutput = `${color}${opacityValue}`;
+    F.cl(hexOutput)
+    return hexOutput;
+  },
+
 };
 
 /**
@@ -296,7 +319,7 @@ const F = {
  * @returns {Object} The generated HTML element
  */
 class HtmlElement {
-  constructor(tag, content = "", classes = [], id = "") {
+  constructor(tag, content = '', classes = [], id = '') {
     this.tag = tag;
     this.content = content;
     this.classes = classes;
@@ -309,9 +332,9 @@ class HtmlElement {
       this.element.innerHTML = this.content;
     }
     if (this.classes) {
-      if (typeof this.classes === "string") {
+      if (typeof this.classes === 'string') {
         this.element.classList.add(this.classes);
-      } else if (typeof this.classes === "object") {
+      } else if (typeof this.classes === 'object') {
         for (let item of this.classes) {
           this.element.classList.add(item);
         }
