@@ -10,7 +10,7 @@ import { users } from './users';
 
 class Login {
   constructor() {
-    this.mask = new Mask('#000000', 0.7, false, false);
+    this.mask = new Mask('#000000', 0.85, false, false);
     this.container = F.htmlElement('div', '', '', 'login-container');
     this.users = users;
     this.usernameValue = '';

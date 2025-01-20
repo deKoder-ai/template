@@ -1,17 +1,16 @@
 'use strict';
 
 import { F } from '../../Functions';
-import signUpHtml from './signUp.html';
-// import './signUp.css';
+import html from './signUp.html';
+import './signUp.css';
 
 class SignUp {
   constructor(content) {
-    content.innerHTML = '';
+    this.content = content;
+    this.html = html;
+    this.content.innerHTML = '';
     console.log('sign up mfer');
-    this.parser = new DOMParser();
-    this.html = this.parser.parseFromString(signUpHtml, 'text/html');
-    this.html = this.html.body.firstChild;
-    console.log(this.html);
+    this.content.innerHTML = html;
     return this.html;
   }
 }

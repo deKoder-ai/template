@@ -2,39 +2,38 @@
 
 /**
  * Global Site Settings
- * 
+ *
  * ss.get('key') to retrieve a value
- * 
+ *
  * ss.set('key', 'value') to set a value
  */
-let ss = (function() {
+let ss = (function () {
   let instance;
 
   function init() {
     let self = this;
     return {
-      settings: {x: 123}
+      settings: { x: 123 },
     };
   }
 
   return {
-    getInstance: function() {
+    getInstance: function () {
       if (!instance) {
         instance = init();
       }
       return instance;
     },
-    set: function(key, value) {
+    set: function (key, value) {
       this.getInstance().settings[key] = value;
     },
-    get: function(key) {
+    get: function (key) {
       return this.getInstance().settings[key];
-    }
+    },
   };
 })();
 
 export { ss };
-
 
 // attach callback function to each key ->
 
@@ -83,5 +82,3 @@ export { ss };
 // In this example, the onSettingChange method is used to attach a callback function to each setting. When the setSetting method is called, it checks if a callback function is attached to the setting and triggers it if it is.
 
 // You can also use a more robust event system, such as the one provided by a library like jQuery or a custom implementation.
-
-

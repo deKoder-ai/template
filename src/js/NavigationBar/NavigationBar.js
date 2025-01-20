@@ -1,7 +1,7 @@
 'use-strict';
 import { F } from '../Functions.js';
 import { Dropdown } from '../Dropdown/Dropdown.js';
-import { DropdownSettings } from './DropdownSettings.js';
+import { navDdSettings } from './navDdSettings.js';
 import './navigationBar.css';
 import '../Dropdown/dropdown.css';
 

@@ -21,6 +21,7 @@ class Routing {
         }
         console.log(targetString);
       }
+      const login = new Login();
       switch (target.id) {
         case 'home-btn':
           const home = new Home(content);
@@ -35,19 +36,19 @@ class Routing {
           break;
         case 'nav-bar-login':
         case 'dropdown-item-3':
-          const login = new Login();
           login.showForm();
           console.log('Login');
           break;
         case 'nav-bar-sign-up':
-          const signUp = new SignUp(content);
-          content.appendChild(signUp);
+          new SignUp(content);
           console.log('Sign Up');
           break;
         case 'navbar-dd-sign-out':
           const logOut = new NavSwitch();
           logOut.logOut();
           console.log('Sign Out');
+        case 'sign-up-login':
+          login.showForm();
         default:
           break;
       }

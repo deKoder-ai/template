@@ -3,7 +3,7 @@
 import { hamburger } from '../Hamburger.js';
 import { chevrons } from '../Chevrons.js';
 
-class DropdownSettings {
+class navDdSettings {
   constructor(height, baseFontSize) {
     this.id = 'navbar-dd';
     this.text = '';
@@ -29,4 +29,4 @@ class DropdownSettings {
   }
 }
 
-export { DropdownSettings }
+export { navDdSettings }
