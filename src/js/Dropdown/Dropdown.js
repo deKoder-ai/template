@@ -11,7 +11,7 @@ import styles from './dropdown.css';
  */
 class Dropdown {
   constructor(settings) {
-    this.hover = function (e) {
+    this.hover = (e) => {
       if (this.status === 0) {
         this.button.style.backgroundImage = settings.images.hover;
         if (settings.dropOnHover === true && e.target.id === settings.id) {
@@ -19,8 +19,8 @@ class Dropdown {
         }
       }
     };
-    this.createMenu = function () {
-      this.menuId = `${settings.id}-menu`;
+    this.createMenu = () => {
+      this.menuId = `${settings.id}`;
       this.menu = F.htmlElement('div', '', 'dropdown-menu', `${this.menuId}`);
       this.styleMenu();
       for (let i = 0; i < settings.menuItems.length; i++) {
@@ -28,7 +28,7 @@ class Dropdown {
           'button',
           `${settings.menuItems[i]}`,
           'dropdown-menu-item',
-          `${this.menuId}-item-${i}`,
+          `${this.menuId}-${settings.menuItems[i].replace(/ /g, '-').toLowerCase()}`,
         );
         let separator = F.htmlElement('div', '', 'dropdown-menu-line');
         this.menu.appendChild(item);
@@ -39,7 +39,7 @@ class Dropdown {
       this.menuChildren = this.menu.children;
       this.button.appendChild(this.menu);
     };
-    this.styleMenu = function () {
+    this.styleMenu = () => {
       this.menu.style.width = `${settings.menuWidth}px`;
       this.menu.style.top = `${settings.size.height}px`;
       if (settings.alignment === 'right') {
@@ -48,7 +48,7 @@ class Dropdown {
         this.menu.style.left = `0px`;
       }
     };
-    this.openMenu = function () {
+    this.openMenu = () => {
       this.status = 1;
       this.button.style.backgroundImage = settings.images.open;
       this.menu.style.display = 'block';
@@ -61,7 +61,7 @@ class Dropdown {
       }
       setTimeout(displayMenuItems.bind(this), 99);
     };
-    this.closeMenu = function () {
+    this.closeMenu = () => {
       this.status = 0;
       this.button.style.backgroundImage = settings.images.initial;
       this.menu.classList.remove('dd-slide-down');
@@ -74,7 +74,7 @@ class Dropdown {
       }
       setTimeout(noText.bind(this), 99);
     };
-    this.click = function (e) {
+    this.click = (e) => {
       if (e.target.id === settings.id && this.status === 0) {
         this.openMenu();
       } else {
@@ -93,9 +93,7 @@ class Dropdown {
     document.addEventListener('click', (e) => {
       this.click(e);
     });
-    document.addEventListener('mouseover', (e) => {
-      this.hover(e);
-    });
+    document.addEventListener('mouseover', this.hover);
     document.addEventListener('keydown', (e) => {
       if (e.key === 'Escape' && this.status === 1) {
         this.closeMenu();

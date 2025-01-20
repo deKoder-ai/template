@@ -20,20 +20,20 @@ class NavigationBar {
     this.nav = F.htmlElement('nav', '', '', 'navigation-bar');
     this.home = F.htmlElement('button', `${buttons[0]}`, '', 'home-btn');
     this.gap = F.htmlElement('div');
-    this.addNavButtons = function (buttons) {
+    this.addNavButtons = (buttons) => {
       if (buttons.length > 0) {
         for (let i = 1; i < buttons.length; i++) {
           let element = F.htmlElement(
             'button',
             `${buttons[i]}`,
             'nav-bar-btn',
-            `nav-bar-btn-${i}`,
+            `nav-bar-${buttons[i].replace(/ /g,"-").toLowerCase()}`,
           );
           this.nav.appendChild(element);
         }
       }
     };
-    this.columns = function (buttons, ddToggle) {
+    this.columns = (buttons, ddToggle) => {
       let columns = '1fr 2.5fr';
       if (buttons.length > 0) {
         for (let i = 1; i < buttons.length; i++) {
@@ -45,7 +45,7 @@ class NavigationBar {
       }
       return columns;
     };
-    this.dropdownContainer = function (height, ddToggle) {
+    this.dropdownContainer = (height, ddToggle) => {
       if (ddToggle) {
         const container = F.htmlElement('div');
         const settings = new DropdownSettings(height, baseFontSize);

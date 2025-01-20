@@ -75,6 +75,9 @@
 .input-error {
   outline: 2px solid var(--red);
 }
+/* #username-error {
+  margin-bottom: -2rem;
+} */
 
 #login-password-div {
   position: relative;

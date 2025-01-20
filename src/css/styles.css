@@ -34,3 +34,10 @@ button:hover {
   justify-content: center;
   align-items: center;
 }
+
+/* temp code to handle log in status */
+#logged-in {
+  display: none;
+  font-size: 10rem;
+  color: whitesmoke;
+}

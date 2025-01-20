@@ -1,14 +1,47 @@
 'use strict';
 
-const F = {
-  // dev tools
-  logClicks(toggle) {
-    if (toggle === true) {
+/**
+ * A selection of tools to help with site development.
+ * @param {boolean} on - Toggle all tools
+ */
+class DevTools {
+  constructor(on) {
+    this.on = on;
+    return this;
+  }
+  /**
+   * Log the target of all document clicks to the console.
+   * @param {boolean} toggle - If true, log clicks to console
+   * @param {number} maxLen - Maximum length of string to be logged
+   */
+  logClicks(toggle = false, maxLen) {
+    if (toggle && this.on) {
       document.addEventListener('click', (e) => {
-        console.log(e.target);
+        let target = e.target;
+        if (maxLen > 0 && target.outerHTML.length > maxLen) {
+          target = `${target.outerHTML.substring(0, maxLen)}...`;
+        }
+        console.log(target);
       });
     }
-  },
+  }
+  /**
+   * Add a CSS outline to the global selector (*) to help visualize HTML document layout.
+   * @param {boolean} toggle - True applies the outline to all elements
+   * @param {number} width - Sets the width of the outline in pixels (default: 1)
+   * @param {string} style - Sets the outline style. (eg. solid, dashed or dotted) (default: dashed)
+   * @param {string} color - Sets the color of the outline  (default: blue)
+   */
+  addOutlineToAllElements(toggle, width = 1, style = 'dashed', color = 'blue') {
+    if (toggle && this.on) {
+      var styleElement = document.createElement('style');
+      styleElement.innerHTML = `* {outline: ${width}px ${style} ${color}}`;
+      document.head.appendChild(styleElement);
+    }
+  }
+}
+
+const F = {
   /**
    * Create a new HTML element.
    *
@@ -220,20 +253,6 @@ const F = {
     }
   },
   /**
-   * Add a CSS outline to the global selector (*) to help visualize HTML document layout.
-   * @param {boolean} bool - True applies the outline to all elements
-   * @param {number} width - Sets the width of the outline in pixels (default: 1)
-   * @param {string} style - Sets the outline style. (eg. solid, dashed or dotted) (default: dashed)
-   * @param {string} color - Sets the color of the outline  (default: blue)
-   */
-  addOutlineToAllElements(bool, width = 1, style = 'dashed', color = 'blue') {
-    if (bool) {
-      var styleElement = document.createElement('style');
-      styleElement.innerHTML = `* {outline: ${width}px ${style} ${color}}`;
-      document.head.appendChild(styleElement);
-    }
-  },
-  /**
    * Trigger a function in response to a document event.
    *
    * See: https://dbchung3.medium.com/add-event-listener-dom-event-types-6c10a844c9d8 for more information on event types.
@@ -302,10 +321,15 @@ const F = {
     let opacityValue = Math.floor(opacity * 255);
     opacityValue = opacityValue.toString(16).padStart(2, '0');
     const hexOutput = `${color}${opacityValue}`;
-    F.cl(hexOutput)
     return hexOutput;
   },
-
+  setLocalStorageWithEvent(key, value) {
+    localStorage.setItem(key, value);
+    const event = new Event('itemInserted');
+    event.key = key;
+    event.value = value;
+    document.dispatchEvent(event);
+  },
 };
 
 /**
@@ -347,4 +371,4 @@ class HtmlElement {
   }
 }
 
-export { F, HtmlElement };
+export { DevTools, F, HtmlElement };

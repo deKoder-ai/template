@@ -3,14 +3,18 @@ import { F } from './Functions';
 
 /**
  * Applies a mask to the page.
- * @param {string} item - A hex color value
- * @param {number} item - Opacity value between 0 & 1
+ * @param {string} color - A hex color value
+ * @param {number} opacity - Opacity value between 0 & 1
+ * @param {boolean} click - Opacity value between 0 & 1
+ * @param {boolean} keydown - Opacity value between 0 & 1
  * @returns {Object} An instance of Mask
  */
 class Mask {
-  constructor(color, opacity) {
+  constructor(color, opacity, click = true, keydown = true) {
     this.color = F.addOpacityToHexColor(color, opacity); //color;
     this.opacity = opacity;
+    this.click = click;
+    this.keydown = keydown;
     this.mask = undefined;
     return this;
   }
@@ -32,16 +36,20 @@ class Mask {
     this.style();
     document.body.appendChild(this.mask);
     const mask = document.getElementById('mask');
-    mask.addEventListener('mousedown', (e) => {
-      if (e.target.id === 'mask') {
-        this.remove();
-      }
-    });
-    mask.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape') {
-        this.remove();
-      }
-    });
+    if (this.click) {
+      mask.addEventListener('mousedown', (e) => {
+        if (e.target.id === 'mask') {
+          this.remove();
+        }
+      });
+    }
+    if (this.keydown) {
+      mask.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') {
+          this.remove();
+        }
+      });
+  }
   }
   remove() {
     const mask = document.getElementById('mask');

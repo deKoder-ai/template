@@ -5,19 +5,19 @@ import { chevrons } from '../Chevrons.js';
 
 class DropdownSettings {
   constructor(height, baseFontSize) {
-    this.id = 'navbar-dropdown';
+    this.id = 'navbar-dd';
     this.text = '';
     this.size = { width: height * baseFontSize, height: height * baseFontSize - 2 };
     this.alignment = 'right';
     this.menuWidth = 200; // px
     this.menuItems = [
-      `About`,
+      `Profile`,
       `Contact`,
       `Gallery`,
-      `Menu`,
+      `Latest Stories`,
       `Backup`,
-      `Login`,
-      `Sign Up`,
+      `Settings`,
+      `Sign Out`,
     ];
     this.images = {
       initial: hamburger(true, '#ffffff', 'none', '2', 'round'),
