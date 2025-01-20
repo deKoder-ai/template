@@ -1,7 +1,7 @@
 'use-strict';
 import { F } from '../Functions.js';
 import { Dropdown } from '../Dropdown/Dropdown.js';
-import { navDdSettings } from './navDdSettings.js';
+import { NavDdSettings } from './NavDdSettings.js';
 import './navigationBar.css';
 import '../Dropdown/dropdown.css';
 
@@ -48,7 +48,7 @@ class NavigationBar {
     this.dropdownContainer = (height, ddToggle) => {
       if (ddToggle) {
         const container = F.htmlElement('div');
-        const settings = new DropdownSettings(height, baseFontSize);
+        const settings = new NavDdSettings(height, baseFontSize);
         const dropdown = new Dropdown(settings);
         container.appendChild(dropdown);
         container.style.width = `${height}rem`;

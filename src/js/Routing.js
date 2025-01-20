@@ -47,8 +47,10 @@ class Routing {
           const logOut = new NavSwitch();
           logOut.logOut();
           console.log('Sign Out');
+          break;
         case 'sign-up-login':
           login.showForm();
+          break;
         default:
           break;
       }
