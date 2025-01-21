@@ -10,6 +10,7 @@
   --red: #9e2828;
   --green: #228B22;
   /* #32CD32 */
+  --blue: #335291;
 }
 html {
   color: var(--text-col);

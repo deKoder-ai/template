@@ -1,19 +1,24 @@
-/* @font-face {
-    font-family: adrip;
-    src: url(../fonts/adrip1.woff2);
+@font-face {
+    font-family: belligerent;
+    src: url(../../../fonts/belligerent.ttf);
     font-weight: bold;
     font-display: swap;
 }
-@font-face {
+/* @font-face {
     font-family: typo;
     src: url(../fonts/typo.woff2);
     font-display: swap;
-}
-@font-face {
+} */
+/* @font-face {
     font-family: montserrat;
     src: url(../fonts/montserrat-regular.woff2);
     font-display: swap;
 } */
+@font-face {
+  font-family: journal;
+  src: url(../../../fonts/journal.ttf);
+  font-display: swap;
+}
 #sign-up {
   position: relative;
   width: 100%;
@@ -47,12 +52,13 @@
   margin: 2rem 0rem 2rem 3rem;
 } */
 #sign-up-left-banner-strip h1 {
-  font-family: poppins, system-ui, sans-serif;
+  font-family: belligerent, poppins, sans-serif;
   font-size: clamp(7rem, (1rem + 10vw), 7rem);
   color: var(--red);
   text-align: center;
   font-weight: 400;
-  margin-right: 3rem;
+  margin-right: 1.5rem;
+  width: 100%;
   text-shadow: 2.5px 2.5px 2px #250a0ac9;
 }
 
@@ -71,15 +77,18 @@
   position: relative;
 }
 #sign-up-main-info-top {
+  
   padding: 4.5rem 15rem 4.5rem 4.5rem;
   line-height: 1.8;
   width: 100%;
   background-color: #e5f1ff;
-  color: rgb(79, 81, 99);
+  color: #4f5163;
+  background-image: linear-gradient(70deg, #e5f1ff, #9eafc4, #97acc5);
 }
 #sign-up-main-info-top h2 {
   font-family: poppins, sans-serif;
-  font-size: 2.1rem;
+  font-size: 2rem;
+  /* line-height: 1.2; */
   text-wrap: pretty;
   font-weight: 600;
 }
@@ -88,7 +97,8 @@
   background-color: #f6f9fd;
 }
 #sign-up-main-info h2 {
-  font-size: 2.1rem;
+  font-family: belligerent, poppins, sans-serif;
+  font-size: 2.7rem;
   font-weight: 600;
   padding: 3.2rem 0rem 2.7rem 3rem;
   color: rgb(64, 54, 87);
@@ -132,7 +142,7 @@
   box-shadow: 2px 2px 3px rgba(0, 0, 0, 0.151);
 }
 #sign-up .sign-up-input:focus {
-  outline: 2px solid rgba(0, 0, 255, 0.589);
+  outline: 2px solid var(--blue)(0, 0, 255, 0.589);
 }
 #sign-up .form-error-msg {
   color: var(--red);
@@ -154,6 +164,7 @@
 }
 
 .password-instructions {
+  display: none;
   position: relative;
   top: -1.7rem;
   width: 70%;
@@ -161,6 +172,9 @@
   text-align: center;
   color: black;
   font-size: 1.4rem;
+}
+.show-pass-instructions {
+  display: block;
 }
 
 #sign-up .invalid {
@@ -189,7 +203,7 @@
   font-weight: 500;
   font-family: poppins, sans-serif;
   box-shadow: 3px 3px 5px black;
-  background-color: var(--login-color);
+  background-color: var(--blue);
   color: rgb(255, 255, 255);
 }
 #sign-up-submit-btn:hover,
@@ -198,6 +212,24 @@
   box-shadow: 5px 5px 7px black;
 }
 
+#sign-up-password-help {
+  position: absolute;
+  bottom: 3.3rem;
+  width: 3rem;
+  height: 3rem;
+  background-image: url('../../../img/help-circle.svg');
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 100% 100%;
+  box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.514);
+  border-radius: 50px;
+  background-color: none;
+  outline: 2px solid rgba(0, 0, 255, 0.445);
+}
+
+#sign-up-password-help:hover {
+  box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.753);
+}
 
 
 
@@ -225,7 +257,7 @@
 }
 #sign-up #sign-up-login:hover,
 #sign-up #sign-up-login:focus {
-  color: blue;
+  color: var(--blue);
   font-weight: 600;
 }
 
@@ -275,14 +307,3 @@
 .sign-up-check-hide {
   display: none;
 }
-
-
-
-/* 
- - begin refactor of SignUp.js
- - sort countries list alphabetically
- - Add events to close DropdownSearch on click away or escape press
- - Focus search box on open of DDSearch
- - Refactor DDSearch html to stick search box to the top of the list
-
-*/

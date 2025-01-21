@@ -8,7 +8,8 @@
     "build": "webpack",
     "dev": "webpack serve",
     "deploy": "git subtree push --prefix dist origin gh-pages",
-    "g": "git add . && git commit"
+    "g": "git add . && git commit",
+    "gp": "git push origin main"
   },
   "keywords": [],
   "author": "",

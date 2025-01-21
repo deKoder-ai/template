@@ -10,7 +10,7 @@ class SignUp {
     this.container = container;
     this.html = html;
     this.countryCodes = countryCodes;
-    this.passwordMsgText = `To help keep your account secure your password should be at least 8 characters long, contain both uppercase and lowercase letters, a number, and ideally a special character or two`;
+    this.passwordMsgText = `To help keep your account secure your password should be at least 8 characters long, contain both upper and lowercase letters, a number, and ideally a special character or two`;
     this.show = 0;
     // build
     this.container.innerHTML = '';
@@ -38,6 +38,7 @@ class SignUp {
     this.showPassBtn2 = document.getElementById('login-show-password-btn-2');
     this.showPassBtn2.setAttribute('tabindex', '-1');
     this.countryCodesDiv = document.getElementById('countryCodesDiv');
+    this.passwordHelp = document.getElementById('sign-up-password-help');
   };
   eventHandlers = () => {
     this.signUpForm.addEventListener('submit', this.preventFormSubmitDefault);
@@ -54,10 +55,8 @@ class SignUp {
     this.SignUpBtnInput.addEventListener('click', this.submit);
     this.showPassBtn1.addEventListener('click', this.showPassword);
     this.showPassBtn2.addEventListener('click', this.showPassword);
-    this.countryCodesSearch.content.addEventListener(
-      'click',
-      this.getCountryCode,
-    );
+    this.countryCodesSearch.content.addEventListener('click', this.getCountryCode);
+    this.passwordHelp.addEventListener('click', this.showPassHelp);
   };
   getErrorMsgs = () => {
     this.firstNameErr = document.getElementById('sign-up-first-name-error');
@@ -247,6 +246,9 @@ class SignUp {
       this.password2Input.type = 'password';
     }
   };
+  showPassHelp = () => {
+    this.passwordMsg.classList.toggle('show-pass-instructions');
+  }
   createCountryCodeDropdown = () => {
     this.countries = Object.keys(this.countryCodes);
     this.countryCodesSearch = new DropdownSearch(
