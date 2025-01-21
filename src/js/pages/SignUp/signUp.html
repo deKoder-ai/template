@@ -1,11 +1,11 @@
 <div id="sign-up">
   <div id="sign-up-left-banner">
     <div id="sign-up-left-banner-strip">
-      <img
+      <!-- <img
         src="./img/odin-lined.png"
         alt="A picture of the Odin logo"
         id="odin-logo"
-      />
+      /> -->
       <h1>deKoder</h1>
     </div>
   </div>
@@ -23,70 +23,110 @@
 
     <div id="sign-up-main-info">
       <h2>Let's do this!</h2>
-      <div id="sign-up-form-container">
-        <div class="left">
-          <label for="first-name">FIRST NAME</label>
-          <input
-            type="text"
-            name="first-name"
-            id="first-name"
-            pattern="^[a-zA-Z\- ]+$"
-            placeholder="First name..."
-            required
-          />
-          <label for="email">EMAIL</label>
-          <input
-            type="email"
-            name="email"
-            id="email"
-            placeholder="Enter your email..."
-            required
-          />
-          <label for="password-1">PASSWORD</label>
-          <input
-            type="password"
-            name="password-1"
-            id="password-1"
-            minlength="8"
-            pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,60}$"
-            placeholder="Enter a password..."
-            required
-          />
+      <form action="" id="sign-up-form" novalidate>
+        <div class="form-row">
+          <div class="form-input left">
+            <label for="sign-up-first-name">FIRST NAME</label>
+            <input
+              type="text"
+              name="sign-up-first-name"
+              id="sign-up-first-name"
+              class="sign-up-input"
+              pattern="^[a-zA-Z\- ]+$"
+              placeholder="First name..."
+              minlength="2"
+              required
+            />
+            <div id="sign-up-check-firstname" class="sign-up-check"></div>
+            <p id="sign-up-first-name-error" class="form-error-msg"></p>
+          </div>
+          <div class="form-input right">
+            <label for="sign-up-last-name">LAST NAME</label>
+            <input
+              type="text"
+              name="sign-up-last-name"
+              id="sign-up-last-name"
+              class="sign-up-input"
+              pattern="^[a-zA-Z\- ]+$"
+              placeholder="Last name..."
+              minlength="2"
+              required
+            />
+            <div id="sign-up-check-lastname" class="sign-up-check"></div>
+            <p id="sign-up-last-name-error" class="form-error-msg"></p>
+          </div>
         </div>
-        <div class="right">
-          <label for="last-name">LAST NAME</label>
-          <input
-            type="text"
-            name="last-name"
-            id="last-name"
-            pattern="^\p{L}+$"
-            placeholder="Last name..."
-            required
-          />
-          <label for="phone">PHONE NUMBER</label>
-          <input
-            type="tel"
-            name="phone"
-            id="phone"
-            pattern="^[+]\d+|\d+"
-            placeholder="Enter your phone number..."
-            required
-          />
-          <label for="password-2">CONFIRM PASSWORD</label>
-          <input
-            type="password"
-            name="password-2"
-            id="password-2"
-            minlength="8"
-            pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,60}$"
-            placeholder="Confirm your password..."
-            required
-          />
-      </div>
-    </div>
-    <div id="sign-up-submit-div">
-      <button type="button" id="sign-up-submit-btn">Submit</button>
-    </div>
+        <div class="form-row">
+          <div class="form-input left">
+            <label for="sign-up-email">EMAIL</label>
+            <input
+              type="email"
+              name="sign-up-email"
+              id="sign-up-email"
+              class="sign-up-input"
+              placeholder="Enter your email..."
+              minlength="8"
+              required
+            />
+            <div id="sign-up-check-email" class="sign-up-check"></div>
+            <p id="sign-up-email-error" class="form-error-msg"></p>
+          </div>
+          <div class="form-input right">
+            <label for="sign-up-phone">PHONE NUMBER</label>
+            <div id="phone-inputs">
+              <div id="countryCodesDiv"></div>
+              <input
+                type="tel"
+                name="sign-up-phone"
+                id="sign-up-phone"
+                class="sign-up-input"
+                pattern="\d+"
+                minlength="9"
+                maxlength="14"
+                placeholder="Enter your phone number..."
+                required
+              />
+              <div id="sign-up-check-phone" class="sign-up-check"></div>
+            </div>
+            <p id="sign-up-phone-error" class="form-error-msg"></p>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-input left">
+            <label for="sign-up-password-1">PASSWORD</label>
+            <input
+              type="password"
+              name="sign-up-password-1"
+              id="sign-up-password-1"
+              class="sign-up-input"
+              minlength="8"
+              pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,60}$"
+              placeholder="Enter a password..."
+              required
+            />
+            <div id="sign-up-check-password-1" class="sign-up-check"></div>
+            <button id="login-show-password-btn-1" class="login-show"></button>
+          </div>
+          <div class="form-input right">
+            <label for="sign-up-password-2">CONFIRM PASSWORD</label>
+            <input
+              type="password"
+              name="sign-up-password-2"
+              id="sign-up-password-2"
+              class="sign-up-input"
+
+              placeholder="Confirm your password..."
+              required
+            />
+            <div id="sign-up-check-password-2" class="sign-up-check"></div>
+            <button id="login-show-password-btn-2" class="login-show"></button>
+          </div>
+        </div>
+        <p id="password-instructions" class="password-instructions"></p>
+        <div id="sign-up-submit-div">
+          <button id="sign-up-submit-btn">Sign Up</button>
+        </div>
+      </form>
     <div id="main-info-bottom" class="main-info">
       <p class="login">Already have an account?</p>
       <button id="sign-up-login">Login</button>

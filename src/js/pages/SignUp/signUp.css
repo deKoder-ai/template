@@ -17,7 +17,7 @@
 #sign-up {
   position: relative;
   width: 100%;
-  grid-template-columns: 1fr 2fr;
+  grid-template-columns: 1fr 2.3fr;
   display: grid;
 }
 #sign-up-left-banner {
@@ -33,18 +33,19 @@
 #sign-up-left-banner-strip {
   position: sticky;
   display: flex;
-  justify-content: space-between;
+  /* justify-content: space-between; */
+  justify-content: center;
   align-items: center;
   top: 50vh;
   transform: translateY(-40%);
   width: 100%;
   background-color: rgba(0, 0, 0, 0.705);
 }
-#odin-logo {
+/* #odin-logo {
   height: 10rem;
   width: auto;
   margin: 2rem 0rem 2rem 3rem;
-}
+} */
 #sign-up-left-banner-strip h1 {
   font-family: poppins, system-ui, sans-serif;
   font-size: clamp(7rem, (1rem + 10vw), 7rem);
@@ -54,11 +55,6 @@
   margin-right: 3rem;
   text-shadow: 2.5px 2.5px 2px #250a0ac9;
 }
-
-
-
-
-
 
 /* wrap text after 66 characters to improve readability */
 /* #sign-up .content p {
@@ -88,56 +84,101 @@
   font-weight: 600;
 }
 
-
-#sign-up-form-container {
-  width: 100%;
-  display: grid;
-  grid-template-columns: 1fr 1fr;
+#sign-up-main-info {
   background-color: #f6f9fd;
 }
 #sign-up-main-info h2 {
   font-size: 2.1rem;
   font-weight: 600;
   padding: 3.2rem 0rem 2.7rem 3rem;
-  background-color: #f6f9fd;
   color: rgb(64, 54, 87);
 }
-#sign-up-main-info .left {
+#sign-up .form-row {
+  position: relative;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
   width: 100%;
 }
-#sign-up-main-info .right {
+#sign-up .form-input {
+  position: relative;
+  display: block;
   width: 100%;
 }
-
+#sign-up .left {
+  margin-left: 7%;
+  margin-right: 3.5%;
+}
+#sign-up .right {
+  margin-left: 3.5%;
+  margin-right: 7%;
+}
 #sign-up label {
   color: rgb(64, 54, 87);
   display: block;
-  width: 80%;
-  margin-left: 10%;
+  width: 100%;
   margin-bottom: 0.1rem;
   font-size: 1.4rem;
   font-weight: 700;
 }
-#sign-up input {
-  width: 80%;
+#sign-up .sign-up-input {
+  position: relative;
+  width: 100%;
   font-size: 1.4rem;
   border: 1px solid black;
   border-radius: 10px;
-  margin-left: 10%;
   padding: 0.5rem 1rem;
-  margin-bottom: 2.3rem;
+  margin-bottom: 3rem;
   box-shadow: 2px 2px 3px rgba(0, 0, 0, 0.151);
 }
+#sign-up .sign-up-input:focus {
+  outline: 2px solid rgba(0, 0, 255, 0.589);
+}
+#sign-up .form-error-msg {
+  color: var(--red);
+  font-size: 1.4rem;
+  font-weight: 400;
+  position: absolute;
+  top: 6.4rem;
+  right: 0rem;
+}
+#sign-up #sign-up-phone {
+  padding-left: 7rem;
+}
+#countryCodesDiv {
+  position: absolute;
+  top: 2.4rem;
+  left: 0rem;
+  z-index: 2000;
+  /* box-shadow: 0px 2px 3px rgba(0, 0, 0, 0.151); */
+}
 
+.password-instructions {
+  position: relative;
+  top: -1.7rem;
+  width: 70%;
+  margin-left: 15%;
+  text-align: center;
+  color: black;
+  font-size: 1.4rem;
+}
+
+#sign-up .invalid {
+  outline: 2px solid var(--red);
+}
+
+
+/* #sign-up .sign-up-input:valid {
+  outline: 2px solid rgb(0, 139, 133);
+  box-shadow: -3px -3px 3px rgba(0, 0, 0, 0.24);
+} */
 
 #sign-up-submit-div {
   width: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: #f6f9fd;
 }
-
 #sign-up-submit-btn {
   margin: 1.5rem 0rem 3.5rem 0rem;
   width: 170px;
@@ -159,22 +200,6 @@
 
 
 
-
-#sign-up input:invalid {
-  color: var(--h1-col);
-  outline: 2px solid rgba(255, 0, 0, 0.589);
-}
-
-#sign-up input:valid {
-  outline: 2px solid rgb(0, 139, 133);
-  box-shadow: -3px -3px 3px rgba(0, 0, 0, 0.24);
-}
-#sign-up input:placeholder-shown {
-  outline: none;
-}
-#sign-up input:focus {
-  outline: 2px solid rgba(0, 0, 255, 0.589);
-}
 
 
 
@@ -204,3 +229,57 @@
   font-weight: 600;
 }
 
+#login-show-password-btn-1,
+#login-show-password-btn-2 {
+  position: absolute;
+  bottom: 3.5rem;
+  /* right: -343px; */
+  right: 31px;
+  width: 2.5rem;
+  height: 2.5rem;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: 2rem;
+  z-index: 20;
+}
+.login-show {
+  background-image: url('./img/show.svg');
+}
+.login-hide {
+  background-image: url('./img/hide.svg');
+}
+#login-show-password-btn-1:focus,
+#login-show-password-btn-2:focus {
+  outline: none;
+}
+
+.sign-up-check {
+  display: none;
+  position: absolute;
+  bottom: 3.5rem;
+  /* right: -343px; */
+  right: 10px;
+  width: 2.5rem;
+  height: 2.5rem;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: 2rem;
+  z-index: 20;
+  background-image: url('./img/check.svg');
+}
+
+.sign-up-check-show {
+  display: block;
+}
+
+.sign-up-check-hide {
+  display: none;
+}
+
+/* 
+
+ - refactor sign up form and css to correct focus order
+ - create searchable dropdown class
+ - add js form validation to sign up page
+ - add buttons to show password
+*/

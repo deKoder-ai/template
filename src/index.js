@@ -14,8 +14,8 @@ import { DevTools } from './js/Functions.js';
 import { Home } from './js/pages/Home.js';
 import { SignUp } from './js/pages/SignUp/SignUp.js';
 
-import { Slideshow } from './js/Slideshow/Slideshow.js';
-import { ImageArray } from './js/Slideshow/ImageArray.js';
+import { Slideshow } from './js/Classes/Slideshow/Slideshow.js';
+import { ImageArray } from './js/Classes/Slideshow/ImageArray.js';
 import { Dropdown } from './js/Dropdown/Dropdown.js';
 import { Settings } from './js/Dropdown/Settings.js';
 
@@ -23,7 +23,7 @@ import { Settings } from './js/Dropdown/Settings.js';
 // dev
 const dt = new DevTools(1);
 dt.addOutlineToAllElements(0);
-dt.logClicks(1, 123);
+dt.logClicks(0, 123);
 
 document.addEventListener('DOMContentLoaded', () => {
   console.log('DOM fully loaded and parsed.');

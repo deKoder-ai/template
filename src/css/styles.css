@@ -7,7 +7,9 @@
 :root {
   --nav-bar-height: 5rem;
   --text-col: white;
-  --red: rgb(158, 40, 40);
+  --red: #9e2828;
+  --green: #228B22;
+  /* #32CD32 */
 }
 html {
   color: var(--text-col);
