@@ -1,12 +1,12 @@
 'use strict';
-import { F } from './Functions';
+import { F } from '../Functions';
 
 /**
  * Applies a mask to the page.
  * @param {string} color - A hex color value
  * @param {number} opacity - Opacity value between 0 & 1
- * @param {boolean} click - Opacity value between 0 & 1
- * @param {boolean} keydown - Opacity value between 0 & 1
+ * @param {boolean} click - Add an event listener to close the mask when it is clicked
+ * @param {boolean} keydown - Add an event listener to close the mask when escape is pressed
  * @returns {Object} An instance of Mask
  */
 class Mask {

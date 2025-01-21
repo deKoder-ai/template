@@ -1,6 +1,5 @@
 'use strict';
 
-import { F } from '../../Functions';
 import html from './signUp.html';
 import './signUp.css';
 import { DropdownSearch } from '../../Classes/DropdownSearch/DropdownSearch.js';
@@ -11,44 +10,25 @@ class SignUp {
     this.container = container;
     this.html = html;
     this.countryCodes = countryCodes;
-    this.container.innerHTML = '';
-    this.container.innerHTML = this.html;
     this.passwordMsgText = `To help keep your account secure your password should be at least 8 characters long, contain both uppercase and lowercase letters, a number, and ideally a special character or two`;
     this.show = 0;
-
-    this.countryCodesDiv = document.getElementById('countryCodesDiv');
-    this.countries = Object.keys(this.countryCodes);
-    this.countryCodesSearch = new DropdownSearch(
-      this.countryCodesDiv,
-      this.countries,
-      '+--',
-      'Country...',
-    );
-
-    this.countryCodesDiv.appendChild(this.countryCodesSearch.html);
-
-    this.countryCodesSearch.content.addEventListener('click', this.xyz);
-
-    document
-      .getElementById('sign-up-form')
-      .addEventListener('submit', function (e) {
-        e.preventDefault();
-      });
-
+    // build
+    this.container.innerHTML = '';
+    this.container.innerHTML = this.html;
     this.getInputs();
-
     this.getErrorMsgs();
+    this.createCountryCodeDropdown();
     this.eventHandlers();
-    this.getChecks();
+    this.getCheckMarks();
 
-    return this.html;
+    return this;
   }
   getInputs = () => {
+    this.signUpForm = document.getElementById('sign-up-form');
     this.firstNameInput = document.getElementById('sign-up-first-name');
     this.lastNameInput = document.getElementById('sign-up-last-name');
     this.emailInput = document.getElementById('sign-up-email');
     this.phoneInput = document.getElementById('sign-up-phone');
-    // this.phoneInput.setCustomValidity('invalid');
     this.password1Input = document.getElementById('sign-up-password-1');
     this.password2Input = document.getElementById('sign-up-password-2');
     this.password2Input.setCustomValidity('invalid');
@@ -57,8 +37,10 @@ class SignUp {
     this.showPassBtn1.setAttribute('tabindex', '-1');
     this.showPassBtn2 = document.getElementById('login-show-password-btn-2');
     this.showPassBtn2.setAttribute('tabindex', '-1');
+    this.countryCodesDiv = document.getElementById('countryCodesDiv');
   };
   eventHandlers = () => {
+    this.signUpForm.addEventListener('submit', this.preventFormSubmitDefault);
     this.firstNameInput.addEventListener('blur', this.checkFirstName);
     this.firstNameInput.addEventListener('focus', this.removeFirstNameErr);
     this.lastNameInput.addEventListener('blur', this.checkLastName);
@@ -72,6 +54,10 @@ class SignUp {
     this.SignUpBtnInput.addEventListener('click', this.submit);
     this.showPassBtn1.addEventListener('click', this.showPassword);
     this.showPassBtn2.addEventListener('click', this.showPassword);
+    this.countryCodesSearch.content.addEventListener(
+      'click',
+      this.getCountryCode,
+    );
   };
   getErrorMsgs = () => {
     this.firstNameErr = document.getElementById('sign-up-first-name-error');
@@ -81,14 +67,17 @@ class SignUp {
     this.passwordMsg = document.getElementById('password-instructions');
     this.passwordMsg.innerText = this.passwordMsgText;
   };
-  getChecks = () => {
+  getCheckMarks = () => {
     this.firstNameCheck = document.getElementById('sign-up-check-firstname');
     this.lastNameCheck = document.getElementById('sign-up-check-lastname');
     this.emailCheck = document.getElementById('sign-up-check-email');
     this.phoneCheck = document.getElementById('sign-up-check-phone');
     this.password1Check = document.getElementById('sign-up-check-password-1');
     this.password2Check = document.getElementById('sign-up-check-password-2');
-  }
+  };
+  preventFormSubmitDefault = (e) => {
+    e.preventDefault();
+  };
   checkFirstName = (e) => {
     this.firstname = this.firstNameInput.value;
     if (this.firstNameInput.validity.valid) {
@@ -173,7 +162,7 @@ class SignUp {
         this.phoneErr.innerText = `Number should have at least ${this.phoneInput.minLength} digits`;
       } else if (!this.code) {
         this.phoneErr.innerText = 'Please select your country code';
-      } 
+      }
       this.phoneInput.classList.add('invalid');
       this.phoneCheck.classList.remove('sign-up-check-show');
       return false;
@@ -209,7 +198,7 @@ class SignUp {
     this.password2 = this.password2Input.value;
     if (
       this.password1Input.validity.valid &&
-      (this.password1 === this.password2)
+      this.password1 === this.password2
     ) {
       this.password2Input.setCustomValidity('');
       this.passwordMsg.innerText = '';
@@ -217,7 +206,13 @@ class SignUp {
       this.password2Input.classList.remove('invalid');
       this.password2Check.classList.add('sign-up-check-show');
       return true;
-    } else if (!this.password1Input.validity.valid) {
+    } else if (this.password2Input.validity.valueMissing) {
+      this.password2Input.setCustomValidity('invalid');
+      this.passwordMsg.style.color = 'var(--red)';
+      this.password2Input.classList.add('invalid');
+      this.password2Check.classList.remove('sign-up-check-show');
+      this.passwordMsg.innerText = 'Please confirm your password';
+    } else if (this.password1Input.validity.valid) {
       this.password2Input.setCustomValidity('invalid');
       this.passwordMsg.innerText = 'Passwords do not match';
       this.passwordMsg.style.color = 'var(--red)';
@@ -252,31 +247,17 @@ class SignUp {
       this.password2Input.type = 'password';
     }
   };
-  submit = (e) => {
-    let fn = this.checkFirstName();
-    let ln = this.checkLastName();
-    let em = this.checkEmail();
-    let ph = this.checkPhone();
-    let p1 = this.checkPassword1();
-    let p2 = this.checkPassword2();
-
-    if (fn && ln && em && ph && p1 && p2) {
-      this.details = {
-        'firstName': fn,
-        'lastName': ln,
-        'email': em,
-        'phone': ph,
-        'password': p1,
-      }
-      console.log('submit');
-      console.log(this.details);
-    } else {
-      // e.preventDefault();
-      console.log('no');
-    }
+  createCountryCodeDropdown = () => {
+    this.countries = Object.keys(this.countryCodes);
+    this.countryCodesSearch = new DropdownSearch(
+      this.countryCodesDiv,
+      this.countries.sort(),
+      '+--',
+      'Country...',
+    );
+    this.countryCodesDiv.appendChild(this.countryCodesSearch.html);
   };
-  xyz = (e) => {
-    e.preventDefault();
+  getCountryCode = (e) => {
     let country = e.target.innerText;
     let code = this.countryCodes[country];
     if (code) {
@@ -284,6 +265,53 @@ class SignUp {
       this.countryCodesSearch.button.innerText = this.code;
       this.countryCodesSearch.toggleList();
     }
+  };
+  removeEventHandlers = () => {
+    this.signUpForm.removeEventListener(
+      'submit',
+      this.preventFormSubmitDefault,
+    );
+    this.firstNameInput.removeEventListener('blur', this.checkFirstName);
+    this.firstNameInput.removeEventListener('focus', this.removeFirstNameErr);
+    this.lastNameInput.removeEventListener('blur', this.checkLastName);
+    this.lastNameInput.removeEventListener('focus', this.removeLastNameErr);
+    this.emailInput.removeEventListener('blur', this.checkEmail);
+    this.emailInput.removeEventListener('focus', this.removeEmailErr);
+    this.phoneInput.removeEventListener('blur', this.checkPhone);
+    this.phoneInput.removeEventListener('focus', this.removePhoneErr);
+    this.password1Input.removeEventListener('blur', this.checkPassword1);
+    this.password2Input.removeEventListener('blur', this.checkPassword2);
+    this.SignUpBtnInput.removeEventListener('click', this.submit);
+    this.showPassBtn1.removeEventListener('click', this.showPassword);
+    this.showPassBtn2.removeEventListener('click', this.showPassword);
+    this.countryCodesSearch.content.removeEventListener(
+      'click',
+      this.getCountryCode,
+    );
+  };
+  submit = (e) => {
+    let fn = this.checkFirstName();
+    let ln = this.checkLastName();
+    let em = this.checkEmail();
+    let ph = this.checkPhone();
+    let p1 = this.checkPassword1();
+    let p2 = this.checkPassword2();
+    if (fn && ln && em && ph && p1 && p2) {
+      this.details = {
+        firstName: fn,
+        lastName: ln,
+        email: em,
+        phone: ph,
+        password: p1,
+      };
+      console.log('submit');
+      console.log(this.details);
+    } else {
+      console.log('no');
+    }
+  };
+  close = () => {
+    this.removeEventHandlers();
   };
 }
 
