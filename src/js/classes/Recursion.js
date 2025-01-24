@@ -46,8 +46,6 @@ class Recursion {
       'zebra',
     ];
 
-    this.xxx = this.mergeSort(this.strings);
-    console.log(this.xxx);
     return this;
   }
   merge = (left, right) => {

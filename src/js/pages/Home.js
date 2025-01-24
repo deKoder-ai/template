@@ -53,13 +53,15 @@ class Home {
       'koel',
       'zebra',
     ];
+    
     array = ms.mergeSort(strings);
 
-    result = binarySearch(array, 'zebra');
+    result = binarySearch(array.slice(), 'zebra');
 
 
-    console.log(result);
-    display.innerText = result;
+    console.log(result.found);
+    display.innerText = result.searchedFor;
+    console.log(array[result.index])
 
     return this.home;
   }
