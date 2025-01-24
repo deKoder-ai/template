@@ -2,22 +2,22 @@
 import './css/poppins.css';
 import './css/reset.css';
 import './css/styles.css';
-import { F, HtmlElement } from './js/Functions.js';
-import { ss } from './js/siteSettings.js';
-import { NavigationBar } from './js/NavigationBar/NavigationBar.js';
-import { Routing } from './js/Routing.js';
+import { F } from './js/classes/Functions.js';
+import { ss } from './js/objects/siteSettings.js';
+import { NavigationBar } from './js/classes/NavigationBar/NavigationBar.js';
+import { Routing } from './js/classes/Routing.js';
 import { NavSwitch } from './js/pages/Login/switchNavBar.js';
 
-import { DevTools } from './js/Functions.js';
+import { DevTools } from './js/classes/Functions.js';
 
 // pages
 import { Home } from './js/pages/Home.js';
 import { SignUp } from './js/pages/SignUp/SignUp.js';
 
-import { Slideshow } from './js/Classes/Slideshow/Slideshow.js';
-import { ImageArray } from './js/Classes/Slideshow/ImageArray.js';
-import { Dropdown } from './js/Dropdown/Dropdown.js';
-import { Settings } from './js/Dropdown/Settings.js';
+import { Slideshow } from './js/classes/Slideshow/Slideshow.js';
+import { ImageArray } from './js/classes/Slideshow/ImageArray.js';
+import { Dropdown } from './js/classes/Dropdown/Dropdown.js';
+import { Settings } from './js/classes/Dropdown/Settings.js';
 
 
 // dev

@@ -1,8 +1,8 @@
 'use strict';
 
-import { F } from '../../Functions.js';
-import { Mask } from '../../Classes/Mask.js';
-import { ss } from '../../siteSettings.js';
+import { F } from '../../classes/Functions.js';
+import { Mask } from '../../classes/Mask.js';
+import { ss } from '../../objects/siteSettings.js';
 import html from './login.html';
 import './login.css';
 

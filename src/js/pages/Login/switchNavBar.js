@@ -1,8 +1,8 @@
 'use strict';
 
-import { ss } from '../../siteSettings.js';
-import { NavigationBar } from '../../NavigationBar/NavigationBar';
-import { F } from '../../Functions';
+import { ss } from '../../objects/siteSettings.js';
+import { NavigationBar } from '../../classes/NavigationBar/NavigationBar.js';
+import { F } from '../../classes/Functions';
 
 class NavSwitch {
   constructor() {

@@ -2,7 +2,7 @@
 
 import html from './signUp.html';
 import './signUp.css';
-import { DropdownSearch } from '../../Classes/DropdownSearch/DropdownSearch.js';
+import { DropdownSearch } from '../../classes/DropdownSearch/DropdownSearch.js';
 import { countryCodes } from '../../objects/countryCodes.js';
 
 class SignUp {

@@ -1,6 +1,6 @@
 'use strict';
 
-import { F } from '../../Functions';
+import { F } from '../Functions';
 import './slideshow.css';
 
 

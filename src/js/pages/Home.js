@@ -1,8 +1,8 @@
 'use strict';
 
-import { F } from '../Functions';
-import { ImageArray } from '../Classes/Slideshow/ImageArray';
-import { Slideshow } from '../Classes/Slideshow/Slideshow';
+import { F } from '../classes/Functions';
+import { ImageArray } from '../classes/Slideshow/ImageArray';
+import { Slideshow } from '../classes/Slideshow/Slideshow';
 
 class Home {
   constructor(content) {

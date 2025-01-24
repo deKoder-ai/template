@@ -1,5 +1,5 @@
 'use strict';
-import { F } from '../../Functions';
+import { F } from '../Functions';
 
 import ss1 from './img/ss-1.jpg';
 import ss2 from './img/ss-2.jpg';

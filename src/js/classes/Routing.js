@@ -1,8 +1,8 @@
 'use strict';
-import { Home } from './pages/Home.js';
-import { SignUp } from './pages/SignUp/SignUp.js';
-import { Login } from './pages/Login/Login.js';
-import { NavSwitch } from './pages/Login/switchNavBar.js';
+import { Home } from '../pages/Home.js';
+import { SignUp } from '../pages/SignUp/SignUp.js';
+import { Login } from '../pages/Login/Login.js';
+import { NavSwitch } from '../pages/Login/switchNavBar.js';
 
 class Routing {
   constructor(content, logging) {

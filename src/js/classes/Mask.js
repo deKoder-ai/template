@@ -1,5 +1,5 @@
 'use strict';
-import { F } from '../Functions';
+import { F } from './Functions';
 
 /**
  * Applies a mask to the page.
