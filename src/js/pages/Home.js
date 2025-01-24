@@ -4,7 +4,8 @@ import { F } from '../classes/Functions';
 import { ImageArray } from '../classes/Slideshow/ImageArray';
 import { Slideshow } from '../classes/Slideshow/Slideshow';
 import { Recursion } from '../classes/Recursion.js';
-import { MergeSort } from '../classes/MergeSort.js'
+import { MergeSort } from '../classes/MergeSort.js';
+import { binarySearch } from '../scripts/binarySearch.js';
 
 class Home {
   constructor(content) {
@@ -37,7 +38,11 @@ class Home {
     // result = r.replicate(5, 3);
 
     const ms = new MergeSort();
-    const array = [7, 2, 4, 0, 1, 6, 3, 5];
+    let array = [7, 2, 4, 0, 1, 6, 3, 5];
+    array = [];
+    for (let i = 0; i < 100; i++) {
+      array.push(i);
+    }
     const strings = [
       'cat',
       'dog',
@@ -48,7 +53,11 @@ class Home {
       'koel',
       'zebra',
     ];
-    result = ms.mergeSort(strings);
+    array = ms.mergeSort(strings);
+
+    result = binarySearch(array, 'zebra');
+
+
     console.log(result);
     display.innerText = result;
 
