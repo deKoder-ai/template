@@ -9,7 +9,7 @@
     "dev": "webpack serve",
     "deploy": "git subtree push --prefix dist origin gh-pages",
     "g": "git add . && git commit",
-    "gp": "git push origin main"
+    "gp": "git push origin main && git status"
   },
   "keywords": [],
   "author": "",
