@@ -53,26 +53,32 @@ class Home {
 
     const hm = new HashMap(0.75, 16, true);
 
-    hm.set('apple', 'red');
-    hm.set('banana', 'yellow');
-    hm.set('carrot', 'orange');
-    hm.set('dog', 'brown');
-    hm.set('elephant', 'gray');
-    hm.set('frog', 'green');
-    hm.set('grape', 'purple');
-    hm.set('hat', 'black');
-    hm.set('ice cream', 'white');
-    hm.set('jacket', 'blue');
-    hm.set('kite', 'pink');
-    hm.set('lion', 'golden');
+    const logInit = true;
+    hm.set('apple', 'red', logInit);
+    hm.set('banana', 'yellow', logInit);
+    hm.set('carrot', 'orange', logInit);
+    hm.set('dog', 'brown', logInit);
+    hm.set('elephant', 'gray', logInit);
+    hm.set('frog', 'green', logInit);
+    hm.set('grape', 'purple', logInit);
+    hm.set('hat', 'black', logInit);
+    hm.set('ice cream', 'white', logInit);
+    hm.set('jacket', 'blue', logInit);
+    hm.set('kite', 'pink', logInit);
+    hm.set('lion', 'golden', logInit);
 
     hm.checkBuckets();
-    // hm.get('lion')
-    hm.length();
+    hm.set('kite', 'monkey', true);
+    hm.set('a', 'disco', true);
+    hm.get('lion', true);
+    hm.has('hat', true);
+    // hm.remove('xyz') // tbd
+    hm.length(true);
+    hm.keys(true);
+    hm.values(true);
+    hm.entries(true);
+    hm.clear(true);
 
-    // console.log(hm.has('hat'));
-    // hm.remove('hat')
-    hm.has('chicken', true)
 
     // console.log(ll.toString());
     // display.innerText = x;
