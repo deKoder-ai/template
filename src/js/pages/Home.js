@@ -6,6 +6,7 @@ import { Slideshow } from '../classes/Slideshow/Slideshow';
 import { Recursion } from '../classes/Recursion.js';
 import { MergeSort } from '../classes/MergeSort.js';
 import { binarySearch } from '../scripts/binarySearch.js';
+import { LinkedList } from '../classes/LinkedList.js';
 
 class Home {
   constructor(content) {
@@ -54,14 +55,32 @@ class Home {
       'zebra',
     ];
     
-    array = ms.mergeSort(strings);
+    // array = ms.mergeSort(strings);
+    // result = binarySearch(array.slice(), 'zebra');
+    // console.log(result.found);
 
-    result = binarySearch(array.slice(), 'zebra');
+    const ll = new LinkedList(true, ['dog', 'monkey', 'cat', 'chicken']);
+    ll.toString();
+
+    ll.push('giant barracuda');
+    ll.push('oxeye scad');
+    ll.push('eagle ray');
+    ll.push('whaleshark');
+    ll.unshift('bumphead parrotfish');
+    ll.getSize();
+    ll.toString();
+    
+    ll.insertNodeAt('panda', 4);
+    ll.toString();
+    ll.removeNodeAt(6);
+    ll.toString();
+    
 
 
-    console.log(result.found);
-    display.innerText = result.searchedFor;
-    console.log(array[result.index])
+
+    // console.log(ll.toString());
+    // display.innerText = x;
+
 
     return this.home;
   }
