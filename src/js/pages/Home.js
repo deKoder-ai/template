@@ -7,6 +7,7 @@ import { Recursion } from '../classes/Recursion.js';
 import { MergeSort } from '../classes/MergeSort.js';
 import { binarySearch } from '../scripts/binarySearch.js';
 import { LinkedList } from '../classes/LinkedList.js';
+import { HashMap } from '../classes/HashMap.js';
 
 class Home {
   constructor(content) {
@@ -44,43 +45,37 @@ class Home {
     for (let i = 0; i < 100; i++) {
       array.push(i);
     }
-    const strings = [
-      'cat',
-      'dog',
-      'fish',
-      'monkey',
-      'bird',
-      'chicken',
-      'koel',
-      'zebra',
-    ];
-    
+    const strings = ['cat', 'dog', 'fish', 'monkey', 'bird', 'chicken', 'koel', 'zebra'];
+
     // array = ms.mergeSort(strings);
     // result = binarySearch(array.slice(), 'zebra');
     // console.log(result.found);
 
-    const ll = new LinkedList(true, ['dog', 'monkey', 'cat', 'chicken']);
-    ll.toString();
+    const hm = new HashMap(0.75, 16, true);
 
-    ll.push('giant barracuda');
-    ll.push('oxeye scad');
-    ll.push('eagle ray');
-    ll.push('whaleshark');
-    ll.unshift('bumphead parrotfish');
-    ll.getSize();
-    ll.toString();
-    
-    ll.insertNodeAt('panda', 4);
-    ll.toString();
-    ll.removeNodeAt(6);
-    ll.toString();
-    
+    hm.set('apple', 'red');
+    hm.set('banana', 'yellow');
+    hm.set('carrot', 'orange');
+    hm.set('dog', 'brown');
+    hm.set('elephant', 'gray');
+    hm.set('frog', 'green');
+    hm.set('grape', 'purple');
+    hm.set('hat', 'black');
+    hm.set('ice cream', 'white');
+    hm.set('jacket', 'blue');
+    hm.set('kite', 'pink');
+    hm.set('lion', 'golden');
 
+    hm.checkBuckets();
+    // hm.get('lion')
+    hm.length();
 
+    // console.log(hm.has('hat'));
+    // hm.remove('hat')
+    hm.has('chicken', true)
 
     // console.log(ll.toString());
     // display.innerText = x;
-
 
     return this.home;
   }
