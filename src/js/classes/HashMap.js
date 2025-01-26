@@ -29,7 +29,7 @@ class HashMap {
     let hashCode = 0;
     const primeNumber = 31;
     for (let i = 0; i < key.length; i++) {
-      // use a modulo on each iteration to avoid hashCode becoming so large 
+      // use a modulo on each iteration to avoid hashCode becoming so large
       // that calcs become inaccurate
       hashCode = primeNumber * hashCode + key.charCodeAt(i);
       hashCode = hashCode % this.capacity; //?
@@ -122,24 +122,41 @@ class HashMap {
   has = (key, log) => {
     let hashedKey = this.hash(key);
     let bucket = this.buckets[hashedKey];
-    const hasKey = (bucket) => {
+    const hasKey = (bucket, i = 0) => {
       if (bucket.value[0] === key) {
-        if (log) console.log(`[${key}] is in hash map`);
-        return true;
+        if (log) console.log(`[${key}] is in bucket ${hashedKey} at location ${i}`);
+        return [hashedKey, i];
       }
       if (!bucket.next) {
         if (log) console.log(`[${key}] is not in hash map`);
         return false;
       }
-      return hasKey(bucket.next);
+      i++;
+      return hasKey(bucket.next, i);
     };
     return hasKey(bucket.head);
   };
-  remove = (key) => {
-    // if key in map, remove the entry and return true
-    // else return false
-    if (this.has(key)) {
-      console.log('remove');
+  /**
+   * Remove the specified key/value pair from the map.
+   * @param {any} key Key of the pair to be removed
+   * @param {boolean} log If true, logs actions to the console
+   * @returns {boolean} True if key removed from map, false if key does not exists
+   */
+  remove = (key, log) => {
+    let has = this.has(key);
+    if (has) {
+      let bucket = this.buckets[has[0]];
+      console.log(bucket.size)
+      if (bucket.size < 2) {
+        this.buckets[has[0]] = undefined;
+      } else {
+        bucket.removeNodeAt(has[1]);
+      }
+      if (log) console.log(`[${key}] removed from bucket[${has[0]}]`);
+      return true;
+    } else {
+      if (log) console.log(`[${key}] is not in map`);
+      return false;
     }
   };
   /**
@@ -240,6 +257,6 @@ class HashMap {
 
 export { HashMap };
 
-// write remove method
+// write remove method ||
 // refactor code to avoid repetition
 // rescale array when load factor exceeds value

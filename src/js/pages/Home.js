@@ -47,13 +47,21 @@ class Home {
     }
     const strings = ['cat', 'dog', 'fish', 'monkey', 'bird', 'chicken', 'koel', 'zebra'];
 
+    const ll = new LinkedList(true, strings);
+
+    // ll.toString();
+    // ll.removeNodeAt(0);
+    // ll.getHead();
+    // ll.getTail();
+    // ll.toString();
+
     // array = ms.mergeSort(strings);
     // result = binarySearch(array.slice(), 'zebra');
     // console.log(result.found);
 
     const hm = new HashMap(0.75, 16, true);
 
-    const logInit = true;
+    const logInit = false;
     hm.set('apple', 'red', logInit);
     hm.set('banana', 'yellow', logInit);
     hm.set('carrot', 'orange', logInit);
@@ -67,17 +75,24 @@ class Home {
     hm.set('kite', 'pink', logInit);
     hm.set('lion', 'golden', logInit);
 
-    hm.checkBuckets();
-    hm.set('kite', 'monkey', true);
-    hm.set('a', 'disco', true);
-    hm.get('lion', true);
-    hm.has('hat', true);
+    // hm.checkBuckets();
+    // hm.set('kite', 'monkey', true);
+    // hm.set('a', 'disco', true);
+    // hm.get('lion', true);
+    // hm.has('hat', true);
     // hm.remove('xyz') // tbd
-    hm.length(true);
-    hm.keys(true);
-    hm.values(true);
-    hm.entries(true);
-    hm.clear(true);
+    // hm.length(true);
+    // hm.keys(true);
+    // hm.values(true);
+    // hm.entries(true);
+    // hm.clear(true);
+
+    hm.checkBuckets();
+    hm.remove('lion', true);
+    hm.checkBuckets();
+    hm.remove('dog', true);
+    hm.checkBuckets();
+    
 
 
     // console.log(ll.toString());
@@ -88,3 +103,12 @@ class Home {
 }
 
 export { Home };
+
+//  - refactor HashMap.has() to return the bucket number and location of key in 
+//    the linked list if key is found instead of simply true. [0, 0] evaluates 
+//    to true if logical operation on the result is needed 
+//  - refactor LinkedList.removeNodeAt() to account for cases where the removed 
+//    node is the tail of the list
+//  - adjust range of LinkedList.addNodeAt() to prevent insertion at 0
+//  - add bucket size adjustor to add/removeNodeAt()
+//  - add remove() method to HashMap.js

@@ -54,7 +54,6 @@ class LinkedList {
     if (Array.isArray(this.array)) {
       this.array.forEach((item) => this.push(item));
     }
-
     return this;
   }
   /**
@@ -123,14 +122,15 @@ class LinkedList {
    */
   insertNodeAt = (value, index, node = this.head, i = 0) => {
     if (this.empty()) return null;
-    if (index < 0 || index >= this.size) {
-      if (this.log) console.log(`Index is out of range - min: 0 | max: ${this.size - 1}`);
+    if (index < 1 || index >= this.size) {
+      if (this.log) console.log(`Index is out of range - min: 0 | max: ${this.size - 1}\nUse .unshift() to insert at the start or .push() to add to the end`);
       return null;
     }
     if (index - 1 === i) {
       let newNode = new Node(value, node.next);
       node.next = newNode;
       if (this.log) console.log(`[${value}] inserted at index: ${index}`);
+      this.size++;
       return null;
     }
     i++;
@@ -141,7 +141,7 @@ class LinkedList {
    * @param {number} index The index of the node to remove
    * @returns {any} The value of the removed node
    */
-  removeNodeAt = (index, node = this.head, i = 0) => {
+  removeNodeAt = (index, node = this.head, prev = null, i = 0) => {
     if (this.empty()) return null;
     if (index < 0 || index >= this.size) {
       if (this.log) console.log(`Index is out of range - min: 0 | max: ${this.size - 1}`);
@@ -149,13 +149,22 @@ class LinkedList {
     }
     if (index === i) {
       let value = node.value;
-      node.value = node.next.value;
-      node.next = node.next.next;
+      if (node === this.tail) {
+        prev.next = null;
+        this.tail = prev;
+        console.log('end');
+      } else {
+        node.value = node.next.value;
+        node.next = node.next.next;
+        console.log('not');
+      }
       if (this.log) console.log(`[${value}] removed from index: ${index}`);
+      this.size--;
       return value;
     }
+    prev = node;
     i++;
-    return this.removeNodeAt(index, node.next, i);
+    return this.removeNodeAt(index, node.next, prev, i);
   };
   /**
    * Return the size of the list.
