@@ -152,6 +152,7 @@ class HashMap {
       } else {
         bucket.removeNodeAt(has[1]);
       }
+      this.size--;
       if (log) console.log(`[${key}] removed from bucket[${has[0]}]`);
       return true;
     } else {
@@ -243,6 +244,7 @@ class HashMap {
   clear = (log) => {
     if (log) console.log('Clearing buckets...');
     this.buckets = Array(this.capacity);
+    this.size = 0;
     if (log) this.checkBuckets();
   };
   /**

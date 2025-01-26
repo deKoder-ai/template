@@ -104,6 +104,9 @@ class Home {
 
 export { Home };
 
+//  - 
+
+// committed
 //  - refactor HashMap.has() to return the bucket number and location of key in 
 //    the linked list if key is found instead of simply true. [0, 0] evaluates 
 //    to true if logical operation on the result is needed 
