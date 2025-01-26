@@ -3,27 +3,44 @@
 import { LinkedList } from './LinkedList';
 
 /**
- * Create a new node for a linked list.
- * @param {any} value - Value of the new node
- * @param {number} next - Reference to the next node in the list
- * @returns {Object} A new node
+ * Create a hash map to store key value pairs.
+ *
+ * Methods:
+ *
+ * set()
+ *
+ * get()
+ *
+ * has()
+ *
+ * remove()
+ *
+ * length()
+ *
+ * keys()
+ *
+ * values()
+ *
+ * entries()
+ *
+ * clear()
+ *
+ * checkBuckets()
+ *
+ * checkLoad()
+ * @param {number} loadFactor If the ratio of stored items to total capacity exceeds this value it will trigger a doubling of the hash map buckets array size (Default: 0.75)
+ * @param {number} capacity The initial size of the hash map buckets array (Default: 16)
+ * @returns {Object} A new instance of HashMap
  */
-class Node {
-  constructor(value = null, next = null) {
-    this.value = value;
-    this.next = next;
-    return this;
-  }
-}
-
 class HashMap {
-  constructor(loadFactor, capacity) {
+  constructor(loadFactor = 0.75, capacity = 16) {
     this.loadFactor = loadFactor;
     this.capacity = capacity;
-    this.buckets = Array(capacity);
+    this.buckets = Array(this.capacity);
     this.size = 0;
+    this.tI = 0;
+    this.resizing = false;
     return this;
-    // double buckets when the hash map reaches the load factor
   }
   hash = (key) => {
     let hashCode = 0;
@@ -42,17 +59,23 @@ class HashMap {
    * @param {any} value Value
    * @param {boolean} log If true, log actions to the console
    */
-  set = (key, value, log) => {
+  set = (k, value, log) => {
+    const key = String(k);
     let hashedKey = this.hash(key);
     // use a linked list to deal with collisions
     // if bucket is empty, create new linked list and append [key: value] pair
     if (!this.outOfBounds(hashedKey)) {
+      const bId = hashedKey;
       if (!this.buckets[hashedKey]) {
         if (log) console.log('Bucket is empty, creating new linked list');
         this.buckets[hashedKey] = new LinkedList();
-        if (log) console.log(`Appending [${key}: ${value}] to new list`);
+        if (log) console.log(`Appending [${key}: ${value}] to bucket${bId}`);
         this.buckets[hashedKey].push([key, value]);
         this.size++;
+        if (!this.resizing) {
+          const load = this.checkLoad(log);
+          this.resize(load, true);
+        }
       } else {
         // else check if key already in bucket
         let bucket = this.buckets[hashedKey];
@@ -68,13 +91,20 @@ class HashMap {
           // if key already exists: overwrite value
           let itemKey = bucketItem.value[0];
           let itemVal = bucketItem.value[1];
-          if (log) console.log(`Updating [${itemKey}: ${itemVal}] to [${key}: ${value}]`);
+          if (log)
+            console.log(
+              `Updating [${itemKey}: ${itemVal}] to [${key}: ${value}] in bucket${bId}`,
+            );
           bucketItem.value[1] = value;
         } else {
           // else append new [key: value] pair to list
-          if (log) console.log(`Adding [${key}: ${value}]`);
+          if (log) console.log(`Adding [${key}: ${value}] to bucket${bId}`);
           bucket.push([key, value]);
           this.size++;
+          if (!this.resizing) {
+            const load = this.checkLoad(log);
+            this.resize(load, true);
+          }
         }
       }
     }
@@ -122,6 +152,7 @@ class HashMap {
   has = (key, log) => {
     let hashedKey = this.hash(key);
     let bucket = this.buckets[hashedKey];
+    // function to check if key is stored in hash map
     const hasKey = (bucket, i = 0) => {
       if (bucket.value[0] === key) {
         if (log) console.log(`[${key}] is in bucket ${hashedKey} at location ${i}`);
@@ -134,7 +165,12 @@ class HashMap {
       i++;
       return hasKey(bucket.next, i);
     };
-    return hasKey(bucket.head);
+    if (bucket) {
+      return hasKey(bucket.head);
+    } else {
+      if (log) console.log(`[${key}] is not in hash map`);
+      return false;
+    }
   };
   /**
    * Remove the specified key/value pair from the map.
@@ -146,7 +182,6 @@ class HashMap {
     let has = this.has(key);
     if (has) {
       let bucket = this.buckets[has[0]];
-      console.log(bucket.size)
       if (bucket.size < 2) {
         this.buckets[has[0]] = undefined;
       } else {
@@ -255,10 +290,61 @@ class HashMap {
       console.log(`Bucket${i}: ${this.buckets[i]}`);
     }
   };
+  /**
+   * Check the current loading factor of the hash map
+   * @param {boolean} log If true, logs actions to the console
+   * @returns {number} The current loading factor of the hash map
+   */
+  checkLoad = (log) => {
+    const load = this.size / this.capacity;
+    if (log) console.log(`Load: ${load}`);
+    return load;
+  };
+  /**
+   * Double buckets array capacity if load exceeds load factor to avoid collisions.
+   * @param {number} load The current load factor
+   * @param {boolean} log If true, log operations to the console
+   * @returns {boolean} True if buckets resized, false if not
+   */
+  resize = (load, log) => {
+    if (load > this.loadFactor) {
+      console.log('Hash Map Overload: Resizing...');
+      this.resizing = true;
+      let temp = [];
+      // function to move key value pairs to temporary array
+      const moveToTemp = (node) => {
+        temp[this.tI] = node.value;
+        this.tI++;
+        if (!node.next) return null;
+        return moveToTemp(node.next);
+      };
+      // move key value pairs to temp
+      for (let i = 0; i < this.capacity; i++) {
+        let bucket = this.buckets[i];
+        if (bucket) {
+          moveToTemp(bucket.head);
+        }
+      }
+      // create new buckets array with double capacity
+      this.capacity *= 2;
+      this.buckets = Array(this.capacity);
+      // move key value pairs from temp to new buckets
+      let size = this.size;
+      this.size = 0;
+      for (let i = 0; i < size; i++) {
+        let key = temp[i][0];
+        let value = temp[i][1];
+        this.set(key, value, false);
+      }
+      // reset temp
+      this.resizing = false;
+      this.tI = 0;
+      temp = undefined;
+      const load = this.size / this.capacity;
+      if (log) console.log(`New Capacity: ${this.capacity}`);
+      if (log) console.log(`New Load: ${load}`);
+    }
+  };
 }
 
 export { HashMap };
-
-// write remove method ||
-// refactor code to avoid repetition
-// rescale array when load factor exceeds value

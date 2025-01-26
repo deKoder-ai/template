@@ -152,11 +152,9 @@ class LinkedList {
       if (node === this.tail) {
         prev.next = null;
         this.tail = prev;
-        console.log('end');
       } else {
         node.value = node.next.value;
         node.next = node.next.next;
-        console.log('not');
       }
       if (this.log) console.log(`[${value}] removed from index: ${index}`);
       this.size--;

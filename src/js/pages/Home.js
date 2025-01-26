@@ -47,7 +47,7 @@ class Home {
     }
     const strings = ['cat', 'dog', 'fish', 'monkey', 'bird', 'chicken', 'koel', 'zebra'];
 
-    const ll = new LinkedList(true, strings);
+    // const ll = new LinkedList(true, strings);
 
     // ll.toString();
     // ll.removeNodeAt(0);
@@ -76,22 +76,21 @@ class Home {
     hm.set('lion', 'golden', logInit);
 
     // hm.checkBuckets();
-    // hm.set('kite', 'monkey', true);
-    // hm.set('a', 'disco', true);
+    hm.set('kite', 'monkey', true);
+    hm.set('a', 'disco', true);
+    // hm.set('123', 'aqua', true)
     // hm.get('lion', true);
-    // hm.has('hat', true);
-    // hm.remove('xyz') // tbd
+    hm.has('lion', true); // Cannot read properties of undefined (reading 'head')
+    // hm.remove('dog', true) // tbd
     // hm.length(true);
     // hm.keys(true);
     // hm.values(true);
     // hm.entries(true);
     // hm.clear(true);
 
-    hm.checkBuckets();
-    hm.remove('lion', true);
-    hm.checkBuckets();
-    hm.remove('dog', true);
-    hm.checkBuckets();
+    // hm.checkBuckets();
+    // hm.checkLoad(true);
+
     
 
 
@@ -104,7 +103,8 @@ class Home {
 
 export { Home };
 
-//  - 
+// committed 11:20
+//  - Add decrement size to HashMap.remove() and .clear()
 
 // committed
 //  - refactor HashMap.has() to return the bucket number and location of key in 
