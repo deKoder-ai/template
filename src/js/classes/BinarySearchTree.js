@@ -99,7 +99,7 @@ class BinarySearchTree {
   inOrder = (node = this.root, array = []) => {
     if (node !== null) {
       this.inOrder(node.left, array);
-      console.log(node.value);
+      // console.log(node.value);
       array.push(node.value);
       this.inOrder(node.right, array);
     }
@@ -115,6 +115,54 @@ class BinarySearchTree {
     }
     return array;
   };
+  postOrder = (node = this.root, array = []) => {
+    if (node !== null) {
+      this.postOrder(node.left, array);
+      this.postOrder(node.right, array);
+      console.log(node.value);
+      array.push(node.value);
+    }
+    return array;
+  };
+  preOrder = (node = this.root, array = []) => {
+    if (node !== null) {
+      console.log(node.value);
+      array.push(node.value);
+      this.preOrder(node.left, array);
+      this.preOrder(node.right, array);
+    }
+    return array;
+  };
+  getHeight = (node = this.root) => {
+    if (node === null) return null;
+    const leftHeight = this.getHeight(node.left);
+    const rightHeight = this.getHeight(node.right);
+    return Math.max(leftHeight, rightHeight) + 1;
+  };
+  isBalanced(node = this.root) {
+    // Function to calculate height and check balance simultaneously
+    const checkHeight = (node) => {
+      if (node === null) return 0; // Base case: height of an empty tree is 0
+      // Recursively calculate heights of left and right subtrees
+      const leftHeight = checkHeight(node.left);
+      const rightHeight = checkHeight(node.right);
+      // If a subtree is unbalanced, propagate -1 up the recursion
+      if (leftHeight === -1 || rightHeight === -1 || Math.abs(leftHeight - rightHeight) > 1) {
+        return -1; // Tree is unbalanced
+      }
+      // Return height of current subtree
+      return Math.max(leftHeight, rightHeight) + 1;
+    };
+    // If the recursive function returns -1, the tree is unbalanced
+    return checkHeight(node) !== -1;
+  }
+  rebalance = (node = this.root) => {
+    const array = this.inOrder(node);
+    console.log('Rebalancing...')
+    console.log(array);
+    this.root = this.buildTree(array, 0, array.length - 1);
+    return this.root;
+  }
 
   /**
    * Pretty prints a binary search tree to the console.

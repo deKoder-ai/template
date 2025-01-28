@@ -87,25 +87,48 @@ class Home {
     console.log(bst.array);
     const y = bst.root;
     console.log(y);
+    bst.prettyPrint(y);
+    console.log(bst.getHeight())
+    console.log(bst.isBalanced())
 
-   function mul2(value) {
-      return value * 10;
-    };
-    console.log(bst.inOrderCallback(this.root, mul2));
+  //  function mul2(value) {
+  //     return value * 10;
+  //   };
+  //   console.log(bst.inOrderCallback(this.root, mul2));
     // bst.prettyPrint(bst.root)
+    bst.getHeight();
+    bst.insert(1);
+    bst.insert(2);
+    bst.insert(3);
+    bst.insert(4);
+    bst.insert(5);
+    bst.insert(6);
+    bst.insert(100);
+    bst.insert(200);
+    bst.insert(300);
+    bst.insert(400);
+    bst.insert(500);
+    bst.insert(600);
+    bst.insert(-1);
+    bst.insert(-2);
+    bst.insert(-3);
+    bst.insert(-4);
+    bst.insert(-5);
+    bst.insert(-6);
 
-    // bst.insert(1);
-    // bst.insert(2);
-    // bst.insert(3);
-    // bst.insert(4);
-    // bst.insert(5);
-    // bst.insert(6);
-    // bst.insert(7);
-    // bst.insert(8);
+    console.log(bst.getHeight())
+    console.log(bst.isBalanced())
+
+    bst.rebalance();
+    console.log(bst.getHeight())
+    console.log(bst.isBalanced())
+
+    bst.prettyPrint(bst.root);
+    console.log(bst.isBalanced())
 
     // bst.prettyPrint(bst.insert(27));
     // bst.delete(42);
-    bst.prettyPrint(y);
+    
     // console.log(bst.inOrder(bst.root));
     // console.log(bst.getHeight(bst.root));
 
@@ -118,27 +141,6 @@ class Home {
 
 export { Home };
 
-// committed 11:20
-//  - Add decrement size to HashMap.remove() and .clear()
 
-// committed
-//  - refactor HashMap.has() to return the bucket number and location of key in
-//    the linked list if key is found instead of simply true. [0, 0] evaluates
-//    to true if logical operation on the result is needed
-//  - refactor LinkedList.removeNodeAt() to account for cases where the removed
-//    node is the tail of the list
-//  - adjust range of LinkedList.addNodeAt() to prevent insertion at 0
-//  - add bucket size adjustor to add/removeNodeAt()
-//  - add remove() method to HashMap.js
-
-// inOrderCb = (node, callback, array = []) => {
-//   if (node !== null) {
-//     this.inOrderCb(node.left, array);
-//     node.value = callback(node.value);
-//     array.push(node.value);
-//     // array.push(node);
-//     console.log(node.value + ' ');
-//     this.inOrderCb(node.right, array);
-//   }
-//   return array;
-// };
+// Issues
+// - lowest number in array is missing from tree
