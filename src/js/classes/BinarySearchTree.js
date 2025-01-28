@@ -105,6 +105,17 @@ class BinarySearchTree {
     }
     return array;
   };
+  inOrderCallback = (node = this.root, cbFunction, array = []) => {
+    if (node !== null) {
+      this.inOrderCallback(node.left, cbFunction, array);
+      node.value = cbFunction(node.value);
+      console.log(node.value);
+      array.push(node.value);
+      this.inOrderCallback(node.right, cbFunction, array);
+    }
+    return array;
+  };
+
   /**
    * Pretty prints a binary search tree to the console.
    * @param {Object} node The root of the tree

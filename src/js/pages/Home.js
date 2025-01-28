@@ -79,20 +79,20 @@ class Home {
 
     // const bsArray = [1, 2, 3, 4, 5, 6, 7]
     // const bsArray = new UniqueRandomIntArray(0, 100, 21);
-    const bsArray = [6, 18, 23, 24, 25, 29, 42, 44, 49, 52, 55, 60, 63, 68, 72, 74, 77, 83, 85, 90, 96];
+    const bsArray = [
+      6, 18, 23, 24, 25, 29, 42, 44, 49, 52, 55, 60, 63, 68, 72, 74, 77, 83, 85, 90, 96,
+    ];
     const bst = new BinarySearchTree(bsArray);
 
     console.log(bst.array);
     const y = bst.root;
     console.log(y);
-    
-    const mul2 = (value) => {
-      return value * 2;
-    }
-    console.log(bst.inOrder());
+
+   function mul2(value) {
+      return value * 10;
+    };
+    console.log(bst.inOrderCallback(this.root, mul2));
     // bst.prettyPrint(bst.root)
-
-
 
     // bst.insert(1);
     // bst.insert(2);
@@ -130,7 +130,6 @@ export { Home };
 //  - adjust range of LinkedList.addNodeAt() to prevent insertion at 0
 //  - add bucket size adjustor to add/removeNodeAt()
 //  - add remove() method to HashMap.js
-
 
 // inOrderCb = (node, callback, array = []) => {
 //   if (node !== null) {
