@@ -102,7 +102,7 @@ class Home {
 
     console.log(`Tree is balanced: ${bst.isBalanced()}`);
 
-    bst.prettyPrint();
+    // bst.prettyPrint();
     // console.log(bst.getHeight());
     // console.log(bst.isBalanced());
 
@@ -110,13 +110,36 @@ class Home {
       return value * 10;
     }
     console.log();
-    const xa = bst.find(-1)
-    console.log(xa);
-    const by = bst.getDepth(xa);
-    console.log(by);
-    console.log(bst.getHeight());
-    console.log(bst.delete(55));
+    console.log(bst.levelOrderCB(mul2, true));
     bst.prettyPrint();
+    console.log(`Nodes: ${bst.nodes}`)
+
+    bst.delete(60)
+    console.log(`Nodes: ${bst.nodes}`)
+    console.log(`Changes: ${bst.changes}`)
+    bst.delete(-10)
+    console.log(`Nodes: ${bst.nodes}`)
+    console.log(`Changes: ${bst.changes}`)
+    bst.delete(180)
+    console.log(`Nodes: ${bst.nodes}`)
+    console.log(`Changes: ${bst.changes}`)
+    bst.delete(420)
+    console.log(`Nodes: ${bst.nodes}`)
+    console.log(`Changes: ${bst.changes}`)
+    bst.delete(520)
+    console.log(`Nodes: ${bst.nodes}`)
+    console.log(`Changes: ${bst.changes}`)
+    bst.delete(490)
+    console.log(`Nodes: ${bst.nodes}`)
+    console.log(`Changes: ${bst.changes}`)
+    bst.delete(290)
+    console.log(`Nodes: ${bst.nodes}`)
+    console.log(`Changes: ${bst.changes}`)
+    bst.delete(240)
+    console.log(`Nodes: ${bst.nodes}`)
+    console.log(`Changes: ${bst.changes}`)
+    bst.prettyPrint();
+    console.log(bst.isBalanced());
 
     // bst.prettyPrint(bst.root);
 

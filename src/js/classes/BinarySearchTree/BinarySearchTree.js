@@ -1,12 +1,58 @@
 'use strict';
 
-// import { MergeSort } from '../MergeSort';
-
+/**
+ * Represents a node in a binary search tree.
+ */
 class Node {
+  /**
+   * Creates a new node with a value and optional left and right children.
+   * @param {any} [value=null] - The value stored in the node.
+   * @param {Node|null} [left=null] - Reference to the left child node.
+   * @param {Node|null} [right=null] - Reference to the right child node.
+   */
   constructor(value = null, left = null, right = null) {
     this.value = value;
     this.left = left;
     this.right = right;
+  }
+}
+
+/**
+ * Implement a queue using a linked list.
+ * This queue is used for breadth-first traversal of a binary search tree.
+ */
+class LinkedList {
+  constructor() {
+    this.head = null;
+    this.next = null;
+    this.tail = null;
+  }
+  /**
+   * Adds a node to the end of the queue.
+   *
+   * @param {Object} node - The node to enqueue.
+   * @returns {void}
+   */
+  enqueue(node) {
+    const newNode = { value: node, next: null };
+    if (this.tail) {
+      this.tail.next = newNode;
+    }
+    this.tail = newNode;
+    if (!this.head) {
+      this.head = newNode;
+    }
+  }
+  /**
+   * Removes and returns the node from the front of the queue.
+   * @returns {Object|null} The dequeued node, or `null` if the queue is empty.
+   */
+  dequeue() {
+    if (!this.head) return null;
+    const node = this.head.value;
+    this.head = this.head.next;
+    if (!this.head) this.tail = null;
+    return node;
   }
 }
 
@@ -15,10 +61,10 @@ class BinarySearchTree {
     if (!Array.isArray(array)) {
       throw new Error('Input is not of type array');
     }
+    this.nodes = 0;
+    this.changes = 0;
     this.array = array;
-    // this.ms = new MergeSort();
     this.array = this.removeDuplicates();
-    // this.array = this.ms.mergeSort(this.array);
     this.array = this.array.sort((a, b) => a - b);
     this.root = this.buildTree(this.array, 0, this.array.length - 1);
   }
@@ -26,53 +72,73 @@ class BinarySearchTree {
     return [...new Set(this.array)];
   };
   /**
-   * Build a balanced binary search tree from a sorted list.
-   * @param {Array} array The constructor array
-   * @param {number} start Index of the start of the array
-   * @param {number} end Index of the end of the array
-   * @returns
+   * Recursively constructs a balanced Binary Search Tree (BST) from a sorted array.
+   * Ensures the resulting tree has minimal height.
+   * @param {number[]} array - A **sorted** array of numbers (ascending order).
+   * @param {number} start - The starting index of the array/subarray.
+   * @param {number} end - The ending index of the array/subarray.
+   * @returns {Node|null} The root of the balanced BST, or `null` if the input array is empty.
+   * @throws {Error} If the input is not a valid sorted array.
    */
   buildTree = (array, start, end) => {
+    if (!Array.isArray(array) || array.length === 0) {
+      throw new Error('Input must be a non-empty sorted array.');
+    }
     if (start > end) return null;
-    // Find the middle element
+    // Find the middle element (balanced root selection)
     const mid = Math.floor((start + end) / 2);
     const node = new Node(array[mid]);
-    // Recursively build the left and right subtrees
+    this.nodes++;
+    // Recursively construct left and right subtrees
     node.left = this.buildTree(array, start, mid - 1);
     node.right = this.buildTree(array, mid + 1, end);
     return node;
   };
   /**
-   * Insert a new value as a leaf in the tree
-   * @param {number} value The number to be inserted
-   * @returns {Object} The root of the tree or null if value is already in tree
+   * Inserts a new value into the Binary Search Tree (BST).
+   * If the value already exists, the tree remains unchanged.
+   * @param {number} value - The number to be inserted.
+   * @param {Node} [node=this.root] - The current node (used for recursion).
+   * @returns {Node} The root of the tree after insertion.
+   * @throws {Error} If `value` is not a valid number.
    */
   insert = (value, node = this.root) => {
-    // If value already exists, do not insert
-    if (value === node.value) return null;
-    // Determine which subtree to go to
+    if (typeof value !== 'number') {
+      throw new Error('Value must be a number.');
+    }
+    // Case 1: Tree is empty, set root
+    if (!this.root) {
+      this.root = new Node(value);
+      this.nodes++;
+      return this.root;
+    }
+    // Case 2: Prevent duplicate insertion
+    if (value === node.value) return this.root;
+    // Case 3: Traverse left or right subtree
     if (value < node.value) {
-      // If there's no left child, insert here
-      if (node.left === null) {
-        node.left = new Node(value);
+      if (!node.left) {
+        this.nodes++;
+        this.changes++;
+        node.left = new Node(value); // Insert if left is null
       } else {
-        // Otherwise, recurse into left subtree
         this.insert(value, node.left);
       }
     } else {
-      // If there's no right child, insert here
-      if (node.right === null) {
-        node.right = new Node(value);
+      if (!node.right) {
+        this.nodes++;
+        this.changes++;
+        node.right = new Node(value); // Insert if right is null
       } else {
-        // Otherwise, recurse into right subtree
         this.insert(value, node.right);
       }
     }
-    return this.root; // Return root of tree after insertion
+
+    return this.root;
   };
+
   /**
    * Delete the node with the provided value from the tree.
-   * 
+   *
    * Handles three cases:
    * 1. The node is a leaf (has no children).
    * 2. The node has only one child.
@@ -90,6 +156,8 @@ class BinarySearchTree {
       node.right = this.delete(value, node.right); // Update right subtree
     } else {
       // Node found
+      this.nodes--;
+      this.changes++;
       // Case 1: Leaf node (no children)
       if (!node.left && !node.right) {
         return null; // Remove the node
@@ -130,11 +198,62 @@ class BinarySearchTree {
       ? this.find(value, node.left)
       : this.find(value, node.right);
   };
+  /**
+   * Perform a level-order (breadth-first) traversal of the binary search tree.
+   * Visits nodes level by level from left to right. (BFS)
+   * @returns {Array} An array containing the values of the tree nodes in level-order. Returns `null` if the tree is empty.
+   * @description
+   * - Uses a `LinkedList` as a queue for efficient enqueue and dequeue operations.
+   * - The method ensures **O(n) time complexity** since each node is visited once.
+   * - The space complexity is **O(n)** in the worst case, as all nodes might be stored in the queue at once.
+   */
   levelOrder = () => {
-    return;
+    if (!this.root) return null;
+    const queue = new LinkedList();
+    queue.enqueue(this.root);
+    const result = [];
+    while (queue.head) {
+      const node = queue.dequeue();
+      result.push(node.value);
+      if (node.left) queue.enqueue(node.left);
+      if (node.right) queue.enqueue(node.right);
+    }
+    return result;
   };
-  levelOrderCB = () => {
-    return;
+  /**
+   * Applies a callback function to each node value in level-order traversal.
+   * @param {function} callback - The function to apply to each node value.
+   * @param {boolean} [modify=false] - If true, modifies the node values in the tree; if false, returns an array of modified values.
+   * @returns {Node|Array|null} The root of the tree (if modified) or an array of modified values (if not modified).
+   * @throws {Error} If the provided callback is not a function.
+   */
+  levelOrderCB = (callback, modify = false) => {
+    if (typeof callback !== 'function') {
+      throw new Error('Please provide a callback function');
+    }
+    if (!this.root) return modify ? this.root : [];
+    const queue = new LinkedList();
+    queue.enqueue(this.root);
+    if (modify) {
+      // Directly modify tree in-place
+      while (queue.head) {
+        const node = queue.dequeue();
+        node.value = callback(node.value);
+        if (node.left) queue.enqueue(node.left);
+        if (node.right) queue.enqueue(node.right);
+      }
+      return this.root;
+    } else {
+      // Collect transformed values in an array
+      const result = [];
+      while (queue.head) {
+        const node = queue.dequeue();
+        result.push(callback(node.value));
+        if (node.left) queue.enqueue(node.left);
+        if (node.right) queue.enqueue(node.right);
+      }
+      return result.length ? result : null;
+    }
   };
   /**
    * Return an array of values generated from an in-order traversal of the tree.
@@ -239,7 +358,6 @@ class BinarySearchTree {
   };
   /**
    * Get the height of a given node in the binary search tree.
-   *
    * Height is defined as the number of edges on the longest path from the node to a leaf.
    * @param {Object} node The node whose height is to be determined (defaults to root).
    * @returns {number} The height of the given node.
@@ -331,8 +449,77 @@ class BinarySearchTree {
 
 export { BinarySearchTree };
 
-// 1 2 3 4 5 6 7
+// Original BFS recursive implementation
+// traverse the tree in level order
+// get root node
+// add its left and right to the queue
+// process node value
+// FIFO - push to add to the array, shift for next operation
+// levelOrderX = (queue = [this.root], array = []) => {
+//   if (this.root === null) return [];
+//   if (!queue.length) {
+//     return array;
+//   } else {
+//     const next = queue.shift();
+//     array.push(next.value);
+//     if (next.left) queue.push(next.left);
+//     if (next.right) queue.push(next.right);
+//     return this.levelOrder(queue, array);
+//   }
+// };
 
-//       4
-//     2
-//   1   3
+// Rebalancing
+// So, I'm thinking I have a this.nodes = 0 in the constructor
+// and increment it by one for each recursion of buildTree and
+// every insertion. Decrement by 1 for each deletion.Does this
+// sound like a good start? Or do you have a better idea on how
+// to implemenet this?
+// ChatGPT said:
+// ChatGPT
+// Memory updated
+// Yes, that sounds like a solid approach! By tracking the number
+// of nodes with a this.nodes counter, you can easily check if
+// the tree's height exceeds the threshold (2 * log₂(N)) to
+// decide when to rebalance. Here are some thoughts to help
+// refine it:
+
+
+
+// Potential rebalance trigger logic:
+// class BinarySearchTree {
+//   constructor() {
+//     this.root = null;
+//     this.changes = 0;
+//     this.rebalanceThreshold = 20;  // Set initial value for x
+//   }
+
+//   insert(value) {
+//     // Your insert logic here
+//     this.changes++;
+//     if (this.changes >= this.rebalanceThreshold) {
+//       if (!this.isBalanced()) {
+//         this.rebalance();
+//       }
+//       this.changes = 0;  // Reset the change counter after rebalancing
+//     }
+//   }
+
+//   delete(value) {
+//     // Your delete logic here
+//     this.changes++;
+//     if (this.changes >= this.rebalanceThreshold) {
+//       if (!this.isBalanced()) {
+//         this.rebalance();
+//       }
+//       this.changes = 0;  // Reset the change counter after rebalancing
+//     }
+//   }
+
+//   isBalanced() {
+//     // Your isBalanced logic here
+//   }
+
+//   rebalance() {
+//     // Your rebalance logic here
+//   }
+// }
