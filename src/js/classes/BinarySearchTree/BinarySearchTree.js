@@ -70,33 +70,53 @@ class BinarySearchTree {
     }
     return this.root; // Return root of tree after insertion
   };
-
-  delete = (value, node = this.root, prev = null, prev2 = null, child = null) => {
-    if (node.value !== value && !node.left && !node.right) {
-      console.log('Value is not in tree');
-      return false;
-    }
+  /**
+   * Delete the node with the provided value from the tree.
+   * 
+   * Handles three cases:
+   * 1. The node is a leaf (has no children).
+   * 2. The node has only one child.
+   * 3. The node has two children (replaces it with its in-order successor).
+   *
+   * @param {number} value - The value to delete from the tree
+   * @returns {Object|null} - The updated subtree after deletion, or null if the tree becomes empty.
+   */
+  delete = (value, node = this.root) => {
+    if (node === null) return null; // Value not found, return null
+    // Traverse the tree
     if (value < node.value) {
-      prev2 = prev;
-      prev = node;
-      node = node.left;
-      child = 'L';
-      this.delete(value, node, prev, child);
+      node.left = this.delete(value, node.left); // Update left subtree
     } else if (value > node.value) {
-      prev2 = prev;
-      prev = node;
-      node = node.right;
-      child = 'R';
-      this.delete(value, node, prev, child);
-    } else if (value === node.value) {
+      node.right = this.delete(value, node.right); // Update right subtree
+    } else {
+      // Node found
+      // Case 1: Leaf node (no children)
       if (!node.left && !node.right) {
-        console.log(`${value} removed from tree`);
-        prev.left = child === 'L' ? null : prev.left;
-        prev.right = child === 'R' ? null : prev.right;
-        return true;
-      } else if (!node.left && child === 'R') {
+        return null; // Remove the node
+      }
+      // Case 2: One child (left)
+      else if (node.left && !node.right) {
+        return node.left; // Bypass node
+      }
+      // Case 2: One child (right)
+      else if (node.right && !node.left) {
+        return node.right; // Bypass node
+      }
+      // Case 3: Two children (not handled yet)
+      else {
+        // Find the in-order successor (smallest in the right subtree)
+        const getSuccessor = (node) => {
+          if (node.left === null) return node;
+          return getSuccessor(node.left);
+        };
+        let successor = getSuccessor(node.right);
+        // Replace the value of the node to be deleted with the successor's value
+        node.value = successor.value;
+        // Delete the successor from the right subtree
+        node.right = this.delete(successor.value, node.right);
       }
     }
+    return node; // Return modified subtree
   };
   /**
    * Find the given value on the tree and return its node
@@ -109,6 +129,12 @@ class BinarySearchTree {
     return value < node.value
       ? this.find(value, node.left)
       : this.find(value, node.right);
+  };
+  levelOrder = () => {
+    return;
+  };
+  levelOrderCB = () => {
+    return;
   };
   /**
    * Return an array of values generated from an in-order traversal of the tree.
@@ -212,14 +238,37 @@ class BinarySearchTree {
     return modify ? this.root : array;
   };
   /**
-   * Get the height of the tree.
-   * @returns {number} The height of the tree. A single node tree has a height of 0. If the tree is empty, the height is -1
+   * Get the height of a given node in the binary search tree.
+   *
+   * Height is defined as the number of edges on the longest path from the node to a leaf.
+   * @param {Object} node The node whose height is to be determined (defaults to root).
+   * @returns {number} The height of the given node.
+   *         - A single-node tree has a height of 0.
+   *         - An empty tree has a height of -1.
    */
   getHeight = (node = this.root) => {
-    if (node === null) return -1;
+    if (node === null) return -1; // Base case: empty tree has height -1
     const leftHeight = this.getHeight(node.left);
     const rightHeight = this.getHeight(node.right);
-    return Math.max(leftHeight, rightHeight) + 1;
+    return Math.max(leftHeight, rightHeight) + 1; // Add 1 for current node
+  };
+  /**
+   * Get the depth of a given node in the binary search tree.
+   * Depth is defined as the number of edges from the root to the given node.
+   * @param {Object} node The node whose depth is to be determined.
+   * @param {Object} current The current node in traversal (defaults to root).
+   * @param {number} depth The accumulated depth (starts from 0).
+   * @returns {number} The depth of the given node, or -1 if not found.
+   */
+  getDepth = (node, current = this.root, depth = 0) => {
+    if (!node || !current) return -1; // If node is null or tree is empty
+    if (node === current) return depth;
+    if (node.value < current.value) {
+      return this.getDepth(node, current.left, depth + 1);
+    } else if (node.value > current.value) {
+      return this.getDepth(node, current.right, depth + 1);
+    }
+    return -1; // Node not found
   };
   /**
    * Check if the tree is balanced
@@ -262,12 +311,11 @@ class BinarySearchTree {
     this.root = this.buildTree(array, 0, array.length - 1);
     return this.root;
   };
-
   /**
    * Pretty prints a binary search tree to the console.
    * @param {Object} node The root of the tree
    */
-  prettyPrint = (node, prefix = '', isLeft = true) => {
+  prettyPrint = (node = this.root, prefix = '', isLeft = true) => {
     if (node === null) {
       return;
     }

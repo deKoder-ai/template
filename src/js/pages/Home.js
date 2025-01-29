@@ -102,15 +102,21 @@ class Home {
 
     console.log(`Tree is balanced: ${bst.isBalanced()}`);
 
-    // bst.prettyPrint(y);
+    bst.prettyPrint();
     // console.log(bst.getHeight());
     // console.log(bst.isBalanced());
 
     function mul2(value) {
       return value * 10;
     }
-    console.log(bst.postOrderCB(mul2));
-    bst.prettyPrint(bst.root)
+    console.log();
+    const xa = bst.find(-1)
+    console.log(xa);
+    const by = bst.getDepth(xa);
+    console.log(by);
+    console.log(bst.getHeight());
+    console.log(bst.delete(55));
+    bst.prettyPrint();
 
     // bst.prettyPrint(bst.root);
 
