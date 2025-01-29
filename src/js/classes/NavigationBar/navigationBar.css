@@ -10,13 +10,24 @@ nav {
 #home-btn {
   text-align: center;
   font-size: 2.5rem;
+  outline: none;
+  border-bottom: 0px solid var(--red);
 }
 .nav-bar-btn {
   font-size: 1.7rem;
   width: 99%;
+  outline: none;
+  border: none;
+  border-bottom: 0px solid var(--red);
 }
 nav :nth-last-child(-n+2) {
   margin-right: 5px;
+}
+.nav-bar-btn-transitions {
+  transition: 
+    color 0.2s ease-out,
+    font-weight 0.2s ease-out,
+    border-bottom 0.2s ease-out;
 }
 .nav-bar-btn:hover,
 #home-btn:hover,
@@ -41,9 +52,4 @@ nav :nth-last-child(-n+2) {
 .nav-bar-btn:focus {
   border-top: 3px solid black;
   border-bottom: 3px solid var(--red);
-  /* text-underline-offset: 1.5rem; */
 }
-/* #home-btn:hover,
-#home-btn:focus {
-  text-underline-offset: 1.2rem;
-} */

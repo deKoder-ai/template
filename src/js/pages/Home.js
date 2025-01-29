@@ -9,7 +9,7 @@ import { binarySearch } from '../scripts/binarySearch.js';
 import { LinkedList } from '../classes/LinkedList.js';
 import { HashMap } from '../classes/HashMap.js';
 import { UniqueRandomIntArray } from '../classes/RandomIntArray.js';
-import { BinarySearchTree } from '../classes/BinarySearchTree.js';
+import { BinarySearchTree } from '../classes/BinarySearchTree/BinarySearchTree.js';
 
 class Home {
   constructor(content) {
@@ -87,48 +87,44 @@ class Home {
     console.log(bst.array);
     const y = bst.root;
     console.log(y);
-    bst.prettyPrint(y);
-    console.log(bst.getHeight())
-    console.log(bst.isBalanced())
+    bst.insert(-1);
 
-  //  function mul2(value) {
-  //     return value * 10;
-  //   };
-  //   console.log(bst.inOrderCallback(this.root, mul2));
+    console.log(`Tree is balanced: ${bst.isBalanced()}`);
+
+    //   console.log(bst.inOrderCallback(this.root, mul2));
     // bst.prettyPrint(bst.root)
-    bst.getHeight();
+    // bst.getHeight();
     bst.insert(1);
     bst.insert(2);
     bst.insert(3);
     bst.insert(4);
     bst.insert(5);
-    bst.insert(6);
-    bst.insert(100);
-    bst.insert(200);
-    bst.insert(300);
-    bst.insert(400);
-    bst.insert(500);
-    bst.insert(600);
-    bst.insert(-1);
-    bst.insert(-2);
-    bst.insert(-3);
-    bst.insert(-4);
-    bst.insert(-5);
-    bst.insert(-6);
 
-    console.log(bst.getHeight())
-    console.log(bst.isBalanced())
+    console.log(`Tree is balanced: ${bst.isBalanced()}`);
 
-    bst.rebalance();
-    console.log(bst.getHeight())
-    console.log(bst.isBalanced())
+    // bst.prettyPrint(y);
+    // console.log(bst.getHeight());
+    // console.log(bst.isBalanced());
 
-    bst.prettyPrint(bst.root);
-    console.log(bst.isBalanced())
+    function mul2(value) {
+      return value * 10;
+    }
+
+    // bst.prettyPrint(bst.root);
+
+    // console.log(bst.getHeight())
+    // console.log(bst.isBalanced())
+
+    // bst.rebalance();
+    // console.log(bst.getHeight())
+    // console.log(bst.isBalanced())
+
+    // bst.prettyPrint(bst.root);
+    // console.log(bst.isBalanced())
 
     // bst.prettyPrint(bst.insert(27));
     // bst.delete(42);
-    
+
     // console.log(bst.inOrder(bst.root));
     // console.log(bst.getHeight(bst.root));
 
@@ -140,7 +136,6 @@ class Home {
 }
 
 export { Home };
-
 
 // Issues
 // - lowest number in array is missing from tree

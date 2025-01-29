@@ -10,6 +10,7 @@
   background-color: black;
   border: 2px solid black;
   outline: 2px solid black;
+  transition: all 0.15s ease-out;
 }
 .dropdown-button:hover,
 .dropdown-button:focus {
@@ -38,13 +39,17 @@
   width: 100%;
   text-align: left;
   padding: 0.5rem 0rem 0.5rem 10%;
+  transition: 
+    color 0.1s ease-out,
+    background-color 0.5s ease-out,
+    font-weight 0.3s ease-in;
+
 }
 .dropdown-menu-item:hover,
 .dropdown-menu-item:focus {
   color: #0f0f86;
   background-color: rgba(0, 0, 0, 0.164);
-  font-weight: 600;
-  font-size: 1.7rem;
+  font-weight: 500;
   outline: none;
 }
 .dropdown-menu-line {

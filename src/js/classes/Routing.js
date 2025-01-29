@@ -3,6 +3,7 @@ import { Home } from '../pages/Home.js';
 import { SignUp } from '../pages/SignUp/SignUp.js';
 import { Login } from '../pages/Login/Login.js';
 import { NavSwitch } from '../pages/Login/switchNavBar.js';
+import { cssTest } from '../pages/cssTest/cssTest.js';
 
 class Routing {
   constructor(content, logging) {
@@ -29,6 +30,7 @@ class Routing {
         case 'nav-bar-about':
         case 'dropdown-item-1':
           console.log('About');
+          const css = new cssTest(content);
           break;
         case 'nav-bar-2':
         case 'dropdown-item-2':

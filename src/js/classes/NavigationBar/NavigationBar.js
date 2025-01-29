@@ -18,7 +18,7 @@ class NavigationBar {
     this.baseFontSize = baseFontSize;
     this.header = F.htmlElement('header');
     this.nav = F.htmlElement('nav', '', '', 'navigation-bar');
-    this.home = F.htmlElement('button', `${buttons[0]}`, '', 'home-btn');
+    this.home = F.htmlElement('button', `${buttons[0]}`, 'nav-bar-btn-transitions', 'home-btn');
     this.gap = F.htmlElement('div');
     this.addNavButtons = (buttons) => {
       if (buttons.length > 0) {
@@ -29,6 +29,7 @@ class NavigationBar {
             'nav-bar-btn',
             `nav-bar-${buttons[i].replace(/ /g,"-").toLowerCase()}`,
           );
+          element.classList.add('nav-bar-btn-transitions')
           this.nav.appendChild(element);
         }
       }

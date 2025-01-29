@@ -1,0 +1,73 @@
+.red-box,
+.blue-box {
+  position: absolute;
+  width: 100px;
+  height: 100px;
+  z-index: 200;
+  outline: 1px solid black;
+}
+
+.red-box {
+  background: red;
+  transform: rotate(45deg) translate(200%);
+}
+
+.blue-box {
+  background: blue;
+  transform: translate(200%) rotate(45deg);
+}
+
+/* multiple transforms are applied right to left */
+/* the red box swings down as the rotate is applied */
+/* with its original location as the centre of the arc */
+
+#delay {
+  font-size: 1.4rem;
+  transition-property: font-size;
+  transition-duration: 4s;
+  transition-delay: 2s;
+}
+#delay:hover {
+  font-size: 3.6rem;
+}
+
+/* https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_transitions/Using_CSS_transitions */
+#box-1 {
+  border: 1px solid black;
+  display: block;
+  width: 100px;
+  height: 100px;
+  background-color: #0000ff;
+  transition: 
+    width 2s,
+    height 2s,
+    background-color 2s,
+    rotate 2s;
+}
+#box-1:hover {
+  background-color: #ffcccc;
+  width: 200px;
+  height: 200px;
+  rotate: 180deg;
+}
+
+#nav-1 {
+  margin-top: 200px;
+  display: flex;
+  gap: 0.5rem;
+}
+.nav-1-a {
+  flex: 1;
+  background-color: #333;
+  color: #fff;
+  border: 1px solid;
+  padding: 0.5rem;
+  text-align: center;
+  text-decoration: none;
+  transition: all 0.5s ease-out;
+}
+.nav-1-a:hover,
+.nav-1-a:focus {
+  background-color: #fff;
+  color: #333;
+}
