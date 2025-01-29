@@ -94,11 +94,11 @@ class Home {
     //   console.log(bst.inOrderCallback(this.root, mul2));
     // bst.prettyPrint(bst.root)
     // bst.getHeight();
-    bst.insert(1);
-    bst.insert(2);
-    bst.insert(3);
-    bst.insert(4);
-    bst.insert(5);
+    // bst.insert(1);
+    // bst.insert(2);
+    // bst.insert(3);
+    // bst.insert(4);
+    // bst.insert(5);
 
     console.log(`Tree is balanced: ${bst.isBalanced()}`);
 
@@ -109,6 +109,8 @@ class Home {
     function mul2(value) {
       return value * 10;
     }
+    console.log(bst.postOrderCB(mul2));
+    bst.prettyPrint(bst.root)
 
     // bst.prettyPrint(bst.root);
 

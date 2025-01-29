@@ -16,7 +16,7 @@ class BinarySearchTree {
       throw new Error('Input is not of type array');
     }
     this.array = array;
-    this.ms = new MergeSort();
+    // this.ms = new MergeSort();
     this.array = this.removeDuplicates();
     // this.array = this.ms.mergeSort(this.array);
     this.array = this.array.sort((a, b) => a - b);
@@ -71,7 +71,7 @@ class BinarySearchTree {
     return this.root; // Return root of tree after insertion
   };
 
-  delete = (value, node = this.root, prev = null, prev2 = null, child = null, ) => {
+  delete = (value, node = this.root, prev = null, prev2 = null, child = null) => {
     if (node.value !== value && !node.left && !node.right) {
       console.log('Value is not in tree');
       return false;
@@ -91,14 +91,13 @@ class BinarySearchTree {
     } else if (value === node.value) {
       if (!node.left && !node.right) {
         console.log(`${value} removed from tree`);
-        prev.left = (child === 'L') ? null : prev.left;
-        prev.right = (child === 'R') ? null : prev.right;
+        prev.left = child === 'L' ? null : prev.left;
+        prev.right = child === 'R' ? null : prev.right;
         return true;
       } else if (!node.left && child === 'R') {
-
       }
     }
-  }
+  };
   /**
    * Find the given value on the tree and return its node
    * @param {number} value The value to search the tree for
@@ -124,18 +123,25 @@ class BinarySearchTree {
     return array;
   };
   /**
-   * Apply a callback function to each node value of the tree in inorder - LNR.
+   * Apply a callback function to each node value of the tree in in-order - LNR.
    * @param {function} callback The function to apply
-   * @param {Object} node The root node of the tree
-   * @returns The root of the tree
+   * @param {boolean} modify If true, modifies the values of the original tree. If false, returns an array of modified values that can be used to construct a new tree
+   * @returns The root of the tree (if modify is true) or an array of modified values (if modify is false)
    */
-  inOrderCB = (callback, node = this.root) => {
-    if (node) {
-      this.inOrderCB(callback, node.left);
-      node.value = callback(node.value);
-      this.inOrderCB(callback, node.right);
+  inOrderCB = (callback, modify = false, node = this.root, array = []) => {
+    if (typeof callback !== 'function') {
+      throw new Error('Please provide a callback function');
     }
-    return this.root;
+    if (node !== null) {
+      this.inOrderCB(callback, modify, node.left, array);
+      if (modify) {
+        node.value = callback(node.value); // Modify value in tree
+      } else {
+        array.push(callback(node.value)); // Add modified value to the array
+      }
+      this.inOrderCB(callback, modify, node.right, array);
+    }
+    return modify ? this.root : array;
   };
   /**
    * Return an array of values generated from a pre-order traversal of the tree.
@@ -151,18 +157,25 @@ class BinarySearchTree {
     return array;
   };
   /**
-   * Apply a callback function to each node value of the tree in preorder - NLR.
+   * Apply a callback function to each node value of the tree in pre-order - NLR.
    * @param {function} callback The function to apply
-   * @param {Object} node The root node of the tree
-   * @returns The root of the tree
+   * @param {boolean} modify If true, modifies the values of the original tree. If false, returns an array of modified values that can be used to construct a new tree
+   * @returns The root of the tree (if modify is true) or an array of modified values (if modify is false)
    */
-  preOrderCB = (callback, node = this.root) => {
-    if (node !== null) {
-      node.value = callback(node.value);
-      this.preOrderCB(callback, node.left);
-      this.preOrderCB(callback, node.right);
+  preOrderCB = (callback, modify = false, node = this.root, array = []) => {
+    if (typeof callback !== 'function') {
+      throw new Error('Please provide a callback function');
     }
-    return this.root;
+    if (node !== null) {
+      if (modify) {
+        node.value = callback(node.value); // Modify value in tree
+      } else {
+        array.push(callback(node.value)); // Add modified value to the array
+      }
+      this.preOrderCB(callback, modify, node.left, array);
+      this.preOrderCB(callback, modify, node.right, array);
+    }
+    return modify ? this.root : array;
   };
   /**
    * Return an array of values generated from a post-order traversal of the tree.
@@ -178,18 +191,25 @@ class BinarySearchTree {
     return array;
   };
   /**
-   * Apply a callback function to each node value of the tree in postorder - LRN.
+   * Apply a callback function to each node value of the tree in post-order - LRN.
    * @param {function} callback The function to apply
-   * @param {Object} node The root node of the tree
-   * @returns The root of the tree
+   * @param {boolean} modify If true, modifies the values of the original tree. If false, returns an array of modified values that can be used to construct a new tree
+   * @returns The root of the tree (if modify is true) or an array of modified values (if modify is false)
    */
-  postOrderCB = (callback, node = this.root) => {
-    if (node !== null) {
-      this.postOrderCB(callback, node.left);
-      this.postOrderCB(callback, node.right);
-      node.value = callback(node.value);
+  postOrderCB = (callback, modify = false, node = this.root, array = []) => {
+    if (typeof callback !== 'function') {
+      throw new Error('Please provide a callback function');
     }
-    return this.root;
+    if (node !== null) {
+      this.postOrderCB(callback, modify, node.left, array); // Traverse left subtree
+      this.postOrderCB(callback, modify, node.right, array); // Traverse right subtree
+      if (modify) {
+        node.value = callback(node.value); // Modify value in tree
+      } else {
+        array.push(callback(node.value)); // Add modified value to the array
+      }
+    }
+    return modify ? this.root : array;
   };
   /**
    * Get the height of the tree.
@@ -237,12 +257,11 @@ class BinarySearchTree {
     }
     // Get the sorted array of node values using in-order traversal
     const array = this.inOrder(node);
-    console.log('Rebalancing...');    
+    console.log('Rebalancing...');
     // Rebuild the tree to make it balanced
     this.root = this.buildTree(array, 0, array.length - 1);
     return this.root;
   };
-  
 
   /**
    * Pretty prints a binary search tree to the console.
