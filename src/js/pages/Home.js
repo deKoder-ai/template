@@ -112,32 +112,32 @@ class Home {
     console.log();
     console.log(bst.levelOrderCB(mul2, true));
     bst.prettyPrint();
-    console.log(`Nodes: ${bst.nodes}`)
+    console.log(`Nodes: ${bst.nodes}`);
 
-    bst.delete(60)
-    console.log(`Nodes: ${bst.nodes}`)
-    console.log(`Changes: ${bst.changes}`)
-    bst.delete(-10)
-    console.log(`Nodes: ${bst.nodes}`)
-    console.log(`Changes: ${bst.changes}`)
-    bst.delete(180)
-    console.log(`Nodes: ${bst.nodes}`)
-    console.log(`Changes: ${bst.changes}`)
-    bst.delete(420)
-    console.log(`Nodes: ${bst.nodes}`)
-    console.log(`Changes: ${bst.changes}`)
-    bst.delete(520)
-    console.log(`Nodes: ${bst.nodes}`)
-    console.log(`Changes: ${bst.changes}`)
-    bst.delete(490)
-    console.log(`Nodes: ${bst.nodes}`)
-    console.log(`Changes: ${bst.changes}`)
-    bst.delete(290)
-    console.log(`Nodes: ${bst.nodes}`)
-    console.log(`Changes: ${bst.changes}`)
-    bst.delete(240)
-    console.log(`Nodes: ${bst.nodes}`)
-    console.log(`Changes: ${bst.changes}`)
+    bst.delete(60);
+    console.log(`Nodes: ${bst.nodes}`);
+    console.log(`Changes: ${bst.changes}`);
+    bst.delete(-10);
+    console.log(`Nodes: ${bst.nodes}`);
+    console.log(`Changes: ${bst.changes}`);
+    bst.delete(180);
+    console.log(`Nodes: ${bst.nodes}`);
+    console.log(`Changes: ${bst.changes}`);
+    bst.delete(420);
+    console.log(`Nodes: ${bst.nodes}`);
+    console.log(`Changes: ${bst.changes}`);
+    bst.delete(520);
+    console.log(`Nodes: ${bst.nodes}`);
+    console.log(`Changes: ${bst.changes}`);
+    bst.delete(490);
+    console.log(`Nodes: ${bst.nodes}`);
+    console.log(`Changes: ${bst.changes}`);
+    bst.delete(290);
+    console.log(`Nodes: ${bst.nodes}`);
+    console.log(`Changes: ${bst.changes}`);
+    bst.delete(240);
+    console.log(`Nodes: ${bst.nodes}`);
+    console.log(`Changes: ${bst.changes}`);
     bst.prettyPrint();
     console.log(bst.isBalanced());
 
@@ -161,6 +161,10 @@ class Home {
 
     // console.log(ll.toString());
     // display.innerText = x;
+
+
+
+
 
     return this.home;
   }
