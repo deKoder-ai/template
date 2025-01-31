@@ -5,7 +5,7 @@ import html from './battleship.html';
 import './battleship.css';
 import { Player } from './Player.js';
 import { Ship } from './Ship.js';
-import { GameOver } from './GameOver.js';
+// import { GameOver } from './GameOver.js';
 
 class Battleship {
   constructor() {
@@ -85,21 +85,35 @@ class Battleship {
     this.computerShotEvent(x, y, repeat);
   };
   computerShotEvent = async (x, y, repeat) => {
-    // if fresh shot, get random coordinates
-    if (!repeat) {
-      const xy = this.player2.computerShot();
+    // check if target stack has targets, if so pop and use
+    const stackLength = this.player2.targetStack.length;
+    if (this.player2.targetStack[stackLength - 1]) {
+      console.log(this.player2.targetStack);
+      const xy = this.player2.targetStack.pop();
       x = xy.x;
       y = xy.y;
     } else {
-      // if shot follows hit, use secondary strike logic
-      const xy = this.player2.postHitShot(x, y);
+      // if (!repeat) {
+      // if fresh shot, get random coordinates
+      const xy = this.player2.computerShot();
       x = xy.x;
       y = xy.y;
     }
+    // temp remove old secondary targeting logic
+    // else {
+    //   // if shot follows hit, use secondary strike logic
+    //   const xy = this.player2.postHitShot(x, y);
+    //   x = xy.x;
+    //   y = xy.y;
+    // }
     const targetSquare = document.getElementById(`hum-${x}-${y}`);
     const attack = this.player1.gb.receiveAttack(x, y);
     const attackResult = attack.result;
+
     if (attackResult === false) {
+      // update atl array
+      this.player2.shotHistory[x][y] = false;
+
       this.miss(targetSquare);
     } else if (attackResult === true) {
       this.computerHit(targetSquare, attack, x, y);
@@ -107,6 +121,9 @@ class Battleship {
       // square already targeted, try again
       this.computerShotEvent();
     }
+
+    // check atl array
+    // console.log(this.player2.shotHistory);
   };
   toggleCurrentPlayer = () => {
     if (this.currentPlayer === 'human') {
@@ -139,8 +156,19 @@ class Battleship {
     targetSquare.classList.add('ship');
     targetSquare.classList.add('hit');
     if (attack.ship.checkSunk()) {
+      // update atl array for sunk ship
+      this.player2.shotHistory[x][y] = `SUNK-${attack.ship.type}`;
+      console.log(this.player2.shotHistory);
+      this.player2.updateSunkenHits(x, y, `SUNK-${attack.ship.type}`);
+      this.player2.clearSunkFromStack(attack.ship.type);
+      this.player2.falsifyAdjacentToSunk();
+
       const ship = document.getElementById(`${attack.ship.type}-human`);
       ship.classList.add('sunk');
+    } else {
+      // update atl array for hit
+      this.player2.shotHistory[x][y] = { hit: true, type: attack.ship.type };
+      this.player2.getAdjacentTargets(x, y, attack.ship.type);
     }
     if (this.player1.gb.checkWin()) {
       this.gameOver('COMPUTER');
@@ -149,6 +177,7 @@ class Battleship {
       this.pauseBeforeShot(x, y, true);
     }
   };
+
   gameOver = async (winner) => {
     const winContainer = document.querySelector('.win-container');
     winContainer.classList.add('flex');
