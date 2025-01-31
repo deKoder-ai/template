@@ -9,23 +9,20 @@ class Player {
     this.min = 0;
     this.max = size - 1;
     this.gb = new Gameboard(this.size);
-    this.shotHistory = [];
+    this.shotHistory = this.createShotHistoryArray();
   }
-  computerShot = (x, y, hit) => {
-    if (hit === true) {
+  computerShot = (x, y, repeat) => {
+    // random square if shot does not follow a hit
+    if (!repeat) {
+      x = Math.floor(Math.random() * (this.max - this.min + 1)) + this.min;
+      y = Math.floor(Math.random() * (this.max - this.min + 1)) + this.min;
+    } else {
+      // if follows a hit, use secondary strike logic
       const xy = this.postHitShot(x, y);
       x = xy.x;
       y = xy.y;
-    } else {
-      x = Math.floor(Math.random() * (this.max - this.min + 1)) + this.min;
-      y = Math.floor(Math.random() * (this.max - this.min + 1)) + this.min;
     }
-
-    const shot = [x, y];
-    // add in a random amount of thinking time
-    // setTimeout(function () {
-    //   return shot;
-    // }, 5000);
+    const shot = { x: x, y: y };
     return shot;
   };
   postHitShot = (x, y) => {
@@ -41,13 +38,34 @@ class Player {
       newX = x;
       newY = y + 1 * pORm;
     }
-    if (newX > this.max || newY > this.max) {
+    if (newX > this.max || newY > this.max || newX < 0 || newY < 0) {
       return this.postHitShot(x, y);
     } else {
       console.log('post hit');
-      return { x: x, y: y };
+      return { x: newX, y: newY };
     }
+  };
+  createShotHistoryArray = () => {
+    const shotHistory = [];
+    for (let i = 0; i < this.size; i++) {
+      shotHistory[i] = [];
+      for (let j = 0; j < this.size; j++) {
+        shotHistory[i][j] = null;
+      }
+    }
+    return shotHistory;
   };
 }
 
 export { Player };
+
+// advanced targeting logic
+// - keep an array of previous shots and their results
+// - false = miss
+// - null = no shot yet
+// - true = hit
+// - 'S' = sunk already
+// - before taking a shot, search the array for a hit (but not sunk)
+// - check the squares around - above, right, below, left
+// - if one of these is also a hit, the target the opposite side
+// - eg.

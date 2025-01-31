@@ -16,6 +16,7 @@ export default [
       'linebreak-style': ['error', 'unix'],
       quotes: ['error', 'single'],
       semi: ['error', 'always'],
+      'no-inline-comments': 'off',
       env: {
         browser: true,
         node: true,

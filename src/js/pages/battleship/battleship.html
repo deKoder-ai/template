@@ -3,11 +3,11 @@
   <div class="player-grid">
     <div id="player-1" class="space-between player-container">
       <div class="game-info gameboard-container">
-        <p id="carrier-icon" class="ship-icon">o</p> <!-- carrier 5 -->
-        <p id="battleship-icon" class="ship-icon">n</p> <!-- battleship 4 -->
-        <p id="cruiser-icon" class="ship-icon">p</p> <!-- cruiser 3 -->
-        <p id="submarine-icon" class="ship-icon">m</p> <!-- submarine 3 -->
-        <p id="destroyer-icon" class="ship-icon">l</p> <!-- destroyer 2 -->
+        <p id="carrier-human" class="ship-icon carrier-icon">o</p> <!-- carrier 5 -->
+        <p id="battleship-human" class="ship-icon battleship-icon">n</p> <!-- battleship 4 -->
+        <p id="cruiser-human" class="ship-icon cruiser-icon">p</p> <!-- cruiser 3 -->
+        <p id="submarine-human" class="ship-icon submarine-icon">m</p> <!-- submarine 3 -->
+        <p id="destroyer-human" class="ship-icon destroyer-icon">l</p> <!-- destroyer 2 -->
         <!-- <p id="carrier">0</p> explosion -->
       </div>
       <div class="gameboard-container">
@@ -19,13 +19,22 @@
         <div id="board-2" class="board"></div>
       </div>
       <div class="game-info gameboard-container">
-        <p id="carrier-icon" class="ship-icon">o</p> <!-- carrier 5 -->
-        <p id="battleship-icon" class="ship-icon">n</p> <!-- battleship 4 -->
-        <p id="cruiser-icon" class="ship-icon">p</p> <!-- cruiser 3 -->
-        <p id="submarine-icon" class="ship-icon">m</p> <!-- submarine 3 -->
-        <p id="destroyer-icon" class="ship-icon">l</p> <!-- destroyer 2 -->
+        <p id="carrier-computer" class="ship-icon carrier-icon">o</p> <!-- carrier 5 -->
+        <p id="battleship-computer" class="ship-icon battleship-icon">n</p> <!-- battleship 4 -->
+        <p id="cruiser-computer" class="ship-icon cruiser-icon">p</p> <!-- cruiser 3 -->
+        <p id="submarine-computer" class="ship-icon submarine-icon">m</p> <!-- submarine 3 -->
+        <p id="destroyer-computer" class="ship-icon destroyer-icon">l</p> <!-- destroyer 2 -->
         <!-- <p id="carrier">0</p> explosion -->
       </div>
     </div>
   </div>
+  <div class="win-container">
+    <div>
+      <h2 id="win-message">YOU WINS!!!</h2>
+      <div class="flex">
+        <button id="new-game-btn">NEW GAME</button>
+      </div>
+    </div>
+  </div>
+  <h1 id="countdown">5</h1>
 </div>

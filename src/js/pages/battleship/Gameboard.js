@@ -6,7 +6,7 @@ class Gameboard {
   constructor(size) {
     this.size = size;
     this.shipsSunk = 0;
-    this.numberoOfShips = 5;
+    this.numberOfShips = 5;
     // create ships
     this.carrier = new Ship('carrier', 5);
     this.battleship = new Ship('battleship', 4);
@@ -51,24 +51,29 @@ class Gameboard {
     }
   };
   receiveAttack = (x, y) => {
+    // temp bug fix???
+    // if (x === undefined || y === undefined) {
+    //   return { result: null, ship: null };
+    // }
+    //
     const target = this.board[x][y];
     if (!target) {
       // miss
       this.board[x][y] = 'O';
-      return false;
+      return { result: false, ship: null };
     } else if (target instanceof Ship) {
       // hit
       this.board[x][y].addHit();
       if (target.sunk) this.shipsSunk++;
       this.board[x][y] = 'X';
-      return true;
+      return { result: true, ship: target };
     } else {
       // already targeted
-      return null;
+      return { result: null, ship: null };
     }
   };
   checkWin = () => {
-    return this.shipsSunk === this.numberoOfShips ? true : false;
+    return this.shipsSunk === this.numberOfShips ? true : false;
   };
 }
 
