@@ -6,7 +6,6 @@ class ComputerLogic {
     this.min = 0;
     this.max = this.size - 1;
     this.shotHistory = this.createShotHistoryGraph();
-    this.shot = 0;
     this.targetStack = [];
   }
   createShotHistoryGraph = () => {
@@ -23,18 +22,19 @@ class ComputerLogic {
     let xy;
     if (!this.targetStack.length) {
       xy = this.randomCoordinates();
-      console.log('random');
+      // console.log('random');
     } else {
       const nextTarget = this.targetStack.pop();
       xy = { x: nextTarget.x, y: nextTarget.y };
-      console.log('targeted');
+      // console.log('targeted');
     }
     return xy;
   };
   randomCoordinates = () => {
     const x = Math.floor(Math.random() * (this.max - this.min + 1)) + this.min;
     const y = Math.floor(Math.random() * (this.max - this.min + 1)) + this.min;
-    // generate new coordinates if square has already been targeted, else return coordinates
+    // recursively generate new coordinates until untargeted square if found,
+    // then return generated coordinates
     if (this.shotHistory[x][y].hit !== null) {
       return this.randomCoordinates();
     } else {
@@ -45,13 +45,11 @@ class ComputerLogic {
     // target is null if miss
     if (result === false) {
       target = null;
-      this.shot = 0;
     }
     // update history
     this.shotHistory[x][y] = { hit: result, target: target };
     // create new prospective targets if hit
     if (result === true) {
-      this.shot++;
       this.addNewTargets(x, y, target);
     }
   };
@@ -181,9 +179,46 @@ class ComputerLogic {
 }
 // { hit: null, target: null }
 
-export { ComputerLogic };
-
 // if boat is sunk:
 // - update all hits of that type to sunk ✓
 // - update adjacent squares to false (ships cannot be adjacent) ✓
 // - remove potential shots targeting that ship type form stack ✓
+
+//            ?
+//            ?
+//            ?
+//            ?
+//            ?
+//  ? ? ? ? ? H ? ? ? ? ?
+//            ?
+//            ?
+//            ?
+//            ?
+//            ?
+// the length of the array should be that of the longest survivng ship
+// or the edge of the board, whichever is shorter
+// generate 4 arrays, 1 for each possible direction from hit
+// arrays contain known historical information about squares
+
+// if array contains a miss, only add the adjacent square to the stack
+// if an array contains a hit, make it the most likely direction to follow
+// if adjacent shot is miss, delete array
+//            ?
+//            ?
+//            ?
+//            M
+//            ?
+//  ? ? ? ? ? H ? H ? ? ?
+//            M
+//            ?/
+//            ?/
+//            ?/
+//            ?/
+
+// this will need a more complicated stack structure and planning, but should
+// result in more intelligent targeting
+
+// hit creates this object:
+// {type: submarine, up: [], right: [], down: [], left: []}
+
+export { ComputerLogic };

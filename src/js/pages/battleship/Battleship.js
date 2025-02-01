@@ -209,21 +209,30 @@ class Battleship {
 export { Battleship };
 
 // to do
-// repeat sink class to icon for computer hits ✓
-// add html and logic to reset game after win ✓
-// advanced targeting logic
-// - keep an array of previous shots and their results
-// - before taking a shot, search the array for a hit square
-//   whose ship is not sunk that has an empty square adjacent
-//   target one of these squares
-// wait x seconds before displaying ship icons and battleship
-//   title to ensure font is loaded. Can check with js?
-// keep score for multiple games
-// reveal computer's ships if computer wins ✓
-// move gameover to a separate class and build new game when promise returned
-// from click
+// - repeat sink class to icon for computer hits ✓
+// - add html and logic to reset game after win ✓
+// - advanced targeting logic ✓
+//   - keep an array of previous shots and their results
+//   - before taking a shot, search the array for a hit square
+//     whose ship is not sunk that has an empty square adjacent
+//     target one of these squares
+// - wait x seconds before displaying ship icons and battleship
+//     title to ensure font is loaded. Can check with js?
+// - keep score for multiple games
+// - reveal computer's ships if computer wins ✓ >>bug
+// - move gameover to a separate class and build new game when promise returned
+//     from click
+// - fix bug when displaying the computer's ships at the end of the game
+// - randomise ship placement at start of game
 
 // to commit
+
+// Committed
+// Battleship update
+
+// - merge branch
+// - start planning for more intelligent targeting
+// - remove number of shots tracking from logic - not needed
 
 // Committed
 // Battleship computer logic updates
