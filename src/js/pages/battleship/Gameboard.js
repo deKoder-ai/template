@@ -26,15 +26,23 @@ class Gameboard {
   }
   createBoard = () => {
     const board = [];
-    for (let i = 0; i < this.size; i++) {
-      board[i] = [];
-      for (let j = 0; j < this.size; j++) {
-        board[i][j] = null;
+    for (let x = 0; x < this.size; x++) {
+      // x = columns
+      board[x] = [];
+      for (let y = 0; y < this.size; y++) {
+        // y = rows
+        board[x][y] = null;
       }
     }
     this.board = board;
     return this.board;
   };
+
+  // createBoard = () => {
+  //   const board = Array.from({ length: this.size }, () => Array(this.size).fill(null));
+  //   this.board = board;
+  //   return this.board;
+  // };
   isValidPlacement(ship, x, y, orientation) {
     const { length } = ship;
     for (let i = 0; i < length; i++) {

@@ -51,7 +51,7 @@ class ComputerLogic {
     this.shotHistory[x][y] = { hit: result, target: target };
     // create new prospective targets if hit
     if (result === true) {
-      this.addNewTargets(x, y, target);
+      this.addNewTargets(y, x, target);
     }
   };
   addNewTargets = (x, y, target) => {
@@ -84,6 +84,64 @@ class ComputerLogic {
     }
     this.decideBestTargets(a, b, c, d);
   };
+  // from chat gpt
+  addNewTargetsV1 = (x, y, target) => {
+    let newTargets = [];
+
+    // Check adjacent squares
+    const adjacent = [
+      { x: x + 1, y: y, direction: 'right' },
+      { x: x - 1, y: y, direction: 'left' },
+      { x: x, y: y + 1, direction: 'down' },
+      { x: x, y: y - 1, direction: 'up' },
+    ];
+
+    for (let pos of adjacent) {
+      if (
+        pos.x >= this.min &&
+        pos.x <= this.max &&
+        pos.y >= this.min &&
+        pos.y <= this.max
+      ) {
+        if (this.shotHistory[pos.x][pos.y].hit === null) {
+          newTargets.push({
+            priority: 1,
+            x: pos.x,
+            y: pos.y,
+            direction: pos.direction,
+            target: target,
+          });
+        }
+      }
+    }
+
+    // Check if this hit aligns with a previous hit
+    let alignedTargets = newTargets.filter((t) => {
+      if (t.direction === 'left' || t.direction === 'right') {
+        return (
+          this.shotHistory[t.x][t.y]?.hit === true && this.shotHistory[x][y]?.hit === true
+        );
+      }
+      if (t.direction === 'up' || t.direction === 'down') {
+        return (
+          this.shotHistory[t.x][t.y]?.hit === true && this.shotHistory[x][y]?.hit === true
+        );
+      }
+      return false;
+    });
+
+    if (alignedTargets.length > 0) {
+      // Prioritize extending in the determined direction
+      this.targetStack = this.targetStack.filter((t) => t.target !== target); // Remove previous guesses
+      this.targetStack.push(...alignedTargets.map((t) => ({ ...t, priority: 3 }))); // Higher priority for directional shots
+    } else {
+      // Add all four directions if no alignment is detected
+      this.targetStack.push(...newTargets);
+    }
+
+    this.targetStack = this.arrayObjectSort(this.targetStack, 'priority', true);
+  };
+
   decideBestTargets = (a, b, c, d, x, y) => {
     let line = false;
     // a: x + 1 | b: x - 1 | x: y + 1 | d: y - 1

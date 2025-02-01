@@ -30,8 +30,8 @@ class Battleship {
   }
   buildBoardDisplay = (container, player) => {
     const squares = this.size;
-    for (let x = 0; x < squares; x++) {
-      for (let y = 0; y < squares; y++) {
+    for (let y = 0; y < squares; y++) {
+      for (let x = 0; x < squares; x++) {
         let square;
         if (player === 'human') {
           let id = `hum-${x}-${y}`;
@@ -89,7 +89,6 @@ class Battleship {
     const xy = this.logic.computerShot();
     const x = xy.x;
     const y = xy.y;
-    console.log(this.logic.targetStack);
 
     const targetSquare = document.getElementById(`hum-${x}-${y}`);
     const attack = this.player1.gb.receiveAttack(x, y);
@@ -225,6 +224,9 @@ export { Battleship };
 // - randomise ship placement at start of game
 
 // to commit
+
+// Committed
+// - fix rendering issue where x and y were switched
 
 // Committed
 // Battleship updates
