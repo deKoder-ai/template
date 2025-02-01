@@ -10,26 +10,6 @@ class Player {
     this.max = size - 1;
     this.gb = new Gameboard(this.size);
   }
-  postHitShot = (x, y) => {
-    const xORy = Math.floor(Math.random() * 2);
-    const pORm = Math.floor(Math.random() * 2);
-    let newX, newY;
-    const direction = pORm === 0 ? -1 : 1;
-    if (xORy === 0) {
-      newX = x + 1 * direction;
-      newY = y;
-    } else {
-      pORm === 0 ? -1 : 1;
-      newX = x;
-      newY = y + 1 * pORm;
-    }
-    if (newX > this.max || newY > this.max || newX < 0 || newY < 0) {
-      return this.postHitShot(x, y);
-    } else {
-      console.log('post hit');
-      return { x: newX, y: newY };
-    }
-  };
 }
 
 export { Player };

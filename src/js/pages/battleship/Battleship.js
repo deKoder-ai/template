@@ -80,8 +80,8 @@ class Battleship {
   };
   pauseBeforeShot = async () => {
     // simulated thinking time
-    // const ms = Math.floor(Math.random() * (1500 - 500 + 1)) + 500;
-    const ms = 0;
+    const ms = Math.floor(Math.random() * (1500 - 500 + 1)) + 500;
+    // const ms = 0;
     await new Promise((resolve) => setTimeout(resolve, ms));
     this.computerShotEvent();
   };
@@ -154,7 +154,11 @@ class Battleship {
   gameOver = async () => {
     const winner = this.currentPlayer.toUpperCase();
     const winContainer = document.querySelector('.win-container');
-    winContainer.classList.add('flex');
+    const pauseBeforeWinMessage = async () => {
+      await new Promise((resolve) => setTimeout(resolve, 2000));
+      winContainer.classList.add('flex');
+    };
+    pauseBeforeWinMessage();
     const message = document.getElementById('win-message');
     message.innerText = `${winner} WINS!!!`;
     const button = document.getElementById('new-game-btn');

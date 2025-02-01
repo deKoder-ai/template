@@ -13,20 +13,17 @@ class Gameboard {
     this.cruiser = new Ship('cruiser', 3);
     this.submarine = new Ship('submarine', 3);
     this.destroyer = new Ship('destroyer', 2);
+    this.ships = [
+      this.carrier,
+      this.battleship,
+      this.cruiser,
+      this.submarine,
+      this.destroyer,
+    ];
     // build game board
     this.createBoard();
-    this.positionShip(this.carrier, 9, 0, 0);
-    this.positionShip(this.battleship, 0, 5, 1);
-    this.positionShip(this.cruiser, 3, 3, 1);
-    this.positionShip(this.submarine, 1, 1, 0);
-    this.positionShip(this.destroyer, 4, 9, 1);
+    this.placeShips();
   }
-  setSize = (size) => {
-    if (size !== this.size) {
-      this.size = size;
-      this.createBoard(this.size);
-    }
-  };
   createBoard = () => {
     const board = [];
     for (let i = 0; i < this.size; i++) {
@@ -38,18 +35,67 @@ class Gameboard {
     this.board = board;
     return this.board;
   };
-  positionShip = (ship, x, y, orientation) => {
-    // orientation: 0 = vertical | 1 = horizontal
-    if (orientation === 0) {
-      for (let i = 0; i < ship.length; i++) {
-        this.board[x][y + i] = ship;
+  isValidPlacement(ship, x, y, orientation) {
+    const { length } = ship;
+    for (let i = 0; i < length; i++) {
+      let newX = orientation === 1 ? x + i : x;
+      let newY = orientation === 0 ? y + i : y;
+      if (newX >= this.size || newY >= this.size || this.board[newX][newY] !== null) {
+        return false; // Out of bounds or overlapping
       }
-    } else {
-      for (let i = 0; i < ship.length; i++) {
-        this.board[x + i][y] = ship;
+      // Check adjacent squares, excluding out-of-bounds checks
+      for (let dx = -1; dx <= 1; dx++) {
+        for (let dy = -1; dy <= 1; dy++) {
+          let checkX = newX + dx;
+          let checkY = newY + dy;
+          // Ensure we only check in-bounds neighbors
+          if (
+            checkX >= 0 &&
+            checkX < this.size &&
+            checkY >= 0 &&
+            checkY < this.size &&
+            this.board[checkX][checkY] !== null
+          ) {
+            return false;
+          }
+        }
       }
     }
-  };
+    return true;
+  }
+  placeShips() {
+    for (const ship of this.ships) {
+      let placed = false;
+      while (!placed) {
+        const x = Math.floor(Math.random() * this.size);
+        const y = Math.floor(Math.random() * this.size);
+        const orientation = Math.random() < 0.5 ? 0 : 1; // 50% chance of horizontal or vertical
+        if (this.isValidPlacement(ship, x, y, orientation)) {
+          this.positionShip(ship, x, y, orientation);
+          placed = true;
+        }
+      }
+    }
+  }
+  positionShip(ship, x, y, orientation) {
+    for (let i = 0; i < ship.length; i++) {
+      let newX = orientation === 1 ? x + i : x;
+      let newY = orientation === 0 ? y + i : y;
+      this.board[newX][newY] = ship;
+    }
+  }
+  // positionShip = (ship, x, y, orientation) => {
+  //   // orientation: 0 = vertical | 1 = horizontal
+  //   if (orientation === 0) {
+  //     for (let i = 0; i < ship.length; i++) {
+  //       this.board[x][y + i] = ship;
+  //     }
+  //   } else {
+  //     for (let i = 0; i < ship.length; i++) {
+  //       this.board[x + i][y] = ship;
+  //     }
+  //   }
+  // };
   receiveAttack = (x, y) => {
     const target = this.board[x][y];
     if (!target) {
@@ -73,3 +119,66 @@ class Gameboard {
 }
 
 export { Gameboard };
+
+// class BattleshipGame {
+//   constructor(size = 10) {
+//     this.size = size;
+//     this.board = Array.from({ length: size }, () => Array(size).fill(null));
+//     this.ships = [{ length: 5 }, { length: 4 }, { length: 3 }, { length: 3 }, { length: 2 }];
+//   }
+
+//   isValidPlacement(ship, x, y, orientation) {
+//     const { length } = ship;
+//     for (let i = 0; i < length; i++) {
+//       let newX = orientation === 1 ? x + i : x;
+//       let newY = orientation === 0 ? y + i : y;
+//       if (newX >= this.size || newY >= this.size || this.board[newX][newY] !== null) {
+//         return false; // Out of bounds or overlapping
+//       }
+//       // Check adjacent squares, excluding out-of-bounds checks
+//       for (let dx = -1; dx <= 1; dx++) {
+//         for (let dy = -1; dy <= 1; dy++) {
+//           let checkX = newX + dx;
+//           let checkY = newY + dy;
+//           // Ensure we only check in-bounds neighbors
+//           if (
+//             checkX >= 0 && checkX < this.size &&
+//             checkY >= 0 && checkY < this.size &&
+//             this.board[checkX][checkY] !== null
+//           ) {
+//             return false;
+//           }
+//         }
+//       }
+//     }
+//     return true;
+//   }
+
+//   placeShips() {
+//     for (const ship of this.ships) {
+//       let placed = false;
+//       while (!placed) {
+//         const x = Math.floor(Math.random() * this.size);
+//         const y = Math.floor(Math.random() * this.size);
+//         const orientation = Math.random() < 0.5 ? 0 : 1; // 50% chance of horizontal or vertical
+
+//         if (this.isValidPlacement(ship, x, y, orientation)) {
+//           this.positionShip(ship, x, y, orientation);
+//           placed = true;
+//         }
+//       }
+//     }
+//   }
+
+//   positionShip(ship, x, y, orientation) {
+//     for (let i = 0; i < ship.length; i++) {
+//       let newX = orientation === 1 ? x + i : x;
+//       let newY = orientation === 0 ? y + i : y;
+//       this.board[newX][newY] = ship;
+//     }
+//   }
+// }
+
+// const game = new BattleshipGame();
+// game.placeShips();
+// console.log(game.board);
