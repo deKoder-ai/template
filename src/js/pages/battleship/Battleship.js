@@ -80,22 +80,23 @@ class Battleship {
   };
   pauseBeforeShot = async (x, y, repeat) => {
     // simulated thinking time
-    const ms = Math.floor(Math.random() * (1500 - 500 + 1)) + 500;
+    // const ms = Math.floor(Math.random() * (1500 - 500 + 1)) + 500;
+    const ms = 0;
     await new Promise((resolve) => setTimeout(resolve, ms));
     this.computerShotEvent(x, y, repeat);
   };
   computerShotEvent = async (x, y, repeat) => {
     // if fresh shot, get random coordinates
-    if (!repeat) {
-      const xy = this.logic.randomCoordinates();
-      x = xy.x;
-      y = xy.y;
-    } else {
-      // if shot follows hit, use secondary strike logic
-      const xy = this.player2.postHitShot(x, y);
-      x = xy.x;
-      y = xy.y;
-    }
+    // if (!repeat) {
+    const xy = this.logic.computerShot();
+    x = xy.x;
+    y = xy.y;
+    // } else {
+    // if shot follows hit, use secondary strike logic
+    // const xy = this.player2.postHitShot(x, y);
+    // x = xy.x;
+    // y = xy.y;
+    // }
     const targetSquare = document.getElementById(`hum-${x}-${y}`);
     const attack = this.player1.gb.receiveAttack(x, y);
     const attackResult = attack.result;
@@ -126,33 +127,46 @@ class Battleship {
     }
   };
   hit = (x, y, targetSquare, attack) => {
-    console.log(this.currentPlayer);
     if (this.currentPlayer === 'human') targetSquare.classList.add('ship');
     targetSquare.classList.add('hit');
     if (attack.ship.checkSunk()) {
       const ship = document.getElementById(`${attack.ship.type}-${this.currentPlayer}`);
       ship.classList.add('sunk');
+      if (this.currentPlayer === 'computer') this.logic.sunkEvent(attack.ship.type);
     }
     if (this.currentPlayer === 'human') {
       if (this.player2.gb.checkWin()) {
-        this.gameOver('HUMAN');
+        this.gameOver();
       }
     } else {
       if (this.player1.gb.checkWin()) {
-        this.gameOver('COMPUTER');
+        this.gameOver();
       } else {
         this.pauseBeforeShot(x, y, true);
       }
       // check the need for x & y here
     }
   };
-  gameOver = async (winner) => {
+  revealComputerShips = () => {
+    const squares = this.size;
+    for (let x = 0; x < squares; x++) {
+      for (let y = 0; y < squares; y++) {
+        const square = document.getElementById(`comp-${x}-${y}`);
+        square.classList.add('ship');
+      }
+    }
+  };
+  gameOver = async () => {
+    const winner = this.currentPlayer.toUpperCase();
     const winContainer = document.querySelector('.win-container');
     winContainer.classList.add('flex');
     const message = document.getElementById('win-message');
     message.innerText = `${winner} WINS!!!`;
     const button = document.getElementById('new-game-btn');
     const countdown = document.getElementById('countdown');
+    if (winner === 'COMPUTER') {
+      this.revealComputerShips();
+    }
     const newGame = async () => {
       winContainer.classList.remove('flex');
       countdown.style.display = 'block';
@@ -205,11 +219,25 @@ export { Battleship };
 // wait x seconds before displaying ship icons and battleship
 //   title to ensure font is loaded. Can check with js?
 // keep score for multiple games
-// reveal computer's ships if computer wins
+// reveal computer's ships if computer wins ✓
 // move gameover to a separate class and build new game when promise returned
 // from click
 
 // to commit
+
+// Committed
+// Battleship computer logic updates
+
+// - add method to reveal computer's ships if computer wins
+// - if computer sinks boat, update all historical hits of that ship type to sunk
+// - update squares adjacent to sunk boat to false so they are not targeted as we
+//   know there cannot be a ship there
+// - add Logic.shot to track whether it is the first shot of the round or a repeat
+// - begin building logic to determine likely future hits and storing them in a stack
+// - remove potential targets from stack if related boat is sunk
+// - add logic to choose random shot or targeted from stack
+
+// Committed
 // Battleship updates
 
 //  - create ComputerLogic class
