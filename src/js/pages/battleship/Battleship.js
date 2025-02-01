@@ -229,6 +229,7 @@ export { Battleship };
 // Committed
 // Battleship updates
 
+// - randomly place ships before each game
 // - update computer strategy algorithm
 // - fix bug when displaying the computer's ships at gameover
 // - create asyncPause and arrayObjectSort scripts
