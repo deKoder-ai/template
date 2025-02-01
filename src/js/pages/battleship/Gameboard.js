@@ -56,7 +56,6 @@ class Gameboard {
     //   return { result: null, ship: null };
     // }
     //
-    // console.log(x, y);
     const target = this.board[x][y];
     if (!target) {
       // miss
