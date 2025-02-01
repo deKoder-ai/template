@@ -2,7 +2,7 @@
 import { F } from './Functions';
 
 /**
- * Applies a mask to the page.
+ * Applies a mask to the page with a z-index of 500000.
  * @param {string} color - A hex color value
  * @param {number} opacity - Opacity value between 0 & 1
  * @param {boolean} click - Add an event listener to close the mask when it is clicked
@@ -49,7 +49,7 @@ class Mask {
           this.remove();
         }
       });
-  }
+    }
   }
   remove() {
     const mask = document.getElementById('mask');

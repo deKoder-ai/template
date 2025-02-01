@@ -1,12 +1,12 @@
 'use strict';
 
-import { F } from '../../classes/Functions';
 import html from './battleship.html';
 import './battleship.css';
 import { Player } from './Player.js';
 import { Ship } from './Ship.js';
 import { GameOver } from './GameOver.js';
 import { ComputerLogic } from './ComputerLogic.js';
+import { Mask } from '../../classes/Mask.js';
 
 class Battleship {
   constructor() {
@@ -22,6 +22,7 @@ class Battleship {
       this.buildBoardDisplay(this.board1, 'human');
       this.buildBoardDisplay(this.board2, 'computer');
       this.currentPlayer = this.initFirstPlayer();
+      this.showShipIcons();
       if (this.currentPlayer === 'computer') {
         this.pauseBeforeShot();
       }
@@ -35,10 +36,14 @@ class Battleship {
         let square;
         if (player === 'human') {
           let id = `hum-${x}-${y}`;
-          square = F.htmlElement('div', '', 'gb-square', id);
+          square = document.createElement('div');
+          square.classList.add('gb-square');
+          square.id = id;
         } else {
           let id = `comp-${x}-${y}`;
-          square = F.htmlElement('div', '', 'gb-square', id);
+          square = document.createElement('div');
+          square.classList.add('gb-square');
+          square.id = id;
         }
         container.appendChild(square);
         // if square is ship and player is human
@@ -48,6 +53,19 @@ class Battleship {
         }
       }
     }
+  };
+  showShipIcons = () => {
+    const icons = document.querySelectorAll('.ship-icon');
+    const displayIcons = () => {
+      icons.forEach((node) => {
+        node.classList.add('init-display');
+      });
+    };
+    const asyncPause = async (ms, callback, ...args) => {
+      await new Promise((resolve) => setTimeout(resolve, ms));
+      return callback(...args);
+    };
+    asyncPause(100, displayIcons);
   };
   initFirstPlayer = () => {
     const firstPlayer = Math.floor(Math.random() * 2) + 1;
@@ -151,11 +169,13 @@ class Battleship {
     }
   };
   gameOver = async () => {
+    const mask = new Mask('#000000', 0.7, false, false);
     const winner = this.currentPlayer.toUpperCase();
     const winContainer = document.querySelector('.win-container');
     const pauseBeforeWinMessage = async () => {
       await new Promise((resolve) => setTimeout(resolve, 2000));
       winContainer.classList.add('flex');
+      mask.create();
     };
     pauseBeforeWinMessage();
     const message = document.getElementById('win-message');
@@ -199,6 +219,7 @@ class Battleship {
       }
       this.build();
       button.removeEventListener('click', newGame);
+      mask.remove();
     };
     button.addEventListener('click', newGame);
   };
@@ -214,14 +235,14 @@ export { Battleship };
 //   - before taking a shot, search the array for a hit square
 //     whose ship is not sunk that has an empty square adjacent
 //     target one of these squares
-// - wait x seconds before displaying ship icons and battleship
+// - wait x seconds before displaying ship icons and battleship ✓
 //     title to ensure font is loaded. Can check with js?
 // - keep score for multiple games
-// - reveal computer's ships if computer wins ✓ >>bug
+// - reveal computer's ships if computer wins ✓
 // - move gameover to a separate class and build new game when promise returned
 //     from click
 // - fix bug when displaying the computer's ships at the end of the game ✓
-// - randomise ship placement at start of game
+// - randomise ship placement at start of game ✓
 
 // to commit
 

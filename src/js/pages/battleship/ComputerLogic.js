@@ -10,10 +10,10 @@ class ComputerLogic {
   }
   createShotHistoryGraph = () => {
     const shotHistory = [];
-    for (let i = 0; i < this.size; i++) {
-      shotHistory[i] = [];
-      for (let j = 0; j < this.size; j++) {
-        shotHistory[i][j] = { hit: null, target: null };
+    for (let x = 0; x < this.size; x++) {
+      shotHistory[x] = [];
+      for (let y = 0; y < this.size; y++) {
+        shotHistory[x][y] = { hit: null, target: null };
       }
     }
     return shotHistory;
@@ -29,6 +29,8 @@ class ComputerLogic {
       xy = { x: nextTarget.x, y: nextTarget.y };
       // console.log('targeted');
     }
+    console.log(this.targetStack);
+    console.log(this.shotHistory);
     return xy;
   };
   randomCoordinates = () => {
@@ -51,7 +53,7 @@ class ComputerLogic {
     this.shotHistory[x][y] = { hit: result, target: target };
     // create new prospective targets if hit
     if (result === true) {
-      this.addNewTargets(y, x, target);
+      this.addNewTargets(x, y, target);
     }
   };
   addNewTargets = (x, y, target) => {
@@ -85,7 +87,7 @@ class ComputerLogic {
     this.decideBestTargets(a, b, c, d);
   };
   // from chat gpt
-  addNewTargetsV1 = (x, y, target) => {
+  addNewTargetsX = (x, y, target) => {
     let newTargets = [];
 
     // Check adjacent squares
@@ -183,11 +185,11 @@ class ComputerLogic {
   };
   sunkEvent = (type) => {
     const sunkArray = [];
-    for (let i = 0; i < this.size; i++) {
-      for (let j = 0; j < this.size; j++) {
-        if (this.shotHistory[i][j].target === type) {
-          this.shotHistory[i][j].hit = 'sunk';
-          sunkArray.push({ x: i, y: j });
+    for (let x = 0; x < this.size; x++) {
+      for (let y = 0; y < this.size; y++) {
+        if (this.shotHistory[x][y].target === type) {
+          this.shotHistory[x][y].hit = 'sunk';
+          sunkArray.push({ x: x, y: y });
         }
       }
     }
@@ -195,6 +197,7 @@ class ComputerLogic {
     this.removeSunkFromTargetStack(type);
   };
   updateSunkAdjacentToFalse = (array) => {
+    const sunkArray = array;
     while (array.length) {
       let square;
       const xy = array.pop();
@@ -202,19 +205,36 @@ class ComputerLogic {
       const y = xy.y;
       if (x + 1 < this.max) {
         square = this.shotHistory[x + 1][y];
-        if (square.hit === null) square.hit = false;
+        if (square.hit === null) this.shotHistory[x + 1][y].hit = false;
       }
       if (x - 1 >= this.min) {
         square = this.shotHistory[x - 1][y];
-        if (square.hit === null) square.hit = false;
+        if (square.hit === null) this.shotHistory[x - 1][y].hit = false;
       }
       if (y + 1 < this.max) {
         square = this.shotHistory[x][y + 1];
-        if (square.hit === null) square.hit = false;
+        if (square.hit === null) this.shotHistory[x][y + 1].hit = false;
       }
       if (y - 1 >= this.min) {
         square = this.shotHistory[x][y - 1];
-        if (square.hit === null) square.hit = false;
+        if (square.hit === null) this.shotHistory[x][y - 1].hit = false;
+      }
+      // diagonally adjacent
+      if (x + 1 < this.max && y + 1 < this.max) {
+        square = this.shotHistory[x + 1][y + 1];
+        if (square.hit === null) this.shotHistory[x + 1][y + 1].hit = false;
+      }
+      if (x - 1 >= this.min && y - 1 >= this.min) {
+        square = this.shotHistory[x - 1][y - 1];
+        if (square.hit === null) this.shotHistory[x - 1][y - 1].hit = false;
+      }
+      if (x - 1 >= this.min && y + 1 < this.max) {
+        square = this.shotHistory[x - 1][y + 1];
+        if (square.hit === null) this.shotHistory[x - 1][y + 1].hit = false;
+      }
+      if (x + 1 < this.max && y - 1 >= this.min) {
+        square = this.shotHistory[x + 1][y - 1];
+        if (square.hit === null) this.shotHistory[x + 1][y - 1].hit = false;
       }
     }
   };

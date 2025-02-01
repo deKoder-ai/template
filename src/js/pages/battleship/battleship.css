@@ -85,7 +85,11 @@
 }
 .ship-icon {
   color: var(--ship);
-  /* opacity: 0.9; */
+  opacity: 0;
+  transition: opacity 0.4s ease-out 0.5s;
+}
+.init-display {
+  opacity: 1;
 }
 .carrier-icon {
   transform: translate(2.7rem, -1rem) scale(120%, 150%);
@@ -145,7 +149,7 @@
   top: 14rem;
   left: 50%;
   transform: translateX(-50%);
-  z-index: 100;
+  z-index: 500001;
   background-color: var(--game-info);
   padding: 3rem 9rem;
   border: 5px solid var(--bcg-blue);
@@ -198,6 +202,7 @@
   text-shadow: 2px 2px 1px black, 
     -2px -2px 1px black,
     5px 5px 7px black;
+  z-index: 500001;
 }
 #battleship .red {
   color: var(--hit);
