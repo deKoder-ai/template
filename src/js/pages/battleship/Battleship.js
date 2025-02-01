@@ -78,25 +78,19 @@ class Battleship {
       }
     }
   };
-  pauseBeforeShot = async (x, y, repeat) => {
+  pauseBeforeShot = async () => {
     // simulated thinking time
     // const ms = Math.floor(Math.random() * (1500 - 500 + 1)) + 500;
     const ms = 0;
     await new Promise((resolve) => setTimeout(resolve, ms));
-    this.computerShotEvent(x, y, repeat);
+    this.computerShotEvent();
   };
-  computerShotEvent = async (x, y, repeat) => {
-    // if fresh shot, get random coordinates
-    // if (!repeat) {
+  computerShotEvent = async () => {
     const xy = this.logic.computerShot();
-    x = xy.x;
-    y = xy.y;
-    // } else {
-    // if shot follows hit, use secondary strike logic
-    // const xy = this.player2.postHitShot(x, y);
-    // x = xy.x;
-    // y = xy.y;
-    // }
+    const x = xy.x;
+    const y = xy.y;
+    console.log(this.logic.targetStack);
+
     const targetSquare = document.getElementById(`hum-${x}-${y}`);
     const attack = this.player1.gb.receiveAttack(x, y);
     const attackResult = attack.result;
@@ -142,9 +136,8 @@ class Battleship {
       if (this.player1.gb.checkWin()) {
         this.gameOver();
       } else {
-        this.pauseBeforeShot(x, y, true);
+        this.pauseBeforeShot();
       }
-      // check the need for x & y here
     }
   };
   revealComputerShips = () => {
@@ -152,7 +145,9 @@ class Battleship {
     for (let x = 0; x < squares; x++) {
       for (let y = 0; y < squares; y++) {
         const square = document.getElementById(`comp-${x}-${y}`);
-        square.classList.add('ship');
+        if (this.player2.gb.board[x][y] instanceof Ship) {
+          square.classList.add('ship');
+        }
       }
     }
   };
@@ -222,10 +217,17 @@ export { Battleship };
 // - reveal computer's ships if computer wins ✓ >>bug
 // - move gameover to a separate class and build new game when promise returned
 //     from click
-// - fix bug when displaying the computer's ships at the end of the game
+// - fix bug when displaying the computer's ships at the end of the game ✓
 // - randomise ship placement at start of game
 
 // to commit
+
+// Committed
+// Battleship updates
+
+// - update computer strategy algorithm
+// - fix bug when displaying the computer's ships at gameover
+// - create asyncPause and arrayObjectSort scripts
 
 // Committed
 // Battleship update

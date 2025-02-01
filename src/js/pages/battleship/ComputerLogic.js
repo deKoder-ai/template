@@ -19,6 +19,7 @@ class ComputerLogic {
     return shotHistory;
   };
   computerShot = () => {
+    this.targetStack = this.arrayObjectSort(this.targetStack, 'priority', true);
     let xy;
     if (!this.targetStack.length) {
       xy = this.randomCoordinates();
@@ -60,75 +61,67 @@ class ComputerLogic {
     if (x + 1 < this.max) {
       square = this.shotHistory[x + 1][y];
       if (square.hit === null) {
-        a = { x: x + 1, y: y, target: target };
+        a = { priority: 1, type: 'a', x: x + 1, y: y, target: target };
       }
     }
     if (x - 1 >= this.min) {
       square = this.shotHistory[x - 1][y];
       if (square.hit === null) {
-        b = { x: x - 1, y: y, target: target };
+        b = { priority: 1, type: 'b', x: x - 1, y: y, target: target };
       }
     }
     if (y + 1 < this.max) {
       square = this.shotHistory[x][y + 1];
       if (square.hit === null) {
-        c = { x: x, y: y + 1, target: target };
+        c = { priority: 1, type: 'c', x: x, y: y + 1, target: target };
       }
     }
     if (y - 1 >= this.min) {
       square = this.shotHistory[x][y - 1];
       if (square.hit === null) {
-        d = { x: x, y: y - 1, target: target };
+        d = { priority: 1, type: 'd', x: x, y: y - 1, target: target };
       }
     }
     this.decideBestTargets(a, b, c, d);
   };
   decideBestTargets = (a, b, c, d, x, y) => {
     let line = false;
-    // potential for using something like a binary search tree here
-    // add nodes up to depth 5 (length) of carrier) in the four directions
-    // these nodes contain the known information about squares
-    // if a branch has a hit, may be more likely to contain others
-    // if carrier sunk, delete all nodes at depth 5, etc
-    // check for lines
-    if (a && b && this.shotHistory[b.x][b.y].hit === true) {
-      this.targetStack.push(a);
-      line = true;
-    } else if (a && x + 2 < this.max && this.shotHistory[x + 2][y].hit === true) {
-      this.targetStack.push(a);
-      line = true;
+    // a: x + 1 | b: x - 1 | x: y + 1 | d: y - 1
+    if (a && a.x - 2 >= this.min && this.shotHistory[a.x - 2][a.y].hit === true) {
+      console.log('aaaa');
+      a.priority += 2;
+      if (b) b.priority += 1;
+    } else if (b && b.x + 2 < this.max && this.shotHistory[b.x + 2][b.y].hit === true) {
+      console.log('bbbb');
+      b.priority += 2;
+      if (a) a.priority += 1;
+    } else if (c && c.y - 2 >= this.min && this.shotHistory[c.x][c.y - 2].hit === true) {
+      console.log('cccc');
+      c.priority += 2;
+      if (d) d.priority += 1;
+    } else if (d && d.y + 2 < this.max && this.shotHistory[d.x][d.y + 2].hit === true) {
+      console.log('dddd');
+      d.priority += 2;
+      if (c) c.priority += 1;
     }
-    if (a && b && this.shotHistory[a.x][a.y].hit === true) {
-      this.targetStack.push(b);
-      line = true;
-    } else if (b && x - 2 >= this.min && this.shotHistory[x - 2][y].hit === true) {
-      this.targetStack.push(b);
-      line = true;
-    }
-    if (c && d && this.shotHistory[d.x][d.y].hit === true) {
-      this.targetStack.push(c);
-      line = true;
-    } else if (c && y + 2 < this.max && this.shotHistory[x][y + 2].hit === true) {
-      this.targetStack.push(c);
-      line = true;
-    }
-    if (c && d && this.shotHistory[c.x][c.y].hit === true) {
-      this.targetStack.push(d);
-      line = true;
-    } else if (d && y - 2 >= this.min && this.shotHistory[x][y - 2].hit === true) {
-      this.targetStack.push(d);
-      line = true;
-    }
-    // if no lines, add all valid possible targets to the stack
-    //line logic not working!>?!?!?!?!?
-    if (!line) {
-      if (a) this.targetStack.push(a);
-      if (b) this.targetStack.push(b);
-      if (c) this.targetStack.push(c);
-      if (d) this.targetStack.push(d);
-    }
-    // console.log(line);
+    // if a hit but next a is out of range, find old b in stack and raise priority
+    // if last hit = a and no new a, find old b and raise priority
+
+    if (a) this.targetStack.push(a);
+    if (b) this.targetStack.push(b);
+    if (c) this.targetStack.push(c);
+    if (d) this.targetStack.push(d);
+
+    this.targetStack = this.arrayObjectSort(this.targetStack, 'priority', true);
     console.log(this.targetStack);
+  };
+  arrayObjectSort = (array, key, order) => {
+    if (order) {
+      array.sort((a, b) => a[key] - b[key]);
+    } else {
+      array.sort((a, b) => b[key] - a[key]);
+    }
+    return array;
   };
   sunkEvent = (type) => {
     const sunkArray = [];
@@ -177,7 +170,6 @@ class ComputerLogic {
     this.targetStack = newStack;
   };
 }
-// { hit: null, target: null }
 
 // if boat is sunk:
 // - update all hits of that type to sunk ✓
@@ -220,5 +212,26 @@ class ComputerLogic {
 
 // hit creates this object:
 // {type: submarine, up: [], right: [], down: [], left: []}
+
+// sort array by object key
+// const arr = [
+//   { id: 1, name: "John", age: 41 },
+//   { id: 2, name: "Zack", age: 35 },
+//   { id: 3, name: "Peter", age: 47 }
+// ];
+
+// arr.sort((a, b) => a.age - b.age);
+
+// sort in descending order to allow for pop of higher priority
+// arr.sort((a, b) => b.age - a.age);
+
+// const arrayObjectSort = (array, key, order) => {
+//   key = key;
+//   if (order) {
+//     array.sort((a, b) => a.key - b.key);
+//   } else {
+//     array.sort((a, b) => b.key - a.key);
+//   }
+// }
 
 export { ComputerLogic };
