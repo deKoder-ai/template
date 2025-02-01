@@ -6,6 +6,7 @@ import './battleship.css';
 import { Player } from './Player.js';
 import { Ship } from './Ship.js';
 import { GameOver } from './GameOver.js';
+import { ComputerLogic } from './ComputerLogic.js';
 
 class Battleship {
   constructor() {
@@ -15,6 +16,7 @@ class Battleship {
     this.build = () => {
       this.player1 = new Player('human', this.size);
       this.player2 = new Player('computer', this.size);
+      this.logic = new ComputerLogic(this.size);
       this.board1 = document.getElementById('board-1');
       this.board2 = document.getElementById('board-2');
       this.buildBoardDisplay(this.board1, 'human');
@@ -26,8 +28,6 @@ class Battleship {
       document.addEventListener('click', this.playerShotEvent);
     };
   }
-  // this needs two methods, one for the computer, one for human
-  // or run twice with a parameter set between human and computer
   buildBoardDisplay = (container, player) => {
     const squares = this.size;
     for (let x = 0; x < squares; x++) {
@@ -73,7 +73,7 @@ class Battleship {
         if (attackResult === false) {
           this.miss(targetSquare);
         } else if (attackResult === true) {
-          this.hit(targetSquare, attack);
+          this.hit(x, y, targetSquare, attack);
         }
       }
     }
@@ -87,7 +87,7 @@ class Battleship {
   computerShotEvent = async (x, y, repeat) => {
     // if fresh shot, get random coordinates
     if (!repeat) {
-      const xy = this.player2.computerShot();
+      const xy = this.logic.randomCoordinates();
       x = xy.x;
       y = xy.y;
     } else {
@@ -100,11 +100,14 @@ class Battleship {
     const attack = this.player1.gb.receiveAttack(x, y);
     const attackResult = attack.result;
     if (attackResult === false) {
+      this.logic.updateHistory(x, y, false, null);
       this.miss(targetSquare);
     } else if (attackResult === true) {
-      this.computerHit(targetSquare, attack, x, y);
+      this.logic.updateHistory(x, y, true, attack.ship.type);
+      this.hit(x, y, targetSquare, attack);
     } else {
       // square already targeted, try again
+      // can probably remove this after new logic completed
       this.computerShotEvent();
     }
   };
@@ -122,31 +125,25 @@ class Battleship {
       this.pauseBeforeShot();
     }
   };
-  hit = (targetSquare, attack) => {
-    targetSquare.classList.add('ship');
-    targetSquare.classList.add('hit');
-    console.log(attack.ship.type);
-    if (attack.ship.checkSunk()) {
-      const ship = document.getElementById(`${attack.ship.type}-computer`);
-      ship.classList.add('sunk');
-    }
-    if (this.player2.gb.checkWin()) {
-      this.gameOver('HUMAN');
-      // alert(`You Wins!`);
-    }
-  };
-  computerHit = (targetSquare, attack, x, y) => {
-    targetSquare.classList.add('ship');
+  hit = (x, y, targetSquare, attack) => {
+    console.log(this.currentPlayer);
+    if (this.currentPlayer === 'human') targetSquare.classList.add('ship');
     targetSquare.classList.add('hit');
     if (attack.ship.checkSunk()) {
-      const ship = document.getElementById(`${attack.ship.type}-human`);
+      const ship = document.getElementById(`${attack.ship.type}-${this.currentPlayer}`);
       ship.classList.add('sunk');
     }
-    if (this.player1.gb.checkWin()) {
-      this.gameOver('COMPUTER');
-      // alert(`Computer Wins!`);
+    if (this.currentPlayer === 'human') {
+      if (this.player2.gb.checkWin()) {
+        this.gameOver('HUMAN');
+      }
     } else {
-      this.pauseBeforeShot(x, y, true);
+      if (this.player1.gb.checkWin()) {
+        this.gameOver('COMPUTER');
+      } else {
+        this.pauseBeforeShot(x, y, true);
+      }
+      // check the need for x & y here
     }
   };
   gameOver = async (winner) => {
@@ -211,3 +208,13 @@ export { Battleship };
 // reveal computer's ships if computer wins
 // move gameover to a separate class and build new game when promise returned
 // from click
+
+// to commit
+// Battleship updates
+
+//  - create ComputerLogic class
+//  - logic - create random coordinates method
+//  - logic - build shot history graph
+//  - update shot history object with result of attack for miss
+//  - refactor Battleship to merge hit & computerHit methods to avoid repetition
+//  - update shot history object for hit { hit: true, target: (ship type)}

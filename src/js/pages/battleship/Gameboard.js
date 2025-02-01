@@ -51,11 +51,6 @@ class Gameboard {
     }
   };
   receiveAttack = (x, y) => {
-    // temp bug fix???
-    // if (x === undefined || y === undefined) {
-    //   return { result: null, ship: null };
-    // }
-    //
     const target = this.board[x][y];
     if (!target) {
       // miss

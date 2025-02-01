@@ -9,22 +9,7 @@ class Player {
     this.min = 0;
     this.max = size - 1;
     this.gb = new Gameboard(this.size);
-    this.shotHistory = this.createShotHistoryArray();
   }
-  computerShot = (x, y, repeat) => {
-    // random square if shot does not follow a hit
-    if (!repeat) {
-      x = Math.floor(Math.random() * (this.max - this.min + 1)) + this.min;
-      y = Math.floor(Math.random() * (this.max - this.min + 1)) + this.min;
-    } else {
-      // if follows a hit, use secondary strike logic
-      const xy = this.postHitShot(x, y);
-      x = xy.x;
-      y = xy.y;
-    }
-    const shot = { x: x, y: y };
-    return shot;
-  };
   postHitShot = (x, y) => {
     const xORy = Math.floor(Math.random() * 2);
     const pORm = Math.floor(Math.random() * 2);
@@ -44,16 +29,6 @@ class Player {
       console.log('post hit');
       return { x: newX, y: newY };
     }
-  };
-  createShotHistoryArray = () => {
-    const shotHistory = [];
-    for (let i = 0; i < this.size; i++) {
-      shotHistory[i] = [];
-      for (let j = 0; j < this.size; j++) {
-        shotHistory[i][j] = null;
-      }
-    }
-    return shotHistory;
   };
 }
 

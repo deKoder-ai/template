@@ -1,0 +1,189 @@
+05/12/24
+  - Installed Ubuntu, discord, git and setup dev environment
+
+06/12/24
+  - Completed HTML sections on lists, links & images
+  - Worked on improving Git commit messages
+  - Added code spell checker extension to VSCode
+  - HTML Foundations section complete
+  - Completed the Recipes Project
+  - Completed CSS Foundation exercises
+  - Used CSS to style Recipes Project
+
+07/12/24
+  - TOP - CSS Foundations - The Box Model
+  - TOP - JavaScript Basics - Variables and Operators
+  - TOP - JavaScript Basics - Data Types and Conditionals
+  - TOP - Project 002 - Rock, Paper, Scissors
+  - Backed up bookmarks and TOP to git
+
+08/12/24
+  - TOP - JavaScript Basics - JavaScript Developer Tools
+  - Continued work on function testers
+  - TOP - JavaScript Basics - Function Basics
+  - TOP - JavaScript Basics - Installing Node.js
+  - TOP - JavaScript Basics - Problem Solving
+  - TOP - JavaScript Basics - Understanding Errors
+  - TOP - CSS Foundations - Block and Inline
+  - TOP - Flexbox - Introduction to Flexbox
+  - Backed up bookmarks and TOP to git
+
+09/12/24
+  - TOP - Flexbox - Growing and Shrinking
+  - TOP - Flexbox - Axes
+  - TOP - Flexbox - Alignment
+  - TOP - Flexbox - Project: Landing Page
+  - Backed up bookmarks and TOP to git
+
+12/12/24
+  - TOP - JavaScript Basics - Arrays and Loops
+  - Backed up bookmarks and TOP to git
+
+13/12/24
+  - TOP - JavaScript Basics - DOM Manipulation & Events
+  - TOP - JavaScript Basics - Revisiting Rock Paper Scissors
+  - TOP - JavaScript Basics - Project - Etch-a-Sketch
+  - Backed up bookmarks and TOP to git
+
+14/12/24
+  - TOP - JavaScript Basics - Started Object Basics
+  - TOP - JavaScript Basics - Started Calculator Project
+
+15/12/24
+  - TOP - JavaScript Basics - Continued Calculator Project
+
+16/12/24
+  - TOP - Intermediate HTML Concepts - Introduction
+  - TOP - Intermediate HTML Concepts - Emmet
+  - TOP - Intermediate HTML Concepts - SVG
+
+17/12/24
+  - TOP - Intermediate HTML Concepts - Tables
+  - TOP - Intermediate CSS Concepts - Default Styles
+  - TOP - Intermediate CSS Concepts - CSS Units
+  - TOP - Intermediate CSS Concepts - More Text Styles
+  - TOP - Intermediate CSS Concepts - More CSS Properties
+  - TOP - Intermediate CSS Concepts - Advanced Selectors (incomplete)
+  - TOP - Intermediate CSS Concepts - Browser Compatibility
+  - TOP - Intermediate CSS Concepts - Frameworks & Preprocessors
+  - TOP - Intermediate CSS Concepts - Custom Properties
+
+18/12/24
+  - TOP - Intermediate CSS Concepts - Advanced Selectors
+  - Started work on reusable sticky header and footer in website_template
+  - TOP - Intermediate CSS Concepts - Positioning
+  - TOP - Intermediate CSS Concepts - CSS Functions
+  - TOP - Forms - Form Basics
+  - Backed up bookmarks and TOP to git
+
+20/12/24
+  - TOP - Forms - Project: Sign-up Form
+  - TOP - Grid - Introduction to Grid
+  - TOP - Grid - Creating a Grid
+  - Backed up bookmarks and TOP to git
+
+22/12/24
+  - Began work on Pomodoro timer app
+  - Backed up bookmarks and TOP to git
+
+23/12/24
+  - Pomodoro timer app Beta complete
+  - Continued work on website template
+  - Continued work on default header with JS dropdown
+  - Backed up bookmarks and TOP to git
+
+23/12/24
+  - TOP - Intermediate HTML & CSS - Project: Admin Dashboard
+  - Worked on header template js
+  - Backed up bookmarks and TOP to git
+
+28/12/24
+  - TOP - Javascript Course - Objects and Object Constructors
+  - TOP - Javascript Course - Project: Library
+  - Backed up bookmarks and TOP to git
+
+29/12/24
+  - Created CSS @font-face for poppins font-family
+  - TOP - Javascript Course - Factory Functions and the Module Pattern
+  - TOP - JavaScript Course - Project: Tic Tac Toe
+  - Backed up bookmarks and TOP to git
+
+30/12/24
+  - TOP - JavaScript Course - Project: Tic Tac Toe
+  - Combined all projects to a single portfolio website
+  - Backed up bookmarks and TOP to git
+
+31/12/24
+  - Imported Pomodoro Timer to projects website
+  - TOP - JavaScript Course - Classes
+  - TOP - JavaScript Course - Webpack
+  - TOP - JavaScript Course - Project: Restaurant Page
+  - Backed up bookmarks and TOP to git
+
+01/01/25
+  - TOP - JavaScript Course - Project: Restaurant Page
+  - Backed up bookmarks and TOP to git
+
+02/01/25
+  - TOP - JavaScript Course - Project: Restaurant Page
+  - Backed up bookmarks and TOP to git
+
+03/01/25
+  - TOP - Advanced HTML and CSS Course - Introduction to Responsive Design
+  - TOP - Advanced HTML and CSS Course - Natural Responsiveness
+  - TOP - JavaScript Course - Project: Restaurant Page - Responsive Design
+
+04/01/25
+  - TOP - JavaScript Course - Project: Restaurant Page
+
+06/01/25
+  - TOP - JavaScript Course - Revisiting Webpack
+  - TOP - JavaScript Course - JSON
+  - TOP - JavaScript Course - OOP Principles
+
+07/01/25
+  - Created Webpack template site
+  - JavaScript Course - Project: Todo List
+
+08/01/25
+  - JavaScript Course - Project: Todo List
+
+09/01/25
+  - JavaScript Course - Project: Todo List
+
+10/01/25
+  - JavaScript Course - Project: Todo List
+
+11/01/25
+  - JavaScript Course - Project: Todo List
+
+12/01/25
+  - JavaScript Course - Project: Todo List
+
+13/01/25
+  - JavaScript Course - Project: Todo List
+
+...
+
+30/01/25
+  - TOP - JavaScriptCourse - Battleship Project
+
+31/01/25
+  - Setup ESLint and Error Lens
+  - TOP - JavaScriptCourse - Battleship Project
+    
+01/02/25
+  - TOP - JavaScriptCourse - Battleship Project - Advanced Targeting
+
+
+To Do:
+    - TOP - Finish calculator project in Foundations
+    - TOP - Finish Object Basics in Foundations
+    - Consider further how to implement CSS normalise and 
+      reset in Website Template
+      https://www.theodinproject.com/lessons/node-path-intermediate-html-and-css-default-styles
+    - Create a Pomodoro/alarm clock app to remind to take 
+      breaks and eat at the right time
+    - Build a reusable sticky site header and footer that 
+      adapt to screen size
+    - Put all projects into one website
